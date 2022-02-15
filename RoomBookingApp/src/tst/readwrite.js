@@ -14,7 +14,6 @@ export function ReadWrite() {
     const [entities, setEntities] = useState([])
  
     function callWrite() {
-        console.log('writing')
         var propData = {
             text:entityText,
             email: emailWrite
@@ -23,7 +22,6 @@ export function ReadWrite() {
     }
 
     function callRead() {
-        console.log('reading')
         var propData = {
             setEntities:setEntities,
             email:emailRead,
