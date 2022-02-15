@@ -2,6 +2,7 @@ import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/analytics';
+import React, { useEffect, useState } from 'react'
 
 export function Write(props) {
     
@@ -9,21 +10,20 @@ export function Write(props) {
 
     const entityRef = firebase.firestore().collection('entities')
     const userID = props.email
-    const entry = props.entry
+    const entry = props.text
 
+    if (entry && entry.length > 0) {
 
-    if (entityText && entityText.length > 0) {
         const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         const data = {
-            text: payload,
+            text: entry,
             authorID: userID,
             createdAt: timestamp,
         };
         entityRef
             .add(data)
             .then(_doc => {
-                setEntityText('')
-                Keyboard.dismiss()
+                console.log(_doc)
             })
             .catch((error) => {
                 alert(error)
