@@ -7,9 +7,7 @@ import { Write } from '../firebase/write'
 
 export function ReadWrite() {
     
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [entry, setEntry] = useState('')
+
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
 
@@ -23,12 +21,23 @@ export function ReadWrite() {
     }
 
     const callRead = () => {
-
+        console.log('reading')
         var propData = {
             email:'rowlanja@tcd.ie',
-            entities:entities
+            setEntities:setEntities
         }
         Read(propData)
+    }
+
+    const renderEntity = ({item, index}) => {
+        console.log('rendering : ', entities)
+        return (
+            <View style={styles.entityContainer}>
+                <Text style={styles.entityText}>
+                    {index}. {item.text}
+                </Text>
+            </View>
+        )
     }
 
     return (
@@ -46,17 +55,20 @@ export function ReadWrite() {
             <TouchableOpacity style={styles.button} onPress={setupProps} >
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={callRead()} >
+                <Text style={styles.buttonText}>Read</Text>
+            </TouchableOpacity>
+            { entities && (
+                <View style={styles.listContainer}>
+                    <FlatList
+                        data={entities}
+                        renderItem={renderEntity}
+                        keyExtractor={(item) => item.id}
+                        removeClippedSubviews={true}
+                    />
+                </View>
+            )}
         </View>
-        { entities && (
-            <View style={styles.listContainer}>
-                <FlatList
-                    data={entities}
-                    renderItem={callRead()}
-                    keyExtractor={(item) => item.id}
-                    removeClippedSubviews={true}
-                />
-            </View>
-        )}
     </View>
     )
 }
