@@ -6,13 +6,12 @@ import { useEffect } from 'react'
 
 export function Read(props) {
 
-
     const entityRef = firebase.firestore().collection('entities')
     const userID = props.email
     
-    useEffect(() => {
+
         entityRef
-            .where("authorID", "==", "rowlanja@tcd.ie")
+            .where("authorID", "==", userID)
             .onSnapshot(
                 querySnapshot => {
                     const newEntities = []
@@ -23,12 +22,12 @@ export function Read(props) {
                     });
 
                     props.setEntities(newEntities)
+                    console.log(newEntities)
                 },
                 error => {
                     console.log('Error : ', error)
                 }
             )
-    }, [])
 
     
 }
