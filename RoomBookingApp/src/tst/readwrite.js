@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
 
@@ -10,7 +10,7 @@ export function ReadWrite() {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
-
+ 
     const setupProps = () => {
 
         var propData = {
@@ -21,7 +21,7 @@ export function ReadWrite() {
     }
 
     const callRead = () => {
-        console.log('reading')
+
         var propData = {
             email:'rowlanja@tcd.ie',
             setEntities:setEntities

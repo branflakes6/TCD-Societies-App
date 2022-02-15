@@ -2,7 +2,6 @@ import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/analytics';
-import React, { useEffect, useState } from 'react'
 
 export function Write(props) {
     
