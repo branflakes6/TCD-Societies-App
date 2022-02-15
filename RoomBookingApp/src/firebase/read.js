@@ -8,7 +8,7 @@ export function Read(props) {
     const [entities, setEntities] = useState([])
 
     const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
+    const userID = props.id
 
     useEffect(() => {
         entityRef

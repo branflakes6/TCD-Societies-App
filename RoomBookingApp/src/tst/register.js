@@ -6,7 +6,7 @@ import styles from './styles';
 import { onRegisterPress, onFooterLinkPress } from '../firebase/register'
 // onRegisterPress definition : onRegisterPress(email, fullName, password, confirmPassword)
 
-export function RegistrationScreen() {
+export function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -58,7 +58,7 @@ export function RegistrationScreen() {
                 />
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onRegisterPress()}>
+                    onPress={() => onRegisterPress(email, fullName, password, confirmPassword)}>
                     <Text style={styles.buttonTitle}>Create account</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>

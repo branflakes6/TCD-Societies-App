@@ -9,7 +9,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>Trinity Room Booking App!</Text>
       <StatusBar style="auto" />
-      {/* <RegistrationScreen/> */}
+      {/* <RegistrationScreen/>  */}
       <LoginScreen/>
     </View>
   );

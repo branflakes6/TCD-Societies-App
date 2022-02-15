@@ -8,8 +8,8 @@ export function Write(props) {
     // payload is the JSON object we are writing to the database
 
     const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
-    const payload = props.extraData.payload
+    const userID = props.email
+    const entry = props.entry
 
 
     if (entityText && entityText.length > 0) {

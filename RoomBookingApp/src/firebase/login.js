@@ -22,6 +22,7 @@ export const onLoginPress = (email, password) => {
                         alert("User does not exist anymore.")
                         return;
                     }
+                    console.log('user logged in')
                     const user = firestoreDocument.data()
                     navigation.navigate('Home', {user: user})
                 })

@@ -12,7 +12,7 @@ export const onRegisterPress = (email, fullName, password, confirmPassword) => {
         console.log("Passwords don't match.")
         return
     }
-    console.log('registering')
+    console.log('registering : ', email, password)
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)

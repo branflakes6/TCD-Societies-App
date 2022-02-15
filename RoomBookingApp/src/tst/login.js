@@ -6,7 +6,7 @@ import styles from './styles';
 import { onFooterLinkPress, onLoginPress } from '../firebase/login'
 
 
-export function LoginScreen() {
+export function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -36,7 +36,7 @@ export function LoginScreen() {
                 />
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onLoginPress()}>
+                    onPress={() => onLoginPress(email, password)}>
                     <Text style={styles.buttonTitle}>Log in</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>
