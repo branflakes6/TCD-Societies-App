@@ -1,9 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment";
+import emailjs from 'emailjs-com';
+
+//require('dotenv').config();
 
 //importing styles.js from styles folder
 import styles from './styles/styles';
@@ -26,7 +29,9 @@ class App extends React.Component {
   }
 
   submit() {
+    console.log("ARRIVED AT SUBMIT")
     console.log(this.state)
+    this.sendEmail()
   }
 
   handleCalendar = (datetime) => {
@@ -46,6 +51,34 @@ class App extends React.Component {
     this.setState({
       isVisible: true
     })
+  }
+
+  async sendEmail() {
+    console.log("ARRIVED AT SEND EMAIL!!!!")
+
+    let templateParams = {
+      //from_name: process.env.REACT_APP_EMAILJS_SENDER,
+      //to_name: this.tcdEmail,
+      organiserName: this.state.organiserName,
+      building: this.state.building,
+      dateOfEvent: this.state.dateOfEvent,
+      eventDescription: this.state.eventDescription,
+      mobileNumber: this.state.mobileNumber,
+      nameOfEvent: this.state.nameOfEvent,      
+      organisingBody: this.state.organisingBody,
+      room: this.state.room,
+      tcdEmail: this.state.tcdEmail
+    }
+    console.log(process.env.REACT_APP_SERVICE_ID);
+    console.log(process.env.REACT_APP_TEMPLATE_ID);
+    console.log(process.env.REACT_APP_USER_ID);
+
+    emailjs.send(process.env.REACT_APP_SERVICE_ID,process.env.REACT_APP_TEMPLATE_ID, templateParams, process.env.REACT_APP_USER_ID, process.env.REACT_APP_ACCESS_TOKEN)
+    .then((result) => {
+      console.log(result.text);
+    }, (error) => {
+      console.log(error.text);
+    });
   }
 
   render() {
