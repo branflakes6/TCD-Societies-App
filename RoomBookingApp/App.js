@@ -18,10 +18,24 @@ class App extends React.Component {
       organisingBody: "",
       organiserName: "",
       mobileNumber: "",
-      tcdEmail: ""+"@tcd.ie",
+      tcdEmail: "",
       eventDescription: "",
-      building: "",
-      room: ""
+      room: "",
+      prepTo: "",
+      prepFrom: "",
+      startTime: "",
+      endTime: "",
+      numParticipants: "",
+      numStaff: "",
+      guests: "",
+      equipment: "",
+      staging: "",
+      food: "",
+      alcohol: "",
+      caterer: "",
+      power: "",
+      facilities: "",
+      other: "",
     }
   }
 
@@ -84,12 +98,6 @@ class App extends React.Component {
           />
 
           <TextInput
-            placeholder='Organiser Name'
-            onChangeText={(text) => { this.setState({ organiserName: text }) }}
-            style={styles.orgName}
-          />
-
-          <TextInput
             placeholder='Mobile Number'
             keyboardType='numeric'
             onChangeText={(number) => { this.setState({ mobileNumber: number }) }}
@@ -97,14 +105,15 @@ class App extends React.Component {
           />
 
           <TextInput
-            placeholder='TCD Username'
+            placeholder='TCD Email'
             keyboardType='email-address'
-            onChangeText={(text) => { this.setState({ tcdEmail: text + "@tcd.ie"}) }}
+            onChangeText={(text) => { this.setState({ tcdEmail: text + "@tcd.ie" }) }}
             style={styles.tcdEmail}
           />
 
           <TextInput
             multiline={true}
+            numberOfLines={5}
             placeholder='Event Description/Outline'
             onChangeText={(text) => { this.setState({ eventDescription: text }) }}
             style={styles.eventDesc}
@@ -115,7 +124,118 @@ class App extends React.Component {
           {/* <Button
             title='Submit Request' onPress={() => { this.submit() }}
           />
-           */}
+          */}
+
+          <TextInput
+            placeholder='Room of Event'
+            onChangeText={(text) => { this.setState({ room: text }) }}
+            style={styles.room}
+          />
+
+          <TextInput
+            placeholder='Preparation Time From:'
+            onChangeText={(text) => { this.setState({ prepFrom: text }) }}
+            style={styles.prepFrom}
+          />
+
+          <TextInput
+            placeholder='Preparation Time To:'
+            onChangeText={(text) => { this.setState({ prepTo: text }) }}
+            style={styles.prepTo}
+          />
+
+          <TextInput
+            placeholder='Event Time From:'
+            onChangeText={(text) => { this.setState({ startTime: text }) }}
+            style={styles.startTime}
+          />
+
+          <TextInput
+            placeholder='Event Time To:'
+            onChangeText={(text) => { this.setState({ endTime: text }) }}
+            style={styles.endTime}
+          />
+
+          <Text style={styles.heading3}>Event Details</Text>
+
+          <TextInput
+            keyboardType='numeric'
+            placeholder='Number of Participants'
+            onChangeText={(text) => { this.setState({ numParticipants: text }) }}
+            style={styles.numParticipants}
+          />
+
+          <TextInput
+            keyboardType='numeric'
+            placeholder='Number of Event Staff'
+            onChangeText={(text) => { this.setState({ numStaff: text }) }}
+            style={styles.numStaff}
+          />
+
+          <TextInput
+            keyboardType='numeric'
+            placeholder='Special Guests or VIPs'
+            onChangeText={(text) => { this.setState({ guests: text }) }}
+            style={styles.guests}
+          />
+
+          <TextInput
+            multiline
+            numberOfLines={5}
+            placeholder='Equipment'
+            onChangeText={(text) => { this.setState({ equipment: text }) }}
+            style={styles.equipment}
+          />
+
+          <TextInput
+            multiline
+            numberOfLines={5}
+            placeholder='Staging/Room Setup'
+            onChangeText={(text) => { this.setState({ staging: text }) }}
+            style={styles.staging}
+          />
+
+          <TextInput
+            placeholder='Food Served?'
+            onChangeText={(text) => { this.setState({ food: text }) }}
+            style={styles.food}
+          />
+
+          <TextInput
+            placeholder='Alcohol Served?'
+            onChangeText={(text) => { this.setState({ alcohol: text }) }}
+            style={styles.alcohol}
+          />
+
+          <TextInput
+            placeholder='Using Caterer?'
+            onChangeText={(text) => { this.setState({ caterer: text }) }}
+            style={styles.caterer}
+          />
+
+          <Text style={styles.heading4}>Additional Info</Text>
+
+          <TextInput
+            placeholder='Power Source Required?'
+            onChangeText={(text) => { this.setState({ power: text }) }}
+            style={styles.power}
+          />
+
+          <TextInput
+            multiline
+            numberOfLines={5}
+            placeholder='Facilities for disabled persons'
+            onChangeText={(text) => { this.setState({ facilities: text }) }}
+            style={styles.facilities}
+          />
+
+          <TextInput
+            multiline
+            numberOfLines={5}
+            placeholder='Other Requirements'
+            onChangeText={(text) => { this.setState({ other: text }) }}
+            style={styles.other}
+          />
 
           <TouchableOpacity
             style={styles.submitButton}
@@ -133,4 +253,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default App;
