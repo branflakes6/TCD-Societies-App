@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { FlatList, Text, TextInput, TouchableOpacity, View, Button  } from 'react-native'
-import styles from './styles';
+import styles from '../tst/styles.js';
 
 import { readBooking } from '../firebase/read'
 import { writeBooking } from '../firebase/write'
+import { BookingTile } from '../components/bookingTile'
 
 export function TestBooking() {
     
@@ -40,17 +41,10 @@ export function TestBooking() {
 
 
     const renderEntity = ({item, index}) => {
-        var str = ""
-        Object.keys(item).forEach(function(key){
-            str += key + ": " + item[key] + "\n"
-        }) 
         return (
-            <View style={styles.entityContainer}>
-            <Text style={styles.entityText}>
-                    {index} . {str}
-            </Text>
-            </View>     
+        <BookingTile props={item}/> 
         )
+
     }
 
     return (
@@ -61,7 +55,7 @@ export function TestBooking() {
                 <Text style={styles.buttonText}>Write Booking</Text>
             </TouchableOpacity>
 
-            <h2>Read a booking</h2>
+            <h2>Read Bookings from DB</h2>
             <TextInput
                 style={styles.input}
                 placeholder='email'
@@ -72,7 +66,7 @@ export function TestBooking() {
                 autoCapitalize="none"
             />
             <TouchableOpacity style={styles.button} onPress={() => callRead()} >
-                <Text style={styles.buttonText}>Read Bookings from DB</Text>
+                <Text style={styles.buttonText}>Read Bookings</Text>
             </TouchableOpacity>
 
 
