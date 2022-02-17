@@ -29,3 +29,24 @@ export function Write(props) {
             });
     }
 }
+
+export function writeBooking(props) {
+    console.log("writting booking")
+    const collection = firebase.firestore().collection('bookings')
+    const booking = props.booking
+
+    const length = Object.keys(booking).length
+    if (booking && length > 0) {
+        const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+        booking.timestamp = timestamp
+
+        collection
+            .add(booking)
+            .then(_doc => {
+                console.log(_doc)
+            })
+            .catch((error) => {
+                alert(error)
+            });
+    }
+}

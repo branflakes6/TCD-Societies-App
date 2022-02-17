@@ -9,6 +9,7 @@ import { LoginScreen } from './login';
 import { ReadWrite } from './readwrite';
 
 import { onRegisterPress, onFooterLinkPress } from '../firebase/register'
+import { TestBooking } from './testBooking';
 // onRegisterPress definition : onRegisterPress(email, fullName, password, confirmPassword)
 
 export function TestScreen({navigation}) {
@@ -20,6 +21,8 @@ export function TestScreen({navigation}) {
           <LoginScreen/>
           <br/>
           <ReadWrite />
+          <br/>
+          <TestBooking/>
         </View>
     );
 }
