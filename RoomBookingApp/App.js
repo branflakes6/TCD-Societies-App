@@ -13,29 +13,29 @@ class App extends React.Component {
     super();
     this.state = {
       isVisible: false,
-      nameOfEvent:"",
-      dateOfEvent:"",
-      organisingBody:"",
-      organiserName:"",
-      mobileNumber:"",
-      tcdEmail:"",
-      eventDescription:"",
-      room:"",
-      prepTo:"",
-      prepFrom:"",
-      startTime:"",
-      endTime:"",
-      numParticipants:"",
-      numStaff:"",
-      guests:"",
-      equipment:"",
-      staging:"",
-      food:"",
-      alcohol:"",
-      caterer:"",
-      power:"",
-      facilities:"",
-      other:"",
+      nameOfEvent: "",
+      dateOfEvent: "",
+      organisingBody: "",
+      organiserName: "",
+      mobileNumber: "",
+      tcdEmail: "",
+      eventDescription: "",
+      room: "",
+      prepTo: "",
+      prepFrom: "",
+      startTime: "",
+      endTime: "",
+      numParticipants: "",
+      numStaff: "",
+      guests: "",
+      equipment: "",
+      staging: "",
+      food: "",
+      alcohol: "",
+      caterer: "",
+      power: "",
+      facilities: "",
+      other: "",
     }
   }
 
@@ -93,150 +93,149 @@ class App extends React.Component {
 
           <TextInput
             placeholder='Organising Body'
-            onChangeText={(text) => { this.setState({ organisingBody: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            onChangeText={(text) => { this.setState({ organisingBody: text }) }}
+            style={styles.orgBody}
           />
 
           <TextInput
             placeholder='Mobile Number'
-            onChangeText={(number) => { this.setState({ mobileNumber: number}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            keyboardType='numeric'
+            onChangeText={(number) => { this.setState({ mobileNumber: number }) }}
+            style={styles.mobileNum}
           />
 
           <TextInput
             placeholder='TCD Email'
-            onChangeText={(text) => { this.setState({ tcdEmail: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            keyboardType='email-address'
+            onChangeText={(text) => { this.setState({ tcdEmail: text + "@tcd.ie" }) }}
+            style={styles.tcdEmail}
           />
 
           <TextInput
-            multiline
+            multiline={true}
             numberOfLines={5}
             placeholder='Event Description/Outline'
-            onChangeText={(text) => { this.setState({ eventDescription: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            onChangeText={(text) => { this.setState({ eventDescription: text }) }}
+            style={styles.eventDesc}
           />
-        
 
           <Text style={styles.heading2}>Where is your event?</Text>
 
+          {/* <Button
+            title='Submit Request' onPress={() => { this.submit() }}
+          />
+          */}
+
           <TextInput
             placeholder='Room of Event'
-            onChangeText={(text) => { this.setState({ room: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
+            onChangeText={(text) => { this.setState({ room: text }) }}
+            style={styles.room}
           />
-        
-        <TextInput
-            placeholder='Preparation Time From:'
-            onChangeText={(text) => { this.setState({ prepFrom: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />
-
-        <TextInput
-            placeholder='Preparation Time To:'
-            onChangeText={(text) => { this.setState({ prepTo: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />
-
-        <TextInput
-            placeholder='Event Time From:'
-            onChangeText={(text) => { this.setState({ startTime: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />
-
-        <TextInput
-            placeholder='Event Time To:'
-            onChangeText={(text) => { this.setState({ endTime: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />
-
-
-
-
-        <Text style={{ fontSize: 20, textAlign: 'center' }}>Event Details</Text>
-
-        <TextInput
-            placeholder='Number of Participants'
-            onChangeText={(text) => { this.setState({ numParticipants: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />
-
-        <TextInput
-            placeholder='Number of Event Staff'
-            onChangeText={(text) => { this.setState({ numStaff: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />  
 
           <TextInput
+            placeholder='Preparation Time From:'
+            onChangeText={(text) => { this.setState({ prepFrom: text }) }}
+            style={styles.prepFrom}
+          />
+
+          <TextInput
+            placeholder='Preparation Time To:'
+            onChangeText={(text) => { this.setState({ prepTo: text }) }}
+            style={styles.prepTo}
+          />
+
+          <TextInput
+            placeholder='Event Time From:'
+            onChangeText={(text) => { this.setState({ startTime: text }) }}
+            style={styles.startTime}
+          />
+
+          <TextInput
+            placeholder='Event Time To:'
+            onChangeText={(text) => { this.setState({ endTime: text }) }}
+            style={styles.endTime}
+          />
+
+          <Text style={styles.heading3}>Event Details</Text>
+
+          <TextInput
+            keyboardType='numeric'
+            placeholder='Number of Participants'
+            onChangeText={(text) => { this.setState({ numParticipants: text }) }}
+            style={styles.numParticipants}
+          />
+
+          <TextInput
+            keyboardType='numeric'
+            placeholder='Number of Event Staff'
+            onChangeText={(text) => { this.setState({ numStaff: text }) }}
+            style={styles.numStaff}
+          />
+
+          <TextInput
+            keyboardType='numeric'
             placeholder='Special Guests or VIPs'
-            onChangeText={(text) => { this.setState({ guests: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />  
+            onChangeText={(text) => { this.setState({ guests: text }) }}
+            style={styles.guests}
+          />
 
           <TextInput
             multiline
             numberOfLines={5}
             placeholder='Equipment'
-            onChangeText={(text) => { this.setState({ equipment: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            onChangeText={(text) => { this.setState({ equipment: text }) }}
+            style={styles.equipment}
           />
 
           <TextInput
             multiline
             numberOfLines={5}
             placeholder='Staging/Room Setup'
-            onChangeText={(text) => { this.setState({ staging: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            onChangeText={(text) => { this.setState({ staging: text }) }}
+            style={styles.staging}
           />
 
           <TextInput
             placeholder='Food Served?'
-            onChangeText={(text) => { this.setState({ food: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />  
+            onChangeText={(text) => { this.setState({ food: text }) }}
+            style={styles.food}
+          />
 
           <TextInput
             placeholder='Alcohol Served?'
-            onChangeText={(text) => { this.setState({ alcohol: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />  
+            onChangeText={(text) => { this.setState({ alcohol: text }) }}
+            style={styles.alcohol}
+          />
 
           <TextInput
             placeholder='Using Caterer?'
-            onChangeText={(text) => { this.setState({ caterer: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />  
+            onChangeText={(text) => { this.setState({ caterer: text }) }}
+            style={styles.caterer}
+          />
 
-        <Text style={{  margin: 20, top: 10, fontSize: 20, textAlign: 'center' }}>Additional Info</Text>
+          <Text style={styles.heading4}>Additional Info</Text>
 
-        <TextInput
+          <TextInput
             placeholder='Power Source Required?'
-            onChangeText={(text) => { this.setState({ power: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />  
+            onChangeText={(text) => { this.setState({ power: text }) }}
+            style={styles.power}
+          />
 
-          
-        <TextInput
+          <TextInput
             multiline
             numberOfLines={5}
             placeholder='Facilities for disabled persons'
-            onChangeText={(text) => { this.setState({ facilities: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            onChangeText={(text) => { this.setState({ facilities: text }) }}
+            style={styles.facilities}
           />
 
-          
-        <TextInput
+          <TextInput
             multiline
             numberOfLines={5}
             placeholder='Other Requirements'
-            onChangeText={(text) => { this.setState({ other: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
+            onChangeText={(text) => { this.setState({ other: text }) }}
+            style={styles.other}
           />
-
-          {/* <Button
-            title='Submit Request' onPress={() => { this.submit() }}
-          />
-           */}
 
           <TouchableOpacity
             style={styles.submitButton}
@@ -254,4 +253,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default App;
