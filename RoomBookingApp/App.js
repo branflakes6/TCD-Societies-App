@@ -4,6 +4,7 @@ import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment";
+import { writeBooking } from './src/firebase/write'
 
 //importing styles.js from styles folder
 import styles from './styles/styles';
@@ -41,6 +42,10 @@ class App extends React.Component {
 
   submit() {
     console.log(this.state)
+    var propData = {
+      booking: this.state
+    }
+    writeBooking(propData)
   }
 
   handleCalendar = (datetime) => {
