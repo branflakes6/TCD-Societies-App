@@ -1,14 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment";
+import { writeBooking } from './src/firebase/write'
+import { TestBooking } from './src/tst/testBooking';
+import { RegistrationScreen } from './src/tst/register'; 
+import { LoginScreen } from './src/tst/login';
 
 //importing styles.js from styles folder
 import styles from './styles/styles';
 
 class App extends React.Component {
+  
   constructor() {
     super();
     this.state = {
@@ -36,11 +41,18 @@ class App extends React.Component {
       power: "",
       facilities: "",
       other: "",
+      li: false
     }
   }
 
+  
+
   submit() {
     console.log(this.state)
+    var propData = {
+      booking: this.state
+    }
+    writeBooking(propData)
   }
 
   handleCalendar = (datetime) => {
@@ -62,12 +74,30 @@ class App extends React.Component {
     })
   }
 
+  logIn = () => {
+    this.setState({
+      li: true
+    })
+  }
+  logOut = () => {
+    this.setState({
+      li: false
+    })
+  }
+  
   render() {
-
+  
+    if (this.state.li) {
     return (
+
       <View style={styles.container}>
 
         <KeyboardAwareScrollView keyboardShouldPersistTaps="never">
+        <TouchableOpacity
+              style={styles.submitButton}
+              onPress={this.logOut}>
+                <Text style={styles.submitButtonText}>Log out</Text>
+            </TouchableOpacity>
 
           <DateTimePicker
             isVisible={this.state.isVisible}
@@ -243,6 +273,8 @@ class App extends React.Component {
             <Text style={styles.submitButtonText}>Submit Request</Text>
           </TouchableOpacity>
 
+          <TestBooking/>
+
           <StatusBar style="auto" />
 
         </KeyboardAwareScrollView>
@@ -250,6 +282,32 @@ class App extends React.Component {
       </View>
 
     )
+    }
+    else{
+      return (
+        <View style={styles.container}>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="never">
+
+          <RegistrationScreen/>
+          
+          <TextInput
+            placeholder='E-mail'
+            style={styles.orgBody}
+          />
+          <TextInput
+            placeholder='Password'
+            secureTextEntry
+            style={styles.orgBody}
+          />
+          <TouchableOpacity
+              style={styles.submitButton}
+              onPress={this.logIn}>
+                <Text style={styles.submitButtonText}>Log in</Text>
+            </TouchableOpacity>
+            </KeyboardAwareScrollView>
+        </View>
+    );
+    }
   }
 }
 

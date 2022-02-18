@@ -16,7 +16,7 @@ export function BookingTile(props) {
     return (
         <View style={styles.container}>
         <View style={styles.formContainer}>
-            <h2> This is a booking </h2>
+        <Text style={styles.heading1}>This is a booking</Text>
             <Text style={styles.entityText}>
                 {str}
             </Text>
