@@ -50,10 +50,10 @@ export function TestBooking() {
     return (
         <View style={styles.container}>
         <View style={styles.formContainer}>
-            <h2>Write a booking to the DB</h2>
+            {/* <h2>Write a booking to the DB</h2>
             <TouchableOpacity style={styles.button} onPress={() => callWrite()} >
                 <Text style={styles.buttonText}>Write Booking</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <h2>Read Bookings from DB</h2>
             <TextInput

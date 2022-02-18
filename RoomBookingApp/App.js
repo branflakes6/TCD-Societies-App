@@ -5,6 +5,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment";
 import { writeBooking } from './src/firebase/write'
+import { TestBooking } from './src/tst/testBooking';
 
 //importing styles.js from styles folder
 import styles from './styles/styles';
@@ -247,6 +248,8 @@ class App extends React.Component {
             onPress={() => { this.submit() }}>
             <Text style={styles.submitButtonText}>Submit Request</Text>
           </TouchableOpacity>
+
+          <TestBooking/>
 
           <StatusBar style="auto" />
 
