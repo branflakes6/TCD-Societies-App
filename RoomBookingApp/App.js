@@ -79,6 +79,11 @@ class App extends React.Component {
       li: true
     })
   }
+  logOut = () => {
+    this.setState({
+      li: false
+    })
+  }
   
   render() {
   
@@ -88,6 +93,11 @@ class App extends React.Component {
       <View style={styles.container}>
 
         <KeyboardAwareScrollView keyboardShouldPersistTaps="never">
+        <TouchableOpacity
+              style={styles.submitButton}
+              onPress={this.logOut}>
+                <Text style={styles.submitButtonText}>Log out</Text>
+            </TouchableOpacity>
 
           <DateTimePicker
             isVisible={this.state.isVisible}
@@ -276,14 +286,17 @@ class App extends React.Component {
     else{
       return (
         <View style={styles.container}>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="never">
+
           <RegistrationScreen/>
-          <br/>
+          
           <TextInput
             placeholder='E-mail'
             style={styles.orgBody}
           />
           <TextInput
             placeholder='Password'
+            secureTextEntry
             style={styles.orgBody}
           />
           <TouchableOpacity
@@ -291,6 +304,7 @@ class App extends React.Component {
               onPress={this.logIn}>
                 <Text style={styles.submitButtonText}>Log in</Text>
             </TouchableOpacity>
+            </KeyboardAwareScrollView>
         </View>
     );
     }
