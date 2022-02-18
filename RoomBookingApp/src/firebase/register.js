@@ -1,7 +1,7 @@
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import 'firebase/compat/analytics';
+//import 'firebase/compat/analytics';
 
 export const onFooterLinkPress = () => {
         navigation.navigate('Login')

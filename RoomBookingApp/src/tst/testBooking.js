@@ -55,7 +55,7 @@ export function TestBooking() {
                 <Text style={styles.buttonText}>Write Booking</Text>
             </TouchableOpacity> */}
 
-            <h2>Read Bookings from DB</h2>
+            <Text style={styles.heading1}>Read Bookings from DB</Text>
             <TextInput
                 style={styles.input}
                 placeholder='email'
