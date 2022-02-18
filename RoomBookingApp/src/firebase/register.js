@@ -27,9 +27,9 @@ export const onRegisterPress = (email, fullName, password, confirmPassword) => {
             usersRef
                 .doc(uid)
                 .set(data)
-                .then(() => {
-                    navigation.navigate('Home', {user: data})
-                })
+                // .then(() => {
+                //     navigation.navigate('Home', {user: data})
+                // })
                 .catch((error) => {
                     alert(error)
                 });
