@@ -1,81 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, DatePicker } from 'react-native'
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-class App extends React.Component {
-  constructor()
-  {
-    super();
-    this.state={
-      nameOfEvent:"",
-      dateOfEvent:"",
-      organisingBody:"",
-      organiserName:"",
-      mobileNumber:"",
-      tcdEmail:"",
-      eventDescription:"",
-    }
-  }
+import Homescreen from './components/Homescreen';
+import Aboutscreen from './components/Aboutscreen';
+import Formscreen from './components/Formscreen';
 
-  submit() {
-    console.warn(this.state)
-  }
+const Stack = createStackNavigator();
 
-  render() {
-    
-    return (
-      <View style={{ margin: 40, marginTop: 40 }}>
-        <Text style={{ fontSize: 20, textAlign: 'center' }}>What is your event?</Text>
-          <TextInput
-            placeholder='Name of Event'
-            onChangeText={(text) => { this.setState({ nameOfEvent: text}) }}
-            style={{ borderWidth: 1, borderColor: 'grey', padding: 10, marginTop: 20 }}
-          />
+export default function App() {
 
-          <TextInput 
-            placeholder='Date of Event'
-            onChangeText={(text) => { this.setState({ dateOfEvent: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
-          />
-
-          <TextInput
-            placeholder='Organising Body'
-            onChangeText={(text) => { this.setState({ organisingBody: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
-          />
-
-          <TextInput
-            placeholder='Mobile Number'
-            onChangeText={(number) => { this.setState({ mobileNumber: number}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
-          />
-
-          <TextInput
-            placeholder='TCD Email'
-            onChangeText={(text) => { this.setState({ tcdEmail: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
-          />
-
-          <TextInput
-            multiline
-            numberOfLines={5}
-            placeholder='Event Description/Outline'
-            onChangeText={(text) => { this.setState({ eventDescription: text}) }}
-            style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginTop: 20 }}
-          />
-        
-        <Text style={{  margin: 20, top: 10, fontSize: 20, textAlign: 'center' }}>Where is your event?</Text>
-        
-        <Button 
-          title='Submit Request' onPress={()=>{this.submit()}} 
-        />
-
-        <StatusBar style="auto" />
-
-      </View>
-      
-    )
-  }
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            
+          },
+          headerShown: true,
+          headerTitleAlign: 'center'
+        }}>
+        <Stack.Screen name="Home" component={Homescreen} />
+        <Stack.Screen name="About" component={Aboutscreen} />
+        <Stack.Screen name="Form" component={Formscreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
-
-export default App

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RoomBookingApp",
-    "slug": "RoomBookingApp",
+    "name": "MultipleScreens",
+    "slug": "MultipleScreens",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
