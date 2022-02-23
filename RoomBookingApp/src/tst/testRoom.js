@@ -6,7 +6,7 @@ import { readRoom } from '../firebase/read'
 import { writeRoom } from '../firebase/write'
 import { BookingTile } from '../components/bookingTile'
 
-export function TestBooking() {
+export function TestRoom() {
     
     const [roomID, setRoomID] = useState('')
     const [roomName, setRoomName] = useState('')
@@ -15,30 +15,29 @@ export function TestBooking() {
  
 
     function callWrite() {
-        var booking = {
-            isVisible: false,
-            nameOfEvent: "Test Event 1",
-            dateOfEvent: "16-02-2022",
-            organisingBody: "Geogsoc",
-            organiserName: "Brian",
-            mobileNumber: "00000001",
-            tcdEmail: "dog"+"@tcd.ie",
-            eventDescription: "eating apples",
-            building: "Gym",
-            room: "Swimming Pool"
+        var room = {
+            Name : "Anex",
+            Capacity: "50",
+            Building: "Lloyd Institute",
+            Projector : "True",
+            Speakers : "True",
+            Board: "False",
+            FoodAndDrink: "True",
+            // Images = [], 
+            Booked : "False"
         }
         var propData = {
-            booking: booking
+            room: room
         }
-        writeBooking(propData)
+        writeRoom(propData)
     }
 
     function callRead() {
         var propData = {
             setEntities:setEntities,
-            email:emailRead,
+            roomID:"Anex",
         }
-        readBooking(propData)
+        readRoom(propData)
     }
 
 
@@ -54,21 +53,21 @@ export function TestBooking() {
         <View style={styles.formContainer}>
             <h2>Write a booking to the DB</h2>
             <TouchableOpacity style={styles.button} onPress={() => callWrite()} >
-                <Text style={styles.buttonText}>Write Booking</Text>
+                <Text style={styles.buttonText}>Write Room</Text>
             </TouchableOpacity>
 
             <h2>Read Bookings from DB</h2>
             <TextInput
                 style={styles.input}
-                placeholder='email'
+                placeholder='room'
                 placeholderTextColor="#aaaaaa"
-                onChangeText={(text) => setEmailRead(text)}
-                value={emailRead}
+                onChangeText={(text) => setRoomID(text)}
+                value={roomID}
                 underlineColorAndroid="transparent"
                 autoCapitalize="none"
             />
             <TouchableOpacity style={styles.button} onPress={() => callRead()} >
-                <Text style={styles.buttonText}>Read Bookings</Text>
+                <Text style={styles.buttonText}>Read A Room</Text>
             </TouchableOpacity>
 
 
