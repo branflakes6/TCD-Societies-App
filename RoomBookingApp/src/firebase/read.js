@@ -53,13 +53,36 @@ export function readBooking(props){
 }
 
 // returns room objects 
-export function readRoom(props){
+export function readSingleRoom(props){
 
     const collection = firebase.firestore().collection('rooms')
     const roomID = props.roomID
     console.log(roomID)
     collection
         .where("Name", "==", roomID)
+        .onSnapshot(
+            querySnapshot => {
+                const newEntities = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    newEntities.push(entity)
+                });
+                console.log(newEntities)
+                props.setEntities(newEntities)
+            },
+            error => {
+                console.log('Error : ', error)
+            }
+        )
+}
+
+// returns room objects 
+export function readAllRoom(props){
+
+    const collection = firebase.firestore().collection('rooms')
+
+    collection
         .onSnapshot(
             querySnapshot => {
                 const newEntities = []

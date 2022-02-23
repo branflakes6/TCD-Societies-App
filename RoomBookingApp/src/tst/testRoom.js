@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FlatList, Text, TextInput, TouchableOpacity, View, Button  } from 'react-native'
 import styles from '../tst/styles.js';
 
-import { readRoom } from '../firebase/read'
+import { readSingleRoom, readAllRoom } from '../firebase/read'
 import { writeRoom } from '../firebase/write'
 import { BookingTile } from '../components/bookingTile'
 
@@ -32,13 +32,21 @@ export function TestRoom() {
         writeRoom(propData)
     }
 
-    function callRead() {
+    function callReadSingleRoom() {
         var propData = {
             setEntities:setEntities,
-            roomID:"Anex",
+            roomID:"",
         }
-        readRoom(propData)
+        readSingleRoom(propData)
     }
+
+    function callReadAllRoom() {
+        var propData = {
+            setEntities:setEntities,
+        }
+        readAllRoom(propData)
+    }
+
 
 
     const renderEntity = ({item, index}) => {
@@ -66,8 +74,12 @@ export function TestRoom() {
                 underlineColorAndroid="transparent"
                 autoCapitalize="none"
             />
-            <TouchableOpacity style={styles.button} onPress={() => callRead()} >
-                <Text style={styles.buttonText}>Read A Room</Text>
+            <TouchableOpacity style={styles.button} onPress={() => callReadSingleRoom()} >
+                <Text style={styles.buttonText}>Read Single Room</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={() => callReadAllRoom()} >
+                <Text style={styles.buttonText}>Read All Room</Text>
             </TouchableOpacity>
 
 
