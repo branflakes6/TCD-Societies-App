@@ -55,47 +55,45 @@ export function readBooking(props){
 // returns room objects 
 export function readSingleRoom(props){
 
-    const collection = firebase.firestore().collection('rooms')
     const roomID = props.roomID
-    console.log(roomID)
-    collection
-        .where("Name", "==", roomID)
-        .onSnapshot(
-            querySnapshot => {
-                const newEntities = []
-                querySnapshot.forEach(doc => {
-                    const entity = doc.data()
-                    entity.id = doc.id
-                    newEntities.push(entity)
-                });
-                console.log(newEntities)
-                props.setEntities(newEntities)
-            },
-            error => {
-                console.log('Error : ', error)
-            }
-        )
+
+    const collection = firebase.firestore()
+        .collection('rooms')
+        .doc(roomID)
+        .get()
+        .then( documentSnapshot => {
+            console.log(documentSnapshot.data())
+        });
+
+
 }
 
 // returns room objects 
-export function readAllRoom(props){
+export function readAllRoom(){
 
-    const collection = firebase.firestore().collection('rooms')
+    const collection = firebase.firestore()
+        .collection('rooms')
+        .get()
+        .then( querySnapshot => {
+            console.log('Total users: ', querySnapshot.size);
+        
+            querySnapshot.forEach(documentSnapshot => {
+              console.log('Rooms: ', documentSnapshot.id, documentSnapshot.data());
+            });
+        });
+        
+    console.log(collection)
 
-    collection
-        .onSnapshot(
-            querySnapshot => {
-                const newEntities = []
-                querySnapshot.forEach(doc => {
-                    const entity = doc.data()
-                    entity.id = doc.id
-                    newEntities.push(entity)
-                });
-                console.log(newEntities)
-                props.setEntities(newEntities)
-            },
-            error => {
-                console.log('Error : ', error)
-            }
-        )
+}
+
+export function readUser(props){
+
+    const collection = firebase.firestore()
+        .collection('users')
+        .doc(props.email)
+        .get()
+        .then( documentSnapshot => {
+            console.log(documentSnapshot.data())
+            props.setEntities(documentSnapshot.data())
+        });
 }
