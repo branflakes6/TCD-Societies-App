@@ -26,9 +26,6 @@ export function UpdateRoom(props) {
     
     const roomID = props.RoomID
     const update = props.Update
-    console.log(roomID)
-    console.log(update)
-    console.log(props)
     const entityRef = firebase.firestore().collection('rooms').doc(roomID);
 
     entityRef
@@ -36,15 +33,15 @@ export function UpdateRoom(props) {
         .then(() => {
             console.log('Room updated!');
           })
+        .catch(error => {
+            console.log(error)
+        });
 }
 
 export function UpdateUser(props) {
     
     const email = props.email
     const update = props.Update
-    console.log(email)
-    console.log(update)
-    console.log(props)
     const entityRef = firebase.firestore().collection('users').doc(email);
 
     entityRef
@@ -52,4 +49,7 @@ export function UpdateUser(props) {
         .then(() => {
             console.log('Room updated!');
           })
+        .catch(error => {
+            console.log(error)
+        });
 }

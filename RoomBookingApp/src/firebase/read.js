@@ -99,7 +99,6 @@ export function readAllRoom(props){
             console.log(error)
         });
         
-    console.log(collection)
 
 }
 

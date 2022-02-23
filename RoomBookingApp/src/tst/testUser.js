@@ -18,7 +18,7 @@ export function TestUser() {
 
     function callWrite() {
         var user = {
-            email : "l@tcd.ie",
+            email : "zzz@tcd.ie",
             fullName: "gg",
             id: "Lloyd"
         }
