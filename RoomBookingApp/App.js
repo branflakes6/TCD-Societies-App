@@ -76,7 +76,7 @@ class App extends React.Component {
             mode={'datetime'}
             is24Hour={true}
           />
-          <TestUser />
+
           <Text style={styles.heading1}>What is your event??</Text>
 
           <TextInput
