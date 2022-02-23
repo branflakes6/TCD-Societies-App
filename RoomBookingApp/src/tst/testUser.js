@@ -18,7 +18,7 @@ export function TestUser() {
 
     function callWrite() {
         var user = {
-            email : "G@tcd.ie",
+            email : "l@tcd.ie",
             fullName: "gg",
             id: "Lloyd"
         }
@@ -31,7 +31,7 @@ export function TestUser() {
     function callRead() {
         var propData = {
             setEntities:setEntities,
-            email:"J@tcd.ie",
+            email:"G@tcd.ie",
         }
         readUser(propData)
     }
@@ -39,7 +39,7 @@ export function TestUser() {
     function callDelete() {
         var propData = {
             setEntities:setEntities,
-            email:"J@tcd.ie",
+            email:"l@tcd.ie",
         }
         console.log('deleteing')
         DeleteUser(propData)
@@ -48,7 +48,7 @@ export function TestUser() {
     function callUpdate() {
         var propData = {
             setEntities:setEntities,
-            email:"J@tcd.ie",
+            email:"G@tcd.ie",
             Update:{
                 fullName:"ff",
                 id :"77"

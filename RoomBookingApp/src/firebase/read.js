@@ -63,23 +63,40 @@ export function readSingleRoom(props){
         .get()
         .then( documentSnapshot => {
             console.log(documentSnapshot.data())
+            props.setEntities(documentSnapshot.data())
+            const newEntities = []
+            const entity = documentSnapshot.data()
+            entity.id = documentSnapshot.id
+            newEntities.push(entity)
+            props.setEntities(newEntities)
+
+        })
+        .catch(error => {
+            console.log(error)
         });
 
 
 }
 
 // returns room objects 
-export function readAllRoom(){
+export function readAllRoom(props){
 
     const collection = firebase.firestore()
         .collection('rooms')
         .get()
         .then( querySnapshot => {
-            console.log('Total users: ', querySnapshot.size);
-        
+            const newEntities = []
+
             querySnapshot.forEach(documentSnapshot => {
-              console.log('Rooms: ', documentSnapshot.id, documentSnapshot.data());
+                const entity = documentSnapshot.data()
+                entity.id = documentSnapshot.id
+                newEntities.push(entity)
+                console.log('Rooms: ', documentSnapshot.id, documentSnapshot.data());
             });
+            props.setEntities(newEntities)
+        })
+        .catch(error => {
+            console.log(error)
         });
         
     console.log(collection)
@@ -88,6 +105,7 @@ export function readAllRoom(){
 
 export function readUser(props){
 
+    console.log(props.email)
     const collection = firebase.firestore()
         .collection('users')
         .doc(props.email)
@@ -95,5 +113,13 @@ export function readUser(props){
         .then( documentSnapshot => {
             console.log(documentSnapshot.data())
             props.setEntities(documentSnapshot.data())
+            const newEntities = []
+            const entity = documentSnapshot.data()
+            entity.id = documentSnapshot.id
+            newEntities.push(entity)
+            props.setEntities(newEntities)
+        })
+        .catch(error => {
+            console.log(error)
         });
 }

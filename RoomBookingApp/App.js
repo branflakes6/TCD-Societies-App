@@ -4,7 +4,7 @@ import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment"; 
-import { TestRoom } from "./src/tst/testRoom";
+import { TestUser } from "./src/tst/testUser";
 //importing styles.js from styles folder
 import styles from './styles/styles';
 
@@ -76,7 +76,7 @@ class App extends React.Component {
             mode={'datetime'}
             is24Hour={true}
           />
-          <TestRoom />
+          <TestUser />
           <Text style={styles.heading1}>What is your event??</Text>
 
           <TextInput

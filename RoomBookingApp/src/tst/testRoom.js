@@ -71,6 +71,7 @@ export function TestRoom() {
     }
 
     const renderEntity = ({item, index}) => {
+        console.log('rendering')
         return (
         <BookingTile props={item}/> 
         )
@@ -105,11 +106,11 @@ export function TestRoom() {
 
 
             <TouchableOpacity style={styles.button} onPress={() => callDeleteRoom()} >
-                <Text style={styles.buttonText}>delete</Text>
+                <Text style={styles.buttonText}>delete room</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => callUpdate()} >
-                <Text style={styles.buttonText}>Update</Text>
+                <Text style={styles.buttonText}>Update room</Text>
             </TouchableOpacity>
 
 
