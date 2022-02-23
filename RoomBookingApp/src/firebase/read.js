@@ -62,7 +62,6 @@ export function readSingleRoom(props){
         .doc(roomID)
         .get()
         .then( documentSnapshot => {
-            console.log(documentSnapshot.data())
             props.setEntities(documentSnapshot.data())
             const newEntities = []
             const entity = documentSnapshot.data()
@@ -91,7 +90,6 @@ export function readAllRoom(props){
                 const entity = documentSnapshot.data()
                 entity.id = documentSnapshot.id
                 newEntities.push(entity)
-                console.log('Rooms: ', documentSnapshot.id, documentSnapshot.data());
             });
             props.setEntities(newEntities)
         })
@@ -104,13 +102,11 @@ export function readAllRoom(props){
 
 export function readUser(props){
 
-    console.log(props.email)
     const collection = firebase.firestore()
         .collection('users')
         .doc(props.email)
         .get()
         .then( documentSnapshot => {
-            console.log(documentSnapshot.data())
             props.setEntities(documentSnapshot.data())
             const newEntities = []
             const entity = documentSnapshot.data()

@@ -3,25 +3,6 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/analytics';
 
-// Update template
-export function Update(props) {
-    
-    const roomID = "Anexa"
-
-    const entityRef = firebase.firestore().collection('rooms').doc(roomID);
-    const userID = props.email
-
-
-    entityRef
-        .update({
-            "Capacity":"2"
-        })
-        .then(() => {
-            console.log('User updated!');
-          })
-}
-
-
 export function UpdateRoom(props) {
     
     const roomID = props.RoomID
@@ -47,7 +28,7 @@ export function UpdateUser(props) {
     entityRef
         .update(update)
         .then(() => {
-            console.log('Room updated!');
+            console.log('User updated!');
           })
         .catch(error => {
             console.log(error)
