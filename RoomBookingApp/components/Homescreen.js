@@ -1,10 +1,13 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from '../styles/styles';
 import logo from './images/Logo.png';
 
+
 const Home = ({ navigation }) => {
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>
@@ -22,9 +25,25 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate("About")}>
+                onPress={() => navigation.navigate("Bookings")}>
                 <Text style={styles.buttonText}>
-                    View Bookings
+                    View My Bookings
+                </Text>
+
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Listings")}>
+                <Text style={styles.buttonText}>
+                    View Available Listings
+                </Text>
+
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("User")}>
+                <Text style={styles.buttonText}>
+                    My Profile
                 </Text>
 
             </TouchableOpacity>

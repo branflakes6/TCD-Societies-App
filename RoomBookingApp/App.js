@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Homescreen from './components/Homescreen';
 import Aboutscreen from './components/Aboutscreen';
 import Formscreen from './components/Formscreen';
+import Listscreen from './components/Listscreen';
+import Userscreen from './components/Userscreen';
 
 const Stack = createStackNavigator();
 
@@ -26,8 +28,10 @@ export default function App() {
           headerTitleAlign: 'center'
         }}>
         <Stack.Screen name="Home" component={Homescreen} />
-        <Stack.Screen name="About" component={Aboutscreen} />
+        <Stack.Screen name="Bookings" component={Aboutscreen} />
         <Stack.Screen name="Form" component={Formscreen} />
+        <Stack.Screen name="Listings" component={Listscreen} />
+        <Stack.Screen name="User" component={Userscreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
