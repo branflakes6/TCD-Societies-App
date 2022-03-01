@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+// import Navigator from './components/header/drawer';
 
 import Homescreen from './components/Homescreen';
 import Aboutscreen from './components/Aboutscreen';
