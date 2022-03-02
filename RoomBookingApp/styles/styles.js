@@ -10,7 +10,14 @@ export default StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         color: '#f4511e',
-    },  
+    },
+    appLogo: {
+        width: 200,
+        height: 200,
+        marginTop: 10,
+        flex: 1,
+        alignSelf: 'center',
+    },
     button: {
         marginTop: 20,
         padding: 10,
