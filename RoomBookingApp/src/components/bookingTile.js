@@ -80,7 +80,7 @@ export function BookingTile(props) {
                 <Button mode="contained" color="#65db56" onPress={confirmApprove}>Aprove</Button>
                 <Portal>
                 <Dialog visible={visibleAp} onDismiss={confirmApprove}>
-                    <Dialog.Title>Conformation</Dialog.Title>
+                    <Dialog.Title>Confirmation</Dialog.Title>
                     <Dialog.Content>
                     <Paragraph>Are you sure you want to confirm this booking?</Paragraph>
                     </Dialog.Content>
@@ -93,7 +93,7 @@ export function BookingTile(props) {
                 <Button mode="contained" color="#c23838" onPress={confirmDeny}>Deny</Button>
                 <Portal>
                 <Dialog visible={visibleDen} onDismiss={confirmDeny}>
-                    <Dialog.Title>Conformation</Dialog.Title>
+                    <Dialog.Title>Confirmation</Dialog.Title>
                     <Dialog.Content>
                     <Paragraph>Are you sure you want to deny this booking?</Paragraph>
                     </Dialog.Content>
