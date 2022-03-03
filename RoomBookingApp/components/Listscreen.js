@@ -12,10 +12,13 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from '../styles/listStyles';
 import logo from './images/Logo.png';
+import cap from './images/crowd-icon.png';
+import space from './images/size-icon.png';
+import house6 from './images/house-6.jpg';
+import atrium from './images/atrium.jpg';
 
 const Listings = ({ navigation }) => {
     return (
-        <>
             <View style={styles.container}>
                 <Text style={styles.headerText}>
                     All Available Listings
@@ -30,14 +33,12 @@ const Listings = ({ navigation }) => {
 
 
                 <View style={styles.card}>
-                    <Image style={styles.cardImage} source={logo} />
+                    <Image style={styles.cardImage} source={house6} />
                     <View style={styles.cardHeader}>
                         <View>
-                            <Text style={styles.title}>{"Hist Rec Room"}</Text>
-                            <Text style={styles.description}>{"GMB, Front Square"}</Text>
+                            <Text style={styles.title}>Eliz Room</Text>
+                            <Text style={styles.description}>House 6</Text>
                             <View style={styles.timeContainer}>
-                                <Image style={styles.iconData} source={logo} />
-                                <Text style={styles.time}></Text>
                             </View>
                         </View>
                     </View>
@@ -45,29 +46,28 @@ const Listings = ({ navigation }) => {
                         <View style={styles.socialBarContainer}>
                             <View style={styles.socialBarSection}>
                                 <TouchableOpacity style={styles.socialBarButton}>
-                                    <Image style={styles.icon} source={logo} />
-                                    <Text style={styles.socialBarLabel}>52</Text>
+                                    <Image style={styles.icon} source={cap} />
+                                    <Text style={styles.socialBarLabel}>30</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.socialBarSection}>
                                 <TouchableOpacity style={styles.socialBarButton}>
-                                    <Image style={styles.icon} source={logo} />
-                                    <Text style={styles.socialBarLabel}>67</Text>
+                                    <Image style={styles.icon} source={space} />
+                                    <Text style={styles.socialBarLabel}>100m</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </View>
                 </View>
 
+
                 <View style={styles.card}>
-                    <Image style={styles.cardImage} source={{ logo }} />
+                    <Image style={styles.cardImage} source={atrium} />
                     <View style={styles.cardHeader}>
                         <View>
-                            <Text style={styles.title}></Text>
-                            <Text style={styles.description}></Text>
+                            <Text style={styles.title}>{"The Atrium AV Room"}</Text>
+                            <Text style={styles.description}>{"The Atrium"}</Text>
                             <View style={styles.timeContainer}>
-                                <Image style={styles.iconData} source={{ logo }} />
-                                <Text style={styles.time}></Text>
                             </View>
                         </View>
                     </View>
@@ -75,22 +75,22 @@ const Listings = ({ navigation }) => {
                         <View style={styles.socialBarContainer}>
                             <View style={styles.socialBarSection}>
                                 <TouchableOpacity style={styles.socialBarButton}>
-                                    <Image style={styles.icon} source={{ logo }} />
-                                    <Text style={styles.socialBarLabel}>78</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.socialBarSection}>
-                                <TouchableOpacity style={styles.socialBarButton}>
-                                    <Image style={styles.icon} source={{ logo }} />
+                                    <Image style={styles.icon} source={cap} />
                                     <Text style={styles.socialBarLabel}>25</Text>
                                 </TouchableOpacity>
                             </View>
+                            <View style={styles.socialBarSection}>
+                                <TouchableOpacity style={styles.socialBarButton}>
+                                    <Image style={styles.icon} source={space} />
+                                    <Text style={styles.socialBarLabel}>75m</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
+
             </View>
 
-        </>
     );
 };
 
