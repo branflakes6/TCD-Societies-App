@@ -28,6 +28,9 @@ export function BookingTile(props) {
         },
         card: {
             paddingHorizontal: 0
+        },
+        btn: {
+            marginHorizontal: 4
         }
       });
     
@@ -77,7 +80,7 @@ export function BookingTile(props) {
                 </List.Section>
             </Card.Content>
             <Card.Actions>
-                <Button mode="contained" color="#65db56" onPress={confirmApprove}>Aprove</Button>
+                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Aprove</Button>
                 <Portal>
                 <Dialog visible={visibleAp} onDismiss={confirmApprove}>
                     <Dialog.Title>Confirmation</Dialog.Title>
@@ -90,7 +93,7 @@ export function BookingTile(props) {
                     </Dialog.Actions>
                 </Dialog>
                 </Portal>
-                <Button mode="contained" color="#c23838" onPress={confirmDeny}>Deny</Button>
+                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Deny</Button>
                 <Portal>
                 <Dialog visible={visibleDen} onDismiss={confirmDeny}>
                     <Dialog.Title>Confirmation</Dialog.Title>
