@@ -21,6 +21,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-config": "^1.4.5",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal-datetime-picker": "^13.0.1",
     "react-native-web": "0.17.1"
@@ -31,7 +32,9 @@
     "os": false
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "metro-react-native-babel-preset": "^0.69.0",
+    "react-native-dotenv": "^3.3.1"
   },
   "private": true
 }

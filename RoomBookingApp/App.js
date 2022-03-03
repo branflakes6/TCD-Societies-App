@@ -5,6 +5,8 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment";
 import emailjs from 'emailjs-com';
+// import Config from "react-native-config";
+import {USER_ID, ACCESS_TOKEN, EMAILJS_SENDER, SERVICE_ID, TEMPLATE_ID} from "@env";
 
 //require('dotenv').config();
 
@@ -69,11 +71,11 @@ class App extends React.Component {
       room: this.state.room,
       tcdEmail: this.state.tcdEmail
     }
-    console.log(process.env.REACT_APP_SERVICE_ID);
-    console.log(process.env.REACT_APP_TEMPLATE_ID);
-    console.log(process.env.REACT_APP_USER_ID);
+    console.log(SERVICE_ID);
+    console.log(TEMPLATE_ID);
+    console.log(USER_ID);
 
-    emailjs.send(process.env.REACT_APP_SERVICE_ID,process.env.REACT_APP_TEMPLATE_ID, templateParams, process.env.REACT_APP_USER_ID, process.env.REACT_APP_ACCESS_TOKEN)
+    emailjs.send(process.env.REACT_APP_SERVICE_ID,process.env.REACT_APP_TEMPLATE_ID, templateParams,process.env.REACT_APP_USER_ID, process.env.REACT_APP_ACCESS_TOKEN)
     .then((result) => {
       console.log(result.text);
     }, (error) => {
