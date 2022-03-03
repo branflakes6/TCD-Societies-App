@@ -1,7 +1,7 @@
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import 'firebase/compat/analytics';
+//import 'firebase/compat/analytics';
 
 export const onFooterLinkPress = () => {
         navigation.navigate('Login')
@@ -27,9 +27,9 @@ export const onRegisterPress = (email, fullName, password, confirmPassword) => {
             usersRef
                 .doc(uid)
                 .set(data)
-                .then(() => {
-                    navigation.navigate('Home', {user: data})
-                })
+                // .then(() => {
+                //     navigation.navigate('Home', {user: data})
+                // })
                 .catch((error) => {
                     alert(error)
                 });
