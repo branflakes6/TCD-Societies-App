@@ -25,7 +25,7 @@ const Form = ({ navigation }) => {
     const [numGuest, guests] = React.useState('');
     const [equip, equipment] = React.useState('');
     const [stag, staging] = React.useState('');
-    const [foods, food] = React.useState(false);
+    const [foods, food] = React.useState('');
     const [alcohols, alcohol] = React.useState('');
     const [catererServ, caterer] = React.useState('');
     const [pow, power] = React.useState('');
