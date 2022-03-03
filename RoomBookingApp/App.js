@@ -8,7 +8,9 @@ import Aboutscreen from './components/Aboutscreen';
 import Formscreen from './components/Formscreen';
 import Listscreen from './components/Listscreen';
 import Userscreen from './components/Userscreen';
-import LoginScreen from './components/LoginScreen';
+import LoginRegister from './components/LoginRegisterScreen';
+// import { LoginScreen } from '../RoomBookingApp/src/tst/login'
+import { RegistrationScreen } from '../RoomBookingApp/src/tst/register'
 
 const Stack = createStackNavigator();
 
@@ -16,15 +18,17 @@ export default function App() {
 
   const[loggedIn, setLoggedIn]= useState()
   const[email, setEmail]= useState()
+  const[verified, setVerified] = useState()
   
   function setLogIn(email){
-    setLoggedIn(true)
-    setEmail(email)
+    // setLoggedIn(true)
+    // setEmail(email)
+    print('verified : ', verified)
   }
 
   return (
     <NavigationContainer>
-      {loggedIn ? 
+      {verified ? 
         <Stack.Navigator
           screenOptions={{
             headerStyle: {
@@ -61,8 +65,9 @@ export default function App() {
             name="Login" 
             initialParams={{setLoggedIn: loggedIn}}  
           >
-            {() => <LoginScreen setLoggedIn={setLogIn}/>} 
+            {() => <LoginRegister setLoggedIn={setLogIn} setVerified={setVerified}/>} 
           </Stack.Screen>
+          
         </Stack.Navigator>
       }
     </NavigationContainer>
