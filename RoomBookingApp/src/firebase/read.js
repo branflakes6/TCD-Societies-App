@@ -51,3 +51,70 @@ export function readBooking(props){
                 }
             )
 }
+
+// returns room objects 
+export function readSingleRoom(props){
+
+    const roomID = props.roomID
+
+    const collection = firebase.firestore()
+        .collection('rooms')
+        .doc(roomID)
+        .get()
+        .then( documentSnapshot => {
+            props.setEntities(documentSnapshot.data())
+            const newEntities = []
+            const entity = documentSnapshot.data()
+            entity.id = documentSnapshot.id
+            newEntities.push(entity)
+            props.setEntities(newEntities)
+
+        })
+        .catch(error => {
+            console.log(error)
+        });
+
+
+}
+
+// returns room objects 
+export function readAllRoom(props){
+
+    const collection = firebase.firestore()
+        .collection('rooms')
+        .get()
+        .then( querySnapshot => {
+            const newEntities = []
+
+            querySnapshot.forEach(documentSnapshot => {
+                const entity = documentSnapshot.data()
+                entity.id = documentSnapshot.id
+                newEntities.push(entity)
+            });
+            props.setEntities(newEntities)
+        })
+        .catch(error => {
+            console.log(error)
+        });
+        
+
+}
+
+export function readUser(props){
+
+    const collection = firebase.firestore()
+        .collection('users')
+        .doc(props.email)
+        .get()
+        .then( documentSnapshot => {
+            props.setEntities(documentSnapshot.data())
+            const newEntities = []
+            const entity = documentSnapshot.data()
+            entity.id = documentSnapshot.id
+            newEntities.push(entity)
+            props.setEntities(newEntities)
+        })
+        .catch(error => {
+            console.log(error)
+        });
+}

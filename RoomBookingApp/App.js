@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import moment from "moment"; 
+import { TestUser } from "./src/tst/testUser";
 import moment from "moment";
 import { writeBooking } from './src/firebase/write'
 import { TestBooking } from './src/tst/testBooking';
 import { RegistrationScreen } from './src/tst/register'; 
 import { LoginScreen } from './src/tst/login';
-
 //importing styles.js from styles folder
 import styles from './styles/styles';
 
@@ -106,8 +107,7 @@ class App extends React.Component {
             mode={'datetime'}
             is24Hour={true}
           />
-
-          <Text style={styles.heading1}>What is your event?</Text>
+          <Text style={styles.heading1}>What is your event??</Text>
 
           <TextInput
             placeholder='Name of Event'
