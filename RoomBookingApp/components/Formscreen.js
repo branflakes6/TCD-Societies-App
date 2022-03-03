@@ -56,7 +56,7 @@ const Form = ({ navigation }) => {
         showMode('time');
     };
 
-    const createTwoButtonAlert = () =>
+    const confirmationAlert = () =>
     Alert.alert(
       "Do you want to submit the form?",
       "Make sure all the details are filled out correctly.",
@@ -273,9 +273,9 @@ const Form = ({ navigation }) => {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={createTwoButtonAlert}>
+                    onPress={confirmationAlert}>
                     <Text style={styles.buttonText}>
-                        Request
+                        Submit Request
                     </Text>
                 </TouchableOpacity>
                 {show && (
