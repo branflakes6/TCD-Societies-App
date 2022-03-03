@@ -15,10 +15,11 @@ const Stack = createStackNavigator();
 export default function App() {
 
   const[loggedIn, setLoggedIn]= useState()
-
-  function setLogIn(){
-    console.log('pressed')
+  const[email, setEmail]= useState()
+  
+  function setLogIn(email){
     setLoggedIn(true)
+    setEmail(email)
   }
 
   return (

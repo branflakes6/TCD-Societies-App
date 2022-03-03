@@ -6,7 +6,7 @@ import styles from '../styles/styles';
 const Login = ({ setLoggedIn }) => {
     
     function setProp(){
-        setLoggedIn()
+        setLoggedIn(email)
     }
 
     const [email, setEmail] = useState('')
