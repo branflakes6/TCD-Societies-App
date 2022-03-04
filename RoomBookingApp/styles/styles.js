@@ -11,6 +11,12 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#f4511e',
     },
+    infoText: {
+        margin: 20,
+        fontSize: 16,
+        textAlign: 'center',
+        color: '#f4511e',
+    },
     appLogo: {
         width: 200,
         height: 200,

@@ -23,7 +23,7 @@ export default StyleSheet.create({
         color: '#fff',
         fontSize: 15,
     },
-    
+
     list: {
         paddingHorizontal: 17,
         backgroundColor: "#E6E6E6",
@@ -67,15 +67,13 @@ export default StyleSheet.create({
         backgroundColor: "#EEEEEE",
     },
     cardImage: {
-        flex: 1,
         height: 150,
         width: null,
     },
 
     /******** card components **************/
     title: {
-        fontSize: 18,
-        flex: 1,
+        fontSize: 20,
     },
     description: {
         fontSize: 15,

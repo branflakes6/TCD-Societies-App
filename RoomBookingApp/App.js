@@ -9,6 +9,7 @@ import Formscreen from './components/Formscreen';
 import Listscreen from './components/Listscreen';
 import Userscreen from './components/Userscreen';
 import LoginRegister from './components/LoginRegisterScreen';
+import Eventscreen from './components/Eventscreen';
 // import { LoginScreen } from '../RoomBookingApp/src/tst/login'
 import { RegistrationScreen } from '../RoomBookingApp/src/tst/register'
 
@@ -47,6 +48,7 @@ export default function App() {
           <Stack.Screen name="Form" component={Formscreen} />
           <Stack.Screen name="Listings" component={Listscreen} />
           <Stack.Screen name="User" component={Userscreen} />
+          <Stack.Screen name="Events" component={Eventscreen} />
         </Stack.Navigator> : 
         <Stack.Navigator
           screenOptions={{

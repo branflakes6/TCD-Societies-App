@@ -1,7 +1,6 @@
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-//import 'firebase/compat/analytics';
 import { useEffect } from 'react'
 
 export function Read(props) {
@@ -50,6 +49,53 @@ export function readBooking(props){
                     console.log('Error : ', error)
                 }
             )
+}
+
+export function readEvents(props){
+
+    const collection = firebase.firestore().collection('bookings')
+    const userID = props.email
+    
+        collection
+            .where("status", "==", "Approved")
+            .onSnapshot(
+                querySnapshot => {
+                    const newEntities = []
+                    querySnapshot.forEach(doc => {
+                        const entity = doc.data()
+                        entity.id = doc.id
+                        newEntities.push(entity)
+                    });
+                    props.setEntities(newEntities)
+                },
+                error => {
+                    console.log('Error : ', error)
+                }
+            )
+    
+}
+
+export function readEventsUser(props){
+
+    const collection = firebase.firestore().collection('users')
+    const userID = props.email
+        collection
+            .where("email", "==", userID)
+            .onSnapshot(
+                querySnapshot => {
+                    const newEntities = []
+                    querySnapshot.forEach(doc => {
+                        const entity = doc.data()
+                        entity.id = doc.id
+                        newEntities.push(entity)
+                    })
+                    props.setEntities(newEntities)
+                },
+                error => {
+                    console.log('Error : ', error)
+                }
+            )
+    
 }
 
 // returns room objects 

@@ -8,6 +8,7 @@ import { onFooterLinkPress, onLoginPress } from '../src/firebase/login'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginRegister = ({ navigation, setVerified }) => {
     
@@ -19,6 +20,13 @@ const LoginRegister = ({ navigation, setVerified }) => {
     const [fullName, setFullName] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+    const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('@email', value)
+        } catch (e) {
+          console.log(e)
+        }
+      }
 
     function login(email, password){
         firebase
@@ -38,6 +46,7 @@ const LoginRegister = ({ navigation, setVerified }) => {
                         console.log('user logged in')
                         const user = firestoreDocument.data()
                         setVerified(true)
+                        storeData(user.email)
                         // navigation.navigate('Home', {user: user})
                         
                         
@@ -105,9 +114,9 @@ const LoginRegister = ({ navigation, setVerified }) => {
     // }
 
     return (
-        <div>
+        <View>
         { !registering ? 
-        <View style={styles.container}>
+        <View>
             <Text style={styles.headerText}>
                 Login
             </Text>
@@ -141,9 +150,8 @@ const LoginRegister = ({ navigation, setVerified }) => {
                 </View>
         </View>
         : 
-        <View style={styles.container}>
+        <View>
             <KeyboardAwareScrollView
-                style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
                 <TextInput
                     style={styles.input}
@@ -194,7 +202,7 @@ const LoginRegister = ({ navigation, setVerified }) => {
             </KeyboardAwareScrollView>
         </View>
     }
-    </div>
+    </View>
     );
 };
 

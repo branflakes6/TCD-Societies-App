@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet} from 'react-native'
 import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, Switch } from 'react-native-paper'
-
+import { readEventsUser } from '../firebase/read';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export function EventTile(props) {
     
+    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
     const booking = props.props
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [description, viewDescription] = React.useState(false)
+
+    const confirmApprove = () => setIsSwitchOn(true);
+    const confirmDeny = () => setIsSwitchOn(false);
 
     const showDescription = () => viewDescription(!description)
 
@@ -16,12 +21,45 @@ export function EventTile(props) {
     const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
     const eventTime = booking.dateOfEvent + " - " + booking.timeOfEvent
 
+    const [entities, setEntities] = useState([])
+    var email = ""
+    const onScreenLoad = () => {
+        getData()
+    } 
+    useEffect(() => {
+        onScreenLoad();
+    }, [])
+
+    
+    const getData = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@email')
+        if(value !== null) {
+            email = value
+            callRead()
+        }
+        } catch(e) {
+            console.log(e)
+        }
+    }
+    function callRead() {
+        console.log(email)
+        var propData = {
+            setEntities:setEntities,
+            email:email,
+        }
+        readEventsUser(propData)
+    }
+
     const styles = StyleSheet.create({
         container: {
           flex: 1,
         },
         card: {
             paddingHorizontal: 0
+        },
+        btn: {
+            marginHorizontal: 4
         }
       });
     return ( 
@@ -31,9 +69,8 @@ export function EventTile(props) {
             <Card mode="outlined" style={styles.card}>
             <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
             <Card.Content>
-                <Title> Current Booking Status: {booking.status}</Title>
                 <List.Section>
-                    <List.Accordion title="Booking Details">
+                    <List.Accordion title="Event Details">
                         <List.Item title="Room" description={booking.room} />
                         <List.Item title="Persons" description={persons}/>
                         <List.Item title="Food" description={booking.food}/>
@@ -55,9 +92,9 @@ export function EventTile(props) {
                 </List.Section>
             </Card.Content>
             <Card.Actions>
-                <Button mode="contained" color="#65db56" onPress={confirmApprove}>Going</Button>
-                <Button mode="contained" color="#c23838" onPress={confirmDeny}>Not Going</Button>
-                <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Going</Button>
+                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Not Going</Button>
+                <Switch value={isSwitchOn} />
             </Card.Actions>
             </Card> 
             <Divider/>

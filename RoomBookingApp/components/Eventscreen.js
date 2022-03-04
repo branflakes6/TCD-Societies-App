@@ -2,12 +2,12 @@ import React, { useState,  useEffect} from 'react'
 import { FlatList, Text, TextInput, TouchableOpacity, View, Button, ScrollView  } from 'react-native'
 import styles from '../src/tst/styles.js';
 
-import { readBooking } from '../src/firebase/read'
-import { BookingTile } from '../src/components/bookingTile'
+import { readEvents } from '../src/firebase/read'
+import { EventTile } from '../src/components/eventTile'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const About = ({ navigation }) => {
+const Event = ({ navigation }) => {
     const [entities, setEntities] = useState([])
     var email = ""
     const onScreenLoad = () => {
@@ -35,13 +35,14 @@ const About = ({ navigation }) => {
             setEntities:setEntities,
             email:email,
         }
-        readBooking(propData)
+        readEvents(propData)
     }
     const renderEntity = ({item, index}) => {
-        console.log(item)
+        
+
         return (
         <View>
-            <BookingTile props={item}/> 
+            <EventTile props={item}/> 
             <Text>{"\n"}</Text>
         </View>
         )
@@ -68,4 +69,4 @@ const About = ({ navigation }) => {
     )
 };
 
-export default About;
+export default Event;
