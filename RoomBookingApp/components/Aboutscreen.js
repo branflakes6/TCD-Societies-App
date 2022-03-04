@@ -38,6 +38,7 @@ const About = ({ navigation }) => {
         readBooking(propData)
     }
     const renderEntity = ({item, index}) => {
+        console.log(item)
         return (
         <View>
             <BookingTile props={item}/> 
