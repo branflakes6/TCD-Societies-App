@@ -4,25 +4,36 @@ import styles from '../src/tst/styles.js';
 
 import { readBooking } from '../src/firebase/read'
 import { BookingTile } from '../src/components/bookingTile'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const About = ({ navigation }) => {
-    const [emailRead, setEmailRead] = useState('')
     const [entities, setEntities] = useState([])
-
+    var email = ""
     const onScreenLoad = () => {
-        callRead()
+        getData()
     } 
     useEffect(() => {
-        // write your code here, it's like componentWillMount
         onScreenLoad();
     }, [])
+
+    
+    const getData = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@email')
+        if(value !== null) {
+            email = value
+            callRead()
+        }
+        } catch(e) {
+            console.log(e)
+        }
+    }
 
     function callRead() {
         var propData = {
             setEntities:setEntities,
-            email:"dog@tcd.ie",
+            email:email,
         }
         readBooking(propData)
     }

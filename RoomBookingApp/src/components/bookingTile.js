@@ -43,7 +43,6 @@ export function BookingTile(props) {
         console.log("Denied")
     }
     return ( 
-        
         <Provider>
         <View>
             <Card mode="outlined" style={styles.card}>

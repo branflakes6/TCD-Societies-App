@@ -229,7 +229,6 @@ const Listings = ({ navigation }) => {
                     </View>
                 </View>
             </View>
-
         </View>
 
 
