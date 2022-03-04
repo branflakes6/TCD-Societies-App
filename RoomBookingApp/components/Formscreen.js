@@ -104,27 +104,27 @@ const Form = ({ navigation }) => {
                         sendBooking() &
                         console.log({
                             "Name of Event": name,
-                            "Email": emails,
-                            "Phone Number": number,
+                            "Organiser Email": emails,
+                            "Organiser Phone Number": number,
                             "Date of Event": date,
                             "Time of Event": eventTime,
                             "Organising Body": orginiser,
                             "Organiser Name": orgName,
-                            "Room of Event": roomN,
-                            "Preparation From": prepareFrom,
-                            "Preparation To": prepareTo,
+                            "Venue/Room of Event": roomN,
+                            "Preparation Time From": prepareFrom,
+                            "Preparation Time Until": prepareTo,
                             "End Time": eventEnd,
                             "Number of Participants": participants,
                             "Number of Staff": staff,
                             "Number of Guests": numGuest,
-                            "Equipment": equip,
-                            "Staging": stag,
-                            "Food": foods,
-                            "Alcohol": alcohols,
-                            "Caterer": catererServ,
-                            "Power": pow,
-                            "Facilities": otherFacilities,
-                            "Others": others,
+                            "Equipment Being Brought?": equip,
+                            "Staging/Set Up Required?": stag,
+                            "Food at Event?": foods,
+                            "Alcohol at Event?": alcohols,
+                            "Caterer at Event?": catererServ,
+                            "Power Source Required?": pow,
+                            "Room Facilities Required?": otherFacilities,
+                            "Other Requirements?": others,
                             "Event Description": evntDesc
                         }) & navigation.navigate('Home')
                 }
@@ -150,78 +150,79 @@ const Form = ({ navigation }) => {
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Name of Event"
+                        placeholder="Name of Event?"
                         onChangeText={(text) => nameOfEvent(text)}
                         value={name}
                     />
 
                     <View style={styles.datetimeButton}>
-                        <Button style={styles.datetimeButton} title="Date of Event" onPress={showDatepicker} color='#f4511e' />
+                        <Button style={styles.datetimeButton} title="Date of Event?" onPress={showDatepicker} color='#f4511e' />
                         <Text style={styles.dateText}>Date of Event: {moment(date).format('DD-MM-YYYY')}</Text>
-                        <Button style={styles.datetimeButton} title="Time of Event" onPress={showTimepicker} onChange={timeOfEvent} color='#f4511e' />
+                        <Button style={styles.datetimeButton} title="Time of Event?" onPress={showTimepicker} onChange={timeOfEvent} color='#f4511e' />
                         <Text style={styles.dateText}>Time of Event: {eventTime}</Text>
                     </View>
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Email"
-                        onChangeText={tcdEmail}
-                        value={emails}
-                        keyboardType="email-address"
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Phone Number"
-                        onChangeText={mobileNumber}
-                        value={number}
-                        keyboardType="phone-pad"
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Organising Body"
-                        onChangeText={organisingBody}
-                        value={orginiser}
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Organiser Name"
-                        onChangeText={orginiserName}
-                        value={orgName}
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Room of Event"
-                        onChangeText={room}
-                        value={roomN}
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Preparation From"
+                        placeholder="Preparation Time From?"
                         onChangeText={prepFrom}
                         value={prepareFrom}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Preparation To"
+                        placeholder="Preparation Time Until?"
                         onChangeText={prepTo}
                         value={prepareTo}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="End Time"
+                        placeholder="Event End Time?"
                         onChangeText={endTime}
                         value={eventEnd}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Number of Participants"
+                        placeholder="Organising Body?"
+                        onChangeText={organisingBody}
+                        value={orginiser}
+                    />
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Lead Organiser Name?"
+                        onChangeText={orginiserName}
+                        value={orgName}
+                    />
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Organiser Email?"
+                        onChangeText={tcdEmail}
+                        value={emails}
+                        keyboardType="email-address"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Organiser Phone Number?"
+                        onChangeText={mobileNumber}
+                        value={number}
+                        keyboardType="phone-pad"
+                    />
+
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Room/Venue of Event?"
+                        onChangeText={room}
+                        value={roomN}
+                    />
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Number of Participants?"
                         onChangeText={numParticipants}
                         value={participants}
                         keyboardType="phone-pad"
@@ -229,7 +230,7 @@ const Form = ({ navigation }) => {
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Number of Staff"
+                        placeholder="Number of Staff?"
                         onChangeText={numStaff}
                         value={staff}
                         keyboardType="phone-pad"
@@ -237,7 +238,7 @@ const Form = ({ navigation }) => {
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Number of Guests"
+                        placeholder="Number of Guests/VIPs?"
                         onChangeText={guests}
                         value={numGuest}
                         keyboardType="phone-pad"
@@ -245,56 +246,56 @@ const Form = ({ navigation }) => {
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Equipment"
+                        placeholder="Equipment Being Brought?"
                         onChangeText={equipment}
                         value={equip}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Staging"
+                        placeholder="Staging/Set-Up Required?"
                         onChangeText={staging}
                         value={stag}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Food"
+                        placeholder="Food at Event?"
                         onChangeText={food}
                         value={foods}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Alcohol"
+                        placeholder="Alcohol at Event?"
                         onChangeText={alcohol}
                         value={alcohols}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Caterer"
+                        placeholder="Caterer at Event?"
                         onChangeText={caterer}
                         value={catererServ}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Power"
+                        placeholder="Power Source Required?"
                         onChangeText={power}
                         value={pow}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Facilities"
+                        placeholder="Room Facilities Needed?"
                         onChangeText={facilities}
                         value={otherFacilities}
                     />
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Others"
+                        placeholder="Other Requirements?"
                         onChangeText={other}
                         value={others}
                     />
