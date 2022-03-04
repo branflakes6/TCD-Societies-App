@@ -1,21 +1,32 @@
-import React, { useState,  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from '../styles/styles';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //import { readUser } from '../src/firebase/read'
 
 const User = ({ navigation }) => {
 
-    // const [entities, setEntities] = useState([])
- 
-    // var propData = {
-    //     setEntities:setEntities,
-    //     email:"james55@tcd.ie",
-    // }
+    const [em, setEms] = useState('')
+    var email = ""
+    const onScreenLoad = () => {
+        getData()
+    } 
+    useEffect(() => {
+        onScreenLoad();
+    }, [])
 
-    // readUser(propData)
-    // console.log(entities)
+    
+    const getData = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@email')
+        if(value !== null) {
+            setEms(value)
+        }
+        } catch(e) {
+            console.log(e)
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -23,10 +34,7 @@ const User = ({ navigation }) => {
                 Welcome to Your Profile!
             </Text>
             <Text style={styles.infoText}>
-                Full name: gg
-            </Text>
-            <Text style={styles.infoText}>
-                Email: james55@tcd.ie
+                Email: {em}
             </Text>
             <TouchableOpacity
                 style={styles.button}
