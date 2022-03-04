@@ -10,6 +10,9 @@ export function EventTile(props) {
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [description, viewDescription] = React.useState(false)
 
+    const confirmApprove = () => setVisibleAp(!visibleAp);
+    const confirmDeny = () => setVisibleDen(!visibleDen);
+
     const showDescription = () => viewDescription(!description)
 
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
@@ -31,9 +34,8 @@ export function EventTile(props) {
             <Card mode="outlined" style={styles.card}>
             <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
             <Card.Content>
-                <Title> Current Booking Status: {booking.status}</Title>
                 <List.Section>
-                    <List.Accordion title="Booking Details">
+                    <List.Accordion title="Event Details">
                         <List.Item title="Room" description={booking.room} />
                         <List.Item title="Persons" description={persons}/>
                         <List.Item title="Food" description={booking.food}/>
@@ -57,7 +59,7 @@ export function EventTile(props) {
             <Card.Actions>
                 <Button mode="contained" color="#65db56" onPress={confirmApprove}>Going</Button>
                 <Button mode="contained" color="#c23838" onPress={confirmDeny}>Not Going</Button>
-                <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+                
             </Card.Actions>
             </Card> 
             <Divider/>

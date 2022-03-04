@@ -48,6 +48,14 @@ const Home = ({ navigation }) => {
                     </Text>
 
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("Events")}>
+                    <Text style={styles.buttonText}>
+                        Events
+                    </Text>
+
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );
