@@ -54,6 +54,7 @@ export function readBooking(props){
 export function readEvents(props){
 
     const collection = firebase.firestore().collection('bookings')
+    const userID = props.email
     
         collection
             .where("status", "==", "Approved")
@@ -65,6 +66,29 @@ export function readEvents(props){
                         entity.id = doc.id
                         newEntities.push(entity)
                     });
+                    props.setEntities(newEntities)
+                },
+                error => {
+                    console.log('Error : ', error)
+                }
+            )
+    
+}
+
+export function readEventsUser(props){
+
+    const collection = firebase.firestore().collection('users')
+    const userID = props.email
+        collection
+            .where("email", "==", userID)
+            .onSnapshot(
+                querySnapshot => {
+                    const newEntities = []
+                    querySnapshot.forEach(doc => {
+                        const entity = doc.data()
+                        entity.id = doc.id
+                        newEntities.push(entity)
+                    })
                     props.setEntities(newEntities)
                 },
                 error => {

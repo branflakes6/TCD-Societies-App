@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet} from 'react-native'
 import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, Switch } from 'react-native-paper'
-
+import { readEventsUser } from '../firebase/read';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export function EventTile(props) {
@@ -19,6 +20,36 @@ export function EventTile(props) {
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
     const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
     const eventTime = booking.dateOfEvent + " - " + booking.timeOfEvent
+
+    const [entities, setEntities] = useState([])
+    var email = ""
+    const onScreenLoad = () => {
+        getData()
+    } 
+    useEffect(() => {
+        onScreenLoad();
+    }, [])
+
+    
+    const getData = async () => {
+        try {
+        const value = await AsyncStorage.getItem('@email')
+        if(value !== null) {
+            email = value
+            callRead()
+        }
+        } catch(e) {
+            console.log(e)
+        }
+    }
+    function callRead() {
+        console.log(email)
+        var propData = {
+            setEntities:setEntities,
+            email:email,
+        }
+        readEventsUser(propData)
+    }
 
     const styles = StyleSheet.create({
         container: {
