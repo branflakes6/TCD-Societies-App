@@ -490,14 +490,9 @@ const Listings = ({ navigation }) => {
                             </View>
                         </View>
                     </View>
-<<<<<<< Updated upstream
-                </View>
-            </View>
-        </View>
-=======
+
 
                 </KeyboardAwareScrollView>
->>>>>>> Stashed changes
 
             </View>
 
