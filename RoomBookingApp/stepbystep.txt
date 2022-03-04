@@ -1,0 +1,12 @@
+Description	This scenario describes how a member of a society would go about using the app to book a room for an event.
+
+1 - User opens the app and clicks "Sign up" to create an account 
+2 - User fills out their information and hits "Create account"
+3 - User logs in using their new account information.
+4 - User Selects "View Available Listings" to find out about rooms they can book.
+5 - After selecting, the user returns to the home screen and selects "Request a Room"
+6 - User fills out their event information and hits "Submit Request"
+7 - User returns to the home menu and selects "View My Bookings"
+8 - User is shown the status of each of their bookings presently.
+
+Termination outcome - Event Booking Request has been submitted.

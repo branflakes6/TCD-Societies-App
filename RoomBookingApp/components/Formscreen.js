@@ -6,6 +6,7 @@ import { State, TextInput, TouchableOpacity } from 'react-native-gesture-handler
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment';
 import styles from '../styles/styles';
+import emailjs from 'emailjs-com';
 import { writeBooking } from '../src/firebase/write';
 
 const Form = ({ navigation }) => {
@@ -102,6 +103,7 @@ const Form = ({ navigation }) => {
                 {
                     text: "Continue", onPress: () =>
                         sendBooking() &
+                        sendEmail() &
                         console.log({
                             "Name of Event": name,
                             "Organiser Email": emails,
@@ -130,6 +132,46 @@ const Form = ({ navigation }) => {
                 }
             ],
         );
+
+        const sendEmail = async () => {
+            console.log("ARRIVED AT SEND EMAIL!!!!")
+        
+            let templateParams = {
+                //from_name: process.env.REACT_APP_EMAILJS_SENDER,
+                //to_name: this.tcdEmail,
+                nameOfEvent: name,
+                dateOfEvent: date,
+                timeOfEvent: eventTime,
+                organisingBody: orginiser,
+                orginiserName: orgName,
+                mobileNumber: number,
+                tcdEmail: emails,
+                eventDescription: evntDesc,
+                room: roomN,
+                prepFrom: prepareFrom,
+                prepTo: prepareTo,
+                endTime: eventEnd,
+                numParticipants: participants,
+                numStaff: staff,
+                guests: numGuest,
+                equipment: equip,
+                staging: stag,
+                food: foods,
+                alcohol: alcohols,
+                caterer: catererServ,
+                power: pow,
+                facilities: otherFacilities,
+                others: others
+            }
+        
+            emailjs.send('service_c8eqpwr','template_waahbmx', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
+            .then((result) => {
+              console.log(result.text);
+            }, (error) => {
+              console.log(error.text);
+            });
+        }
+        
 
     return (
         <ScrollView>
@@ -238,7 +280,7 @@ const Form = ({ navigation }) => {
 
                     <TextInput
                         style={styles.input}
-                        placeholder="Number of Guests/VIPs?"
+                        placeholder="List of Guests/VIPs"
                         onChangeText={guests}
                         value={numGuest}
                         keyboardType="phone-pad"
