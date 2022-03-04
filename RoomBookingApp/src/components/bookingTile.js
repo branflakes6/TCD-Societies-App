@@ -1,11 +1,28 @@
 import React, { useState } from 'react'
 import { View, StyleSheet} from 'react-native'
 import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text } from 'react-native-paper'
+import { firebase } from '../firebase/config';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 
 
 
 export function BookingTile(props) {
     
+    function UpdateRoom(update) {
+        
+        console.log(booking.id)
+        const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
+        entityRef
+            .update({status:update})
+            .then(() => {
+                console.log('Room updated!');
+              })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+
     const booking = props.props
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [visibleAp, setVisibleAp] = React.useState(false);
@@ -36,11 +53,11 @@ export function BookingTile(props) {
     
     function approveBooking () {
         setVisibleAp(!visibleAp)
-        console.log("Approved")
+        UpdateRoom("Approved")
     }
     function denyBooking () {
-        setVisibleAp(!visibleDen)
-        console.log("Denied")
+        setVisibleDen(!visibleDen)
+        UpdateRoom("Denied")
     }
     return ( 
         <Provider>
