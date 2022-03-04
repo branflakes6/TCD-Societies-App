@@ -1,4 +1,4 @@
-import React, { useState,  } from 'react'
+import React, { useState,  useEffect} from 'react'
 import { FlatList, Text, TextInput, TouchableOpacity, View, Button, ScrollView  } from 'react-native'
 import styles from '../src/tst/styles.js';
 
@@ -10,7 +10,15 @@ import { BookingTile } from '../src/components/bookingTile'
 const About = ({ navigation }) => {
     const [emailRead, setEmailRead] = useState('')
     const [entities, setEntities] = useState([])
- 
+
+    const onScreenLoad = () => {
+        callRead()
+    } 
+    useEffect(() => {
+        // write your code here, it's like componentWillMount
+        onScreenLoad();
+    }, [])
+
     function callRead() {
         var propData = {
             setEntities:setEntities,
@@ -20,7 +28,10 @@ const About = ({ navigation }) => {
     }
     const renderEntity = ({item, index}) => {
         return (
-        <BookingTile props={item}/> 
+        <View>
+            <BookingTile props={item}/> 
+            <Text>{"\n"}</Text>
+        </View>
         )
 
     }
@@ -29,12 +40,6 @@ const About = ({ navigation }) => {
         <ScrollView>
         <View style={styles.container}>
         <View style={styles.formContainer}>
-            <Text style={styles.heading1}>Read Bookings from DB</Text>
-            <TouchableOpacity style={styles.button} onPress={() => callRead()} >
-                <Text style={styles.buttonText}>Read Bookings</Text>
-            </TouchableOpacity>
-
-
             { entities && (
                 <View style={styles.listContainer}>
                     <FlatList
