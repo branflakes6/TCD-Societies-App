@@ -53,22 +53,24 @@ export function readBooking(props){
 
 export function readEvents(props){
 
-    const collection = firebase.firestore()
-    .collection('bookings')
-    .get()
-    .then( querySnapshot => {
-        const newEntities = []
-
-        querySnapshot.forEach(documentSnapshot => {
-            const entity = documentSnapshot.data()
-            entity.id = documentSnapshot.id
-            newEntities.push(entity)
-        });
-        props.setEntities(newEntities)
-    })
-    .catch(error => {
-        console.log(error)
-    });
+    const collection = firebase.firestore().collection('bookings')
+    
+        collection
+            .where("status", "==", "Approved")
+            .onSnapshot(
+                querySnapshot => {
+                    const newEntities = []
+                    querySnapshot.forEach(doc => {
+                        const entity = doc.data()
+                        entity.id = doc.id
+                        newEntities.push(entity)
+                    });
+                    props.setEntities(newEntities)
+                },
+                error => {
+                    console.log('Error : ', error)
+                }
+            )
     
 }
 

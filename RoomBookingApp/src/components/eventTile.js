@@ -6,12 +6,13 @@ import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, 
 
 export function EventTile(props) {
     
+    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
     const booking = props.props
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [description, viewDescription] = React.useState(false)
 
-    const confirmApprove = () => setVisibleAp(!visibleAp);
-    const confirmDeny = () => setVisibleDen(!visibleDen);
+    const confirmApprove = () => setIsSwitchOn(true);
+    const confirmDeny = () => setIsSwitchOn(false);
 
     const showDescription = () => viewDescription(!description)
 
@@ -25,6 +26,9 @@ export function EventTile(props) {
         },
         card: {
             paddingHorizontal: 0
+        },
+        btn: {
+            marginHorizontal: 4
         }
       });
     return ( 
@@ -57,9 +61,9 @@ export function EventTile(props) {
                 </List.Section>
             </Card.Content>
             <Card.Actions>
-                <Button mode="contained" color="#65db56" onPress={confirmApprove}>Going</Button>
-                <Button mode="contained" color="#c23838" onPress={confirmDeny}>Not Going</Button>
-                
+                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Going</Button>
+                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Not Going</Button>
+                <Switch value={isSwitchOn} />
             </Card.Actions>
             </Card> 
             <Divider/>
