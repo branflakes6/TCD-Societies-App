@@ -99,7 +99,7 @@ const Form = ({ navigation }) => {
             <View style={styles.container}>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps="never">
                     <Text style={styles.headerText}>
-                        Welcome to Formscreen!
+                        Request a room here!
                     </Text>
 
                     <TouchableOpacity

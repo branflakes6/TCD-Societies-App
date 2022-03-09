@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from '../styles/styles';
 
-const About = ({ navigation }) => {
+const Bookings = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>
@@ -20,4 +20,4 @@ const About = ({ navigation }) => {
     );
 };
 
-export default About;
+export default Bookings;
