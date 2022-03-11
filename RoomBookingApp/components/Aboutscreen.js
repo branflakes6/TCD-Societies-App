@@ -2,7 +2,7 @@ import React, { useState,  useEffect} from 'react'
 import { FlatList, Text, View, ScrollView  } from 'react-native'
 import styles from '../src/tst/styles.js';
 
-import { readBooking } from '../src/firebase/read'
+import { readAllBookings, readBooking } from '../src/firebase/read'
 import { BookingTile } from '../src/components/bookingTile'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -35,7 +35,13 @@ const About = ({ navigation }) => {
             setEntities:setEntities,
             email:email,
         }
-        readBooking(propData)
+        if (accountType == "admin") {
+            readAllBookings(propData)
+        }
+        else{
+            readBooking(propData)
+        }
+        
     }
     const renderEntity = ({item, index}) => {
         console.log(item)
