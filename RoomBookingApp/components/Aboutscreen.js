@@ -35,13 +35,7 @@ const About = ({ navigation }) => {
             setEntities:setEntities,
             email:email,
         }
-        if (accountType == "admin") {
-            readAllBookings(propData)
-        }
-        else{
-            readBooking(propData)
-        }
-        
+        readBooking(propData)
     }
     const renderEntity = ({item, index}) => {
         console.log(item)
