@@ -51,6 +51,26 @@ export function readBooking(props){
             )
 }
 
+export function readAllBookings(props){
+
+    const collection = firebase.firestore().collection('bookings')
+        collection
+            .onSnapshot(
+                querySnapshot => {
+                    const newEntities = []
+                    querySnapshot.forEach(doc => {
+                        const entity = doc.data()
+                        entity.id = doc.id
+                        newEntities.push(entity)
+                    });
+                    props.setEntities(newEntities)
+                },
+                error => {
+                    console.log('Error : ', error)
+                }
+            )
+}
+
 export function readEvents(props){
 
     const collection = firebase.firestore().collection('bookings')
