@@ -56,7 +56,7 @@ export default function App() {
           <Stack.Screen
             name="Welcome to the Trinity Room Book"
             component={root}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           
         </Stack.Navigator> :

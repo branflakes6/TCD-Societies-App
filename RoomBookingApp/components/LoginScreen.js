@@ -15,7 +15,7 @@ const Login = ({ setLoggedIn }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>
-                Login
+                Welcome to the Trinity Room Book
             </Text>
                 <TextInput
                     style={styles.input}
