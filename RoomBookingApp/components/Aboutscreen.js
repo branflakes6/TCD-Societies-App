@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const About = ({ navigation }) => {
     const [entities, setEntities] = useState([])
     var email = ""
+    var userType = ""
     const onScreenLoad = () => {
         getData()
     } 
@@ -20,9 +21,11 @@ const About = ({ navigation }) => {
     
     const getData = async () => {
         try {
+        const userT = await AsyncStorage.getItem('@userType')
         const value = await AsyncStorage.getItem('@email')
         if(value !== null) {
             email = value
+            userType = userT
             callRead()
         }
         } catch(e) {
@@ -34,11 +37,11 @@ const About = ({ navigation }) => {
         var propData = {
             setEntities:setEntities,
             email:email,
+            userType:userType
         }
         readBooking(propData)
     }
     const renderEntity = ({item, index}) => {
-        console.log(item)
         return (
         <View>
             <BookingTile props={item}/> 
