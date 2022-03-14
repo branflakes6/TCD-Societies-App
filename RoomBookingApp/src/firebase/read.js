@@ -33,9 +33,12 @@ export function readBooking(props){
     const collection = firebase.firestore().collection('bookings')
     const userID = props.email
     const userType = props.userType
-    
+    const timestamp = firebase.firestore.Timestamp.now()
+    console.log(timestamp)
+
     if (userType == "admin"){
         collection
+        .where("dateOfEvent", ">", timestamp)
         .onSnapshot(
             querySnapshot => {
                 const newEntities = []
