@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { View, StyleSheet} from 'react-native'
-import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text } from 'react-native-paper'
+import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, IconButton, Colors } from 'react-native-paper'
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-
 
 
 export function BookingTile(props) {
@@ -122,6 +121,12 @@ export function BookingTile(props) {
                     </Dialog.Actions>
                 </Dialog>
                 </Portal>
+                <IconButton 
+                    icon="dots-horizontal"
+                    size={20}
+                    onPress={() => console.log('Pressed')}
+                    >
+                    </IconButton>
             </Card.Actions>
             </Card> 
             <Divider/>
