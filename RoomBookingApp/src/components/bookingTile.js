@@ -139,7 +139,7 @@ export function BookingTile(props) {
                 <IconButton 
                     icon="dots-horizontal"
                     size={20}
-                    onPress={() => console.log('Pressed')}
+                    onPress={confirmClose}
                     >
                 </IconButton>
                 <Portal>

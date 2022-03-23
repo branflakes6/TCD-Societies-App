@@ -38,6 +38,7 @@ export function readBooking(props){
 
     if (userType == "admin"){
         collection
+        .where("open", "==", true)
         .where("dateOfEvent", ">", timestamp)
         .onSnapshot(
             querySnapshot => {
