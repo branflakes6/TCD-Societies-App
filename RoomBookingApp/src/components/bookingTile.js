@@ -35,6 +35,7 @@ export function BookingTile(props) {
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [visibleAp, setVisibleAp] = React.useState(false);
     const [visibleDen, setVisibleDen] = React.useState(false);
+    const [visibleMeat, setVisibleMeat] = React.useState(false);
     const [description, viewDescription] = React.useState(false)
 
     const [expanded, setExpanded] = React.useState(true);
@@ -42,6 +43,7 @@ export function BookingTile(props) {
     const confirmApprove = () => setVisibleAp(!visibleAp);
     const confirmDeny = () => setVisibleDen(!visibleDen);
     const showDescription = () => viewDescription(!description)
+    const confirmClose = () => setVisibleMeat(!visibleMeat)
 
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
     const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
@@ -66,6 +68,10 @@ export function BookingTile(props) {
     function denyBooking () {
         setVisibleDen(!visibleDen)
         UpdateBooking("Denied")
+    }
+    function cBooking () {
+        setVisibleMeat(!visibleMeat)
+        closeBooking()
     }
     return ( 
         <Provider>
@@ -135,7 +141,19 @@ export function BookingTile(props) {
                     size={20}
                     onPress={() => console.log('Pressed')}
                     >
-                    </IconButton>
+                </IconButton>
+                <Portal>
+                <Dialog visible={visibleMeat} onDismiss={confirmClose}>
+                    <Dialog.Title>Remove Booking</Dialog.Title>
+                    <Dialog.Content>
+                    <Paragraph>Do you want to remove this booking?</Paragraph>
+                    </Dialog.Content>
+                    <Dialog.Actions>
+                    <Button onPress={cBooking}>Yes</Button>
+                    <Button onPress={confirmClose}>No</Button>
+                    </Dialog.Actions>
+                </Dialog>
+                </Portal>
             </Card.Actions>
             </Card> 
             <Divider/>
