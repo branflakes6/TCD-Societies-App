@@ -10,7 +10,6 @@ export function BookingTile(props) {
     
     function UpdateBooking(update) {
         
-        console.log(booking.id)
         const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
         entityRef
             .update({status:update})
@@ -21,7 +20,17 @@ export function BookingTile(props) {
                 console.log(error)
             });
     }
-
+    function closeBooking() {
+        const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
+        entityRef
+            .update({open:false})
+            .then(() => {
+                console.log('Booking updated!');
+              })
+            .catch(error => {
+                console.log(error)
+            });
+    }
     const booking = props.props
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [visibleAp, setVisibleAp] = React.useState(false);
