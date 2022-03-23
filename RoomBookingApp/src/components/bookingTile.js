@@ -8,14 +8,14 @@ import 'firebase/compat/auth';
 
 export function BookingTile(props) {
     
-    function UpdateRoom(update) {
+    function UpdateBooking(update) {
         
         console.log(booking.id)
         const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
         entityRef
             .update({status:update})
             .then(() => {
-                console.log('Room updated!');
+                console.log('Booking updated!');
               })
             .catch(error => {
                 console.log(error)
@@ -52,11 +52,11 @@ export function BookingTile(props) {
     
     function approveBooking () {
         setVisibleAp(!visibleAp)
-        UpdateRoom("Approved")
+        UpdateBooking("Approved")
     }
     function denyBooking () {
         setVisibleDen(!visibleDen)
-        UpdateRoom("Denied")
+        UpdateBooking("Denied")
     }
     return ( 
         <Provider>
