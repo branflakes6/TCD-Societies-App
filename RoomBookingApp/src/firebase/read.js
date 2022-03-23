@@ -57,6 +57,7 @@ export function readBooking(props){
     }
     else {
         collection
+        .where("open", "==", true)
         .where("tcdEmail", "==", userID)
         .onSnapshot(
             querySnapshot => {
