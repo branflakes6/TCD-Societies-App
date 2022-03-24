@@ -43,7 +43,12 @@ export default StyleSheet.create({
     input: {
         marginTop: 10,
         color: '#fff',
-    }
+    },
+    picker: {
+        marginTop: 15,
+        color: '#fff',
+        backgroundColor: '#0569b9',
+    },
 
 });
 

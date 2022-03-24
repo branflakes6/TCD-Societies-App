@@ -6,7 +6,8 @@ import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment';
 import styles from '../styles/formStyle';
-import { TextInput, Text, DefaultTheme, Button, Provider as PaperProvider } from 'react-native-paper';
+import { TextInput, Text, Button, List, Provider as PaperProvider } from 'react-native-paper';
+import { Picker } from '@react-native-community/picker';
 
 const Form = ({ navigation }) => {
     const [name, nameOfEvent] = React.useState('');
@@ -35,7 +36,6 @@ const Form = ({ navigation }) => {
 
     const [mode, setMode] = React.useState('');
     const [show, setShow] = React.useState(false);
-
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -105,16 +105,6 @@ const Form = ({ navigation }) => {
                         <Text style={styles.headerText}>
                             Request a room here!
                         </Text>
-
-                        {/* <Button
-                        mode="contained"
-                        style={styles.button}
-                        onPress={() => navigation.navigate("Home")}>
-                        <Text style={styles.buttonText}>
-                            Go to Homescreen
-                        </Text>
-
-                    </Button> */}
 
                         <TextInput
                             activeOutlineColor='#0569b9'
@@ -191,7 +181,7 @@ const Form = ({ navigation }) => {
                             onChangeText={orginiserName}
                             value={orgName}
                         />
-
+{/* 
                         <TextInput
                             activeOutlineColor='#0569b9'
                             selectionColor='#000'
@@ -200,7 +190,42 @@ const Form = ({ navigation }) => {
                             label="Room of Event"
                             onChangeText={room}
                             value={roomN}
-                        />
+                        /> */}
+{/* 
+                        <List.Section>
+                            <List.Accordion
+                                title="Room of Event" >
+                                <List.Item title="191 Pearse Street" description="House 6" value="191 Pearse Street" onChange={handleChange}/>
+                                <List.Item title="AV Room" description="The Atrium, Room 3" />
+                                <List.Item title="Conversation Room" description="The Atrium, Room 4" />
+                                <List.Item title="Debating Chember" description="GMB (Graduates Memorial Building)" />
+                                <List.Item title="Eliz Room" description="House 6" />
+                                <List.Item title="Hist Conversation Room" description="GMB (Graduates Memorial Building)" />
+                                <List.Item title="Hist Rec Room" description="GMB (Graduates Memorial Building)" />
+                                <List.Item title="Phil Conversation Room" description="GMB (Graduates Memorial Building)" />
+                                <List.Item title="Resource Room" description="GMB (Graduates Memorial Building)" />
+                                <List.Item title="Workshop and Commitee Room" description="The Atrium, Room 2" />
+                            </List.Accordion>
+                        </List.Section> */}
+
+                        <Picker
+                            mode='dropdown'
+                            style={styles.picker}
+                            selectedValue={roomN}
+                            onValueChange={(itemValue) => room(itemValue)}
+                        >
+                            <Picker.Item label="Room of Event" value=""/>
+                            <Picker.Item label="191 Pearse Street - House 6" value="191 Pearse Street" />
+                            <Picker.Item label="AV Room - The Atrium, Room 3" value="AV Room" />
+                            <Picker.Item label="Conversation Room - The Atrium, Room 4" value="Conversation Room" />
+                            <Picker.Item label="Debating Chember - GMB" value="Debating Chember" />
+                            <Picker.Item label="Eliz Room - House 6" value="Eliz Room" />
+                            <Picker.Item label="Hist Conversation Room - GMB" value="Hist Conversation Room" />
+                            <Picker.Item label="Hist Rec Room - GMB" value="Hist Rec Room" />
+                            <Picker.Item label="Phil Conversation Room - GMB" value="Phil Conversation Room" />
+                            <Picker.Item label="Resource Room - GMB" value="Resource Room" />
+                            <Picker.Item label="Workshop & Commitee Room - The Atrium, Room 2" value="Workshop and Commitee Room" />
+                        </Picker>
 
                         <TextInput
                             activeOutlineColor='#0569b9'
