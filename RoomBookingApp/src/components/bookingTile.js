@@ -4,10 +4,10 @@ import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, 
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function BookingTile(props) {
-    
+
     function UpdateBooking(update) {
         
         const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
@@ -31,7 +31,8 @@ export function BookingTile(props) {
                 console.log(error)
             });
     }
-    const booking = props.props
+    console.log(props)
+    const booking = props.props.item
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [visibleAp, setVisibleAp] = React.useState(false);
     const [visibleDen, setVisibleDen] = React.useState(false);
@@ -73,43 +74,9 @@ export function BookingTile(props) {
         setVisibleMeat(!visibleMeat)
         closeBooking()
     }
-    return ( 
-        <Provider>
-        <View>
-            <Card mode="outlined" style={styles.card}>
-            <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
-            <Card.Content>
-                <Title> Current Booking Status: {booking.status}</Title>
-                <List.Section>
-                    <List.Accordion title="Booking Details">
-                        <List.Item title="Room" description={booking.room} />
-                        <List.Item title="Persons" description={persons}/>
-                        <List.Item title="Food" description={booking.food}/>
-                        <List.Item title="Alcohol" description={booking.alcohol}/>
-                        <List.Item title="Caterer" description={booking.caterer}/>
-                        <List.Item title="Description" description={booking.eventDescription} onPress={showDescription}/>
-                        <Portal>
-                        <Dialog visible={description} onDismiss={showDescription}>
-                            <Dialog.Title>Description</Dialog.Title>
-                            <Dialog.Content>
-                            <Paragraph>{booking.eventDescription}</Paragraph>
-                            </Dialog.Content>
-                            <Dialog.Actions>
-                            <Button onPress={showDescription}>Close</Button>
-                            </Dialog.Actions>
-                        </Dialog>
-                        </Portal>
-                    </List.Accordion>
-                </List.Section>
-                <List.Section>
-                    <List.Accordion title="Contact Details">
-                        <List.Item title="Organiser Name" description={booking.orginiserName}/>
-                        <List.Item title="Organiser Email" description={booking.email}/>
-                        <List.Item title="Organiser Phone Number" description={booking.mobileNumber}/>
-                    </List.Accordion>
-                </List.Section>
-            </Card.Content>
-            <Card.Actions>
+    const renderAdmin = () => {
+        if (props.props.userType == "admin") {
+            return (<Card.Actions>
                 <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Aprove</Button>
                 <Portal>
                 <Dialog visible={visibleAp} onDismiss={confirmApprove}>
@@ -154,7 +121,92 @@ export function BookingTile(props) {
                     </Dialog.Actions>
                 </Dialog>
                 </Portal>
-            </Card.Actions>
+            </Card.Actions>)
+        }
+    }
+    return ( 
+        <Provider>
+        <View>
+            <Card mode="outlined" style={styles.card}>
+            <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
+            <Card.Content>
+                <Title> Current Booking Status: {booking.status}</Title>
+                <List.Section>
+                    <List.Accordion title="Booking Details">
+                        <List.Item title="Room" description={booking.room} />
+                        <List.Item title="Persons" description={persons}/>
+                        <List.Item title="Food" description={booking.food}/>
+                        <List.Item title="Alcohol" description={booking.alcohol}/>
+                        <List.Item title="Caterer" description={booking.caterer}/>
+                        <List.Item title="Description" description={booking.eventDescription} onPress={showDescription}/>
+                        <Portal>
+                        <Dialog visible={description} onDismiss={showDescription}>
+                            <Dialog.Title>Description</Dialog.Title>
+                            <Dialog.Content>
+                            <Paragraph>{booking.eventDescription}</Paragraph>
+                            </Dialog.Content>
+                            <Dialog.Actions>
+                            <Button onPress={showDescription}>Close</Button>
+                            </Dialog.Actions>
+                        </Dialog>
+                        </Portal>
+                    </List.Accordion>
+                </List.Section>
+                <List.Section>
+                    <List.Accordion title="Contact Details">
+                        <List.Item title="Organiser Name" description={booking.orginiserName}/>
+                        <List.Item title="Organiser Email" description={booking.email}/>
+                        <List.Item title="Organiser Phone Number" description={booking.mobileNumber}/>
+                    </List.Accordion>
+                </List.Section>
+            </Card.Content>
+            {renderAdmin()}
+            {/* <Card.Actions>
+                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Aprove</Button>
+                <Portal>
+                <Dialog visible={visibleAp} onDismiss={confirmApprove}>
+                    <Dialog.Title>Confirmation</Dialog.Title>
+                    <Dialog.Content>
+                    <Paragraph>Are you sure you want to confirm this booking?</Paragraph>
+                    </Dialog.Content>
+                    <Dialog.Actions>
+                    <Button onPress={approveBooking}>Yes</Button>
+                    <Button onPress={confirmApprove}>No</Button>
+                    </Dialog.Actions>
+                </Dialog>
+                </Portal>
+                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Deny</Button>
+                <Portal>
+                <Dialog visible={visibleDen} onDismiss={confirmDeny}>
+                    <Dialog.Title>Confirmation</Dialog.Title>
+                    <Dialog.Content>
+                    <Paragraph>Are you sure you want to deny this booking?</Paragraph>
+                    </Dialog.Content>
+                    <Dialog.Actions>
+                    <Button onPress={denyBooking}>Yes</Button>
+                    <Button onPress={confirmDeny}>No</Button>
+                    </Dialog.Actions>
+                </Dialog>
+                </Portal>
+                <IconButton 
+                    icon="dots-horizontal"
+                    size={20}
+                    onPress={confirmClose}
+                    >
+                </IconButton>
+                <Portal>
+                <Dialog visible={visibleMeat} onDismiss={confirmClose}>
+                    <Dialog.Title>Remove Booking</Dialog.Title>
+                    <Dialog.Content>
+                    <Paragraph>Do you want to remove this booking?</Paragraph>
+                    </Dialog.Content>
+                    <Dialog.Actions>
+                    <Button onPress={cBooking}>Yes</Button>
+                    <Button onPress={confirmClose}>No</Button>
+                    </Dialog.Actions>
+                </Dialog>
+                </Portal>
+            </Card.Actions> */}
             </Card> 
             <Divider/>
     </View>
