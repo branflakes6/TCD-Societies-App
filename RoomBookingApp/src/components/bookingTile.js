@@ -4,7 +4,6 @@ import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, 
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function BookingTile(props) {
 

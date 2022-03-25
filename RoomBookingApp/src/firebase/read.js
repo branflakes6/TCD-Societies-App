@@ -35,7 +35,7 @@ export function readBooking(props){
     const userType = props.userType
     const timestamp = firebase.firestore.Timestamp.now()
     console.log(timestamp)
-
+    console.log(userType)
     if (userType == "admin"){
         collection
         .where("open", "==", true)
@@ -59,6 +59,7 @@ export function readBooking(props){
         collection
         .where("open", "==", true)
         .where("tcdEmail", "==", userID)
+        .where("dateOfEvent", ">", timestamp)
         .onSnapshot(
             querySnapshot => {
                 const newEntities = []
