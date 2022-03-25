@@ -161,52 +161,6 @@ export function BookingTile(props) {
                 </List.Section>
             </Card.Content>
             {renderAdmin()}
-            {/* <Card.Actions>
-                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Aprove</Button>
-                <Portal>
-                <Dialog visible={visibleAp} onDismiss={confirmApprove}>
-                    <Dialog.Title>Confirmation</Dialog.Title>
-                    <Dialog.Content>
-                    <Paragraph>Are you sure you want to confirm this booking?</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                    <Button onPress={approveBooking}>Yes</Button>
-                    <Button onPress={confirmApprove}>No</Button>
-                    </Dialog.Actions>
-                </Dialog>
-                </Portal>
-                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Deny</Button>
-                <Portal>
-                <Dialog visible={visibleDen} onDismiss={confirmDeny}>
-                    <Dialog.Title>Confirmation</Dialog.Title>
-                    <Dialog.Content>
-                    <Paragraph>Are you sure you want to deny this booking?</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                    <Button onPress={denyBooking}>Yes</Button>
-                    <Button onPress={confirmDeny}>No</Button>
-                    </Dialog.Actions>
-                </Dialog>
-                </Portal>
-                <IconButton 
-                    icon="dots-horizontal"
-                    size={20}
-                    onPress={confirmClose}
-                    >
-                </IconButton>
-                <Portal>
-                <Dialog visible={visibleMeat} onDismiss={confirmClose}>
-                    <Dialog.Title>Remove Booking</Dialog.Title>
-                    <Dialog.Content>
-                    <Paragraph>Do you want to remove this booking?</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                    <Button onPress={cBooking}>Yes</Button>
-                    <Button onPress={confirmClose}>No</Button>
-                    </Dialog.Actions>
-                </Dialog>
-                </Portal>
-            </Card.Actions> */}
             </Card> 
             <Divider/>
     </View>
