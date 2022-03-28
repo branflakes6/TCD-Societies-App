@@ -24,12 +24,9 @@ const About = ({ navigation }) => {
         try {
         userT = await AsyncStorage.getItem('@userType')
         const value = await AsyncStorage.getItem('@email')
-        console.log("use", userT)
-        console.log("user", userType)
         if(value !== null) {
             email = value
             setUserType(userT)
-            console.log("user", userType)
             callRead()
         }
         } catch(e) {
