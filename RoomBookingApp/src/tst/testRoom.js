@@ -15,7 +15,36 @@ export function TestRoom() {
     const [roomBookStatus, setBookStatus] = useState('')
     const [entities, setEntities] = useState([])
  
+    function callBulkWrite() {
+        var names = ['Debating Chamber', 'Phil Conversation Room','Hist Conversation Room','Rec Room','Resource Room','Computer Room', 'Goldsmith Hall','The Atrium Room 50','The Main Atrium Space']
+        var socketCounts = [45,76,34,56,23,76,56,44,24]
+        var capacities = [546,65,34,78,34,76,45,64,32]
+        var sizes = [234,236,653,885,212,563,775,2345,456]
+        names.forEach(function (name, index) {
+            console.log(index) // index
+            console.log(name) // value
+            var room = {
+                Booked : true,
+                Building : 'GMB',
+                Capacity : capacities[index],
+                Description : 'Room for soc event',
+                Name : name,
+                SocketCount : socketCounts[index],
+                Projector : true,
+                Screen : true,
+                Size : 30,
+                TablesChairs : true,
+                Venue :	'Trinity Campus',
+                WheelchairAccess : true
+    
+            }
+            var propData = {
+                room: room
+            }
+            writeRoom(propData)
+        });
 
+    }
     function callWrite() {
         var room = {
             Name : "lab3",
