@@ -31,13 +31,26 @@ export function BookingTile(props) {
                 console.log(error)
             });
     }
+    function sendFeedback (text) {
+        const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
+        entityRef
+            .update({feedback:text})
+            .then(() => {
+                console.log('Booking updated!');
+              })
+            .catch(error => {
+                console.log(error)
+            });
+    }
     console.log(props)
-    const [text, setText] = React.useState("");
+
     const booking = props.props.item
+    const [text, setText] = React.useState(booking.feedback);
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [visibleAp, setVisibleAp] = React.useState(false);
     const [visibleDen, setVisibleDen] = React.useState(false);
     const [visibleMeat, setVisibleMeat] = React.useState(false);
+    const [visibleFeedback, setVisibleFeedback] = React.useState(false);
     const [description, viewDescription] = React.useState(false)
 
     const [expanded, setExpanded] = React.useState(true);
@@ -46,6 +59,7 @@ export function BookingTile(props) {
     const confirmDeny = () => setVisibleDen(!visibleDen);
     const showDescription = () => viewDescription(!description)
     const confirmClose = () => setVisibleMeat(!visibleMeat)
+    const confirmFeedback = () => setVisibleFeedback(!visibleFeedback)
 
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
     const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
@@ -74,6 +88,11 @@ export function BookingTile(props) {
     function cBooking () {
         setVisibleMeat(!visibleMeat)
         closeBooking()
+    }
+    function cFeedback () {
+        console.log(text)
+        setVisibleFeedback(!visibleFeedback)
+        sendFeedback(text)
     }
     const renderAdmin = () => {
         if (props.props.userType == "admin") {
@@ -126,12 +145,25 @@ export function BookingTile(props) {
                 </Portal>
             </Card.Actions>
             <TextInput
-            label="Feedback"
+            label="Fedback"
             value={text}
             onChangeText={text => setText(text)}
             multiline={true}
             numberOfLines={4}
             />
+            <Button mode="contained" color="#c23838" onPress={confirmFeedback} style={styles.btn}>update</Button>
+                <Portal>
+                <Dialog visible={visibleFeedback} onDismiss={confirmFeedback}>
+                    <Dialog.Title>Confirmation</Dialog.Title>
+                    <Dialog.Content>
+                    <Paragraph>Update Feedback?</Paragraph>
+                    </Dialog.Content>
+                    <Dialog.Actions>
+                    <Button onPress={cFeedback}>Yes</Button>
+                    <Button onPress={confirmFeedback}>No</Button>
+                    </Dialog.Actions>
+                </Dialog>
+                </Portal>
             </View>
             )
         }
