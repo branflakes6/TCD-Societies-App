@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, StyleSheet} from 'react-native'
-import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, IconButton, Colors } from 'react-native-paper'
+import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, IconButton, Colors, TextInput } from 'react-native-paper'
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
@@ -32,6 +32,7 @@ export function BookingTile(props) {
             });
     }
     console.log(props)
+    const [text, setText] = React.useState("");
     const booking = props.props.item
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [visibleAp, setVisibleAp] = React.useState(false);
@@ -77,8 +78,9 @@ export function BookingTile(props) {
     const renderAdmin = () => {
         if (props.props.userType == "admin") {
             return (
+            <View>
             <Card.Actions>
-                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.button}>Aprove</Button>
+                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Aprove</Button>
                 <Portal>
                 <Dialog visible={visibleAp} onDismiss={confirmApprove}>
                     <Dialog.Title>Confirmation</Dialog.Title>
@@ -91,7 +93,7 @@ export function BookingTile(props) {
                     </Dialog.Actions>
                 </Dialog>
                 </Portal>
-                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.button}>Deny</Button>
+                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Deny</Button>
                 <Portal>
                 <Dialog visible={visibleDen} onDismiss={confirmDeny}>
                     <Dialog.Title>Confirmation</Dialog.Title>
@@ -122,7 +124,16 @@ export function BookingTile(props) {
                     </Dialog.Actions>
                 </Dialog>
                 </Portal>
-            </Card.Actions>)
+            </Card.Actions>
+            <TextInput
+            label="Feedback"
+            value={text}
+            onChangeText={text => setText(text)}
+            multiline={true}
+            numberOfLines={4}
+            />
+            </View>
+            )
         }
     }
     return ( 
