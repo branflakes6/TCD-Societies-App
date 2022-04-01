@@ -4,6 +4,7 @@ import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, 
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+//import styles from '../components/bookingsStyle.js';
 
 export function BookingTile(props) {
 
@@ -75,8 +76,9 @@ export function BookingTile(props) {
     }
     const renderAdmin = () => {
         if (props.props.userType == "admin") {
-            return (<Card.Actions>
-                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Aprove</Button>
+            return (
+            <Card.Actions>
+                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.button}>Aprove</Button>
                 <Portal>
                 <Dialog visible={visibleAp} onDismiss={confirmApprove}>
                     <Dialog.Title>Confirmation</Dialog.Title>
@@ -89,7 +91,7 @@ export function BookingTile(props) {
                     </Dialog.Actions>
                 </Dialog>
                 </Portal>
-                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Deny</Button>
+                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.button}>Deny</Button>
                 <Portal>
                 <Dialog visible={visibleDen} onDismiss={confirmDeny}>
                     <Dialog.Title>Confirmation</Dialog.Title>
@@ -126,11 +128,11 @@ export function BookingTile(props) {
     return ( 
         <Provider>
         <View>
-            <Card mode="outlined" style={styles.card}>
+            <Card mode="outlined">
             <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
             <Card.Content>
                 <Title> Current Booking Status: {booking.status}</Title>
-                <List.Section>
+                <List.Section >
                     <List.Accordion title="Booking Details">
                         <List.Item title="Room" description={booking.room} />
                         <List.Item title="Persons" description={persons}/>
@@ -154,7 +156,7 @@ export function BookingTile(props) {
                 <List.Section>
                     <List.Accordion title="Contact Details">
                         <List.Item title="Organiser Name" description={booking.orginiserName}/>
-                        <List.Item title="Organiser Email" description={booking.email}/>
+                        <List.Item title="Organiser Email" description={booking.tcdEmail}/>
                         <List.Item title="Organiser Phone Number" description={booking.mobileNumber}/>
                     </List.Accordion>
                 </List.Section>
