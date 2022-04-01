@@ -167,6 +167,20 @@ export function BookingTile(props) {
             </View>
             )
         }
+        else{
+            return (
+                <View>
+                <TextInput
+                    label="Fedback"
+                    value={text}
+                    onChangeText={text => setText(text)}
+                    multiline={true}
+                    numberOfLines={4}
+                    editable={false}
+                    />
+                </View>
+            )
+        }
     }
     return ( 
         <Provider>
@@ -174,7 +188,7 @@ export function BookingTile(props) {
             <Card mode="outlined">
             <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
             <Card.Content>
-                <Title> Current Booking Status: {booking.status}</Title>
+                <Title> Current Booing Status: {booking.status}</Title>
                 <List.Section >
                     <List.Accordion title="Booking Details">
                         <List.Item title="Room" description={booking.room} />
