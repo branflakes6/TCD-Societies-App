@@ -51,6 +51,25 @@ export function writeBooking(props) {
             });
     }
 }
+export function createEvent(){
+    const collection = firebase.firestore().collection('events')
+    const event = props.event
+
+    const length = Object.keys(event).length
+    if (event && length > 0) {
+        const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+        event.timestamp = timestamp
+
+        collection
+            .add(event)
+            .then(_doc => {
+                console.log(_doc)
+            })
+            .catch((error) => {
+                alert(error)
+            });
+    }
+}
 
 // this is for writing rooms to the room database. This is not for updating room status
 export function writeRoom(props) {

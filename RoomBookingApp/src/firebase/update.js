@@ -34,3 +34,41 @@ export function UpdateUser(props) {
             console.log(error)
         });
 }
+
+export function UpdateBooking(update) {
+        
+    const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
+    entityRef
+        .update({status:update})
+        .then(() => {
+            console.log('Booking updated!');
+          })
+        .catch(error => {
+            console.log(error)
+        });
+}
+export function closeBooking() {
+    const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
+    entityRef
+        .update({open:false})
+        .then(() => {
+            console.log('Booking updated!');
+          })
+        .catch(error => {
+            console.log(error)
+        });
+}
+export function sendFeedback (text) {
+    const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
+    entityRef
+        .update({feedback:text})
+        .then(() => {
+            console.log('Booking updated!');
+          })
+        .catch(error => {
+            console.log(error)
+        });
+}
+export function eventCreationHelper() {
+
+}

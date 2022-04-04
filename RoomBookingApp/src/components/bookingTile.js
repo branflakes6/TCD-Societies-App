@@ -4,48 +4,10 @@ import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, 
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import {UpdateBooking, closeBooking, sendFeedback} from '../firebase/update'
 //import styles from '../components/bookingsStyle.js';
 
 export function BookingTile(props) {
-
-    function UpdateBooking(update) {
-        
-        const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
-        entityRef
-            .update({status:update})
-            .then(() => {
-                console.log('Booking updated!');
-              })
-            .catch(error => {
-                console.log(error)
-            });
-    }
-    function closeBooking() {
-        const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
-        entityRef
-            .update({open:false})
-            .then(() => {
-                console.log('Booking updated!');
-              })
-            .catch(error => {
-                console.log(error)
-            });
-    }
-    function sendFeedback (text) {
-        const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
-        entityRef
-            .update({feedback:text})
-            .then(() => {
-                console.log('Booking updated!');
-              })
-            .catch(error => {
-                console.log(error)
-            });
-    }
-    function eventCreationHelper() {
-
-    }
-    console.log(props)
 
     const booking = props.props.item
     const [text, setText] = React.useState(booking.feedback);
