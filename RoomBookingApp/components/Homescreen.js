@@ -8,7 +8,6 @@ import logo from './images/Logo.png';
 
 const Home = ({ navigation }) => {
 
-
     return (
         <ScrollView>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -17,15 +16,16 @@ const Home = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
-                <Image source={logo} style={styles.appLogo} />
-                <TouchableOpacity
+              <Image source={logo} style={styles.appLogo}/>
+
+              <TouchableOpacity
                     style={styles.button}
                     onPress={() => navigation.navigate("Form")}>
                     <Text style={styles.buttonText}>
                         Request a Room
                     </Text>
 
-                </TouchableOpacity>
+               </TouchableOpacity>
                 
             </View>
         </ScrollView>

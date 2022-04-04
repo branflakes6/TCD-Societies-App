@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -7,26 +7,59 @@ import {
     Alert,
     ScrollView,
     FlatList,
+    SafeAreaView,
+    ActivityIndicator,
     Button
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import List from "./List";
+import SearchBar from "./SearchBar";
 import styles from '../styles/listStyles';
 import logo from './images/Logo.png';
 
+
+
+
 const Listings = ({ navigation }) => {
+
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [clicked, setClicked] = useState(false);
+  const [fakeData, setFakeData] = useState();
+
+  // get data from the fake api endpoint
+  useEffect(() => {
+    const getData = async () => {
+      const apiResponse = await fetch(
+        "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
+      );
+      const data = await apiResponse.json();
+      setFakeData(data);
+    };
+    getData();
+  }, []);
+
     return (
         <>
             <View style={styles.container}>
                 <Text style={styles.headerText}>
                     All Available Listings
-            </Text>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Home")}>
-                    <Text style={styles.buttonText}>
-                        Go to Homescreen
                 </Text>
-                </TouchableOpacity>
+                <SafeAreaView style={styles.root}>
+                  
+                  <SearchBar
+                    searchPhrase={searchPhrase}
+                    setSearchPhrase={setSearchPhrase}
+                    clicked={clicked}
+                    setClicked={setClicked}
+                  />
+                  
+                    <List
+                      searchPhrase={searchPhrase}
+                      data={fakeData}
+                      setClicked={setClicked}
+                    />
+                  
+                </SafeAreaView>
 
 
                 <View style={styles.card}>
