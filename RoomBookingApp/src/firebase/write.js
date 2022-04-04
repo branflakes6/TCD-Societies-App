@@ -56,20 +56,29 @@ export function createEvent(props){
     const event = props.event
     console.log(event)
 
-    // const length = Object.keys(event).length
-    // if (event && length > 0) {
-    //     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-    //     event.timestamp = timestamp
-
-    //     collection
-    //         .add(event)
-    //         .then(_doc => {
-    //             console.log(_doc)
-    //         })
-    //         .catch((error) => {
-    //             alert(error)
-    //         });
-    // }
+    const length = Object.keys(event).length
+    if (event && length > 0) {
+        const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+        event.timestamp = timestamp
+        event.attendees = [event.tcdEmail]
+        collection
+            .add(event)
+            .then(_doc => {
+                console.log(_doc)
+            })
+            .catch((error) => {
+                alert(error)
+            });
+    }
+    const entityRef = firebase.firestore().collection('bookings').doc(event.id);
+    entityRef
+        .update({hasEvent:true})
+        .then(() => {
+            console.log('Booking updated!');
+          })
+        .catch(error => {
+            console.log(error)
+        });
 }
 
 // this is for writing rooms to the room database. This is not for updating room status

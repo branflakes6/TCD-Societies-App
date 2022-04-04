@@ -5,6 +5,7 @@ import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import {UpdateBooking, closeBooking, sendFeedback} from '../firebase/update'
+import {createEvent} from '../firebase/write'
 //import styles from '../components/bookingsStyle.js';
 
 export function BookingTile(props) {
@@ -24,7 +25,7 @@ export function BookingTile(props) {
     const showDescription = () => viewDescription(!description)
     const confirmClose = () => setVisibleMeat(!visibleMeat)
     const confirmFeedback = () => setVisibleFeedback(!visibleFeedback)
-    const confirmEvent = () => setVisibleEvent(!setVisibleEvent)
+    const confirmEvent = () => setVisibleEvent(!visibleEvent)
 
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
     const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
@@ -154,7 +155,7 @@ export function BookingTile(props) {
             )
         }
         else{
-            if (booking.status == "Approved"){
+            if (booking.status == "Approved" && booking.hasEvent == false){
                 return (
                     <View>
                     <TextInput
