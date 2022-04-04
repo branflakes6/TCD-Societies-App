@@ -74,3 +74,29 @@ export function sendFeedback (props) {
             console.log(error)
         });
 }
+export function attendingEvent(props) {
+    console.log(props)
+    const email = props.email
+    const eventID = props.event.id
+    
+    const entityRef = firebase.firestore().collection('users').doc(email);
+    entityRef
+        .update({events : firebase.firestore.FieldValue.arrayUnion(eventID)})
+        .then(() => {
+            console.log('User updated!');
+          })
+        .catch(error => {
+            console.log(error)
+        });
+
+    const event = props.event
+    const collection = firebase.firestore().collection('events').doc(event.id);
+    collection
+        .update({attendees : firebase.firestore.FieldValue.arrayUnion(email)})
+        .then(() => {
+            console.log();
+          })
+        .catch(error => {
+            console.log(error)
+        });
+}

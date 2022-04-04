@@ -3,23 +3,24 @@ import { View, StyleSheet} from 'react-native'
 import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, Switch } from 'react-native-paper'
 import { readEventsUser } from '../firebase/read';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {attendingEvent} from '../firebase/update'
 
 
 export function EventTile(props) {
     
     const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-    const booking = props.props
+    const event = props.props
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [description, viewDescription] = React.useState(false)
 
     const showDescription = () => viewDescription(!description)
 
-    const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
-    const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
-    const eventTime = booking.dateOfEvent + " - " + booking.timeOfEvent
+    const eventTitle = event.nameOfEvent + " - " + event.organisingBody
+    const persons = parseInt(event.numParticipants) + parseInt(event.numStaff) + parseInt(event.guests)
+    const eventTime = event.dateOfEvent + " - " + event.timeOfEvent
 
     const [entities, setEntities] = useState([])
-    var email = ""
+    var email = "MxPLgEurPSfJuXrmv3odQKkaVS93"
     const onScreenLoad = () => {
         getData()
     } 
@@ -48,7 +49,11 @@ export function EventTile(props) {
     }
     function attending(){
 
-
+        var propData = {
+            event:event,
+            email:email
+        }
+        attendingEvent(propData)
 
     }
 
@@ -73,17 +78,17 @@ export function EventTile(props) {
             <Card.Content>
                 <List.Section>
                     <List.Accordion title="Event Details">
-                        <List.Item title="Room" description={booking.room} />
+                        <List.Item title="Room" description={event.room} />
                         <List.Item title="Persons" description={persons}/>
-                        <List.Item title="Food" description={booking.food}/>
-                        <List.Item title="Alcohol" description={booking.alcohol}/>
-                        <List.Item title="Caterer" description={booking.caterer}/>
-                        <List.Item title="Description" description={booking.eventDescription} onPress={showDescription}/>
+                        <List.Item title="Food" description={event.food}/>
+                        <List.Item title="Alcohol" description={event.alcohol}/>
+                        <List.Item title="Caterer" description={event.caterer}/>
+                        <List.Item title="Description" description={event.eventDescription} onPress={showDescription}/>
                         <Portal>
                         <Dialog visible={description} onDismiss={showDescription}>
                             <Dialog.Title>Description</Dialog.Title>
                             <Dialog.Content>
-                            <Paragraph>{booking.eventDescription}</Paragraph>
+                            <Paragraph>{event.eventDescription}</Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
                             <Button onPress={showDescription}>Close</Button>
@@ -95,7 +100,7 @@ export function EventTile(props) {
             </Card.Content>
             <Card.Actions>
                 <Button mode="contained" color="#65db56" onPress={attending} style={styles.btn}>Going</Button>
-                <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Not Going</Button>
+                {/* <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Not Going</Button> */}
                 <Switch value={isSwitchOn} /> 
             </Card.Actions>
             </Card> 

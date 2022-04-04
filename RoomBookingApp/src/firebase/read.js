@@ -80,7 +80,7 @@ export function readBooking(props){
 
 export function readEvents(props){
 
-    const collection = firebase.firestore().collection('bookings')
+    const collection = firebase.firestore().collection('events')
     const userID = props.email
     
         collection
