@@ -12,9 +12,6 @@ export function EventTile(props) {
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [description, viewDescription] = React.useState(false)
 
-    const confirmApprove = () => setIsSwitchOn(true);
-    const confirmDeny = () => setIsSwitchOn(false);
-
     const showDescription = () => viewDescription(!description)
 
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
@@ -30,7 +27,6 @@ export function EventTile(props) {
         onScreenLoad();
     }, [])
 
-    
     const getData = async () => {
         try {
         const value = await AsyncStorage.getItem('@email')
@@ -50,6 +46,12 @@ export function EventTile(props) {
         }
         readEventsUser(propData)
     }
+    function attending(){
+
+
+
+    }
+
 
     const styles = StyleSheet.create({
         container: {
@@ -92,9 +94,9 @@ export function EventTile(props) {
                 </List.Section>
             </Card.Content>
             <Card.Actions>
-                <Button mode="contained" color="#65db56" onPress={confirmApprove} style={styles.btn}>Going</Button>
+                <Button mode="contained" color="#65db56" onPress={attending} style={styles.btn}>Going</Button>
                 <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Not Going</Button>
-                <Switch value={isSwitchOn} />
+                <Switch value={isSwitchOn} /> 
             </Card.Actions>
             </Card> 
             <Divider/>

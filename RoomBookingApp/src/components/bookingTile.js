@@ -42,6 +42,9 @@ export function BookingTile(props) {
                 console.log(error)
             });
     }
+    function eventCreationHelper() {
+
+    }
     console.log(props)
 
     const booking = props.props.item
@@ -51,15 +54,15 @@ export function BookingTile(props) {
     const [visibleDen, setVisibleDen] = React.useState(false);
     const [visibleMeat, setVisibleMeat] = React.useState(false);
     const [visibleFeedback, setVisibleFeedback] = React.useState(false);
+    const [visibleEvent, setVisibleEvent] = React.useState(false);
     const [description, viewDescription] = React.useState(false)
-
-    const [expanded, setExpanded] = React.useState(true);
-
+ 
     const confirmApprove = () => setVisibleAp(!visibleAp);
     const confirmDeny = () => setVisibleDen(!visibleDen);
     const showDescription = () => viewDescription(!description)
     const confirmClose = () => setVisibleMeat(!visibleMeat)
     const confirmFeedback = () => setVisibleFeedback(!visibleFeedback)
+    const confirmEvent = () => setVisibleEvent(!setVisibleEvent)
 
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
     const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
@@ -90,9 +93,12 @@ export function BookingTile(props) {
         closeBooking()
     }
     function cFeedback () {
-        console.log(text)
         setVisibleFeedback(!visibleFeedback)
         sendFeedback(text)
+    }
+    function createEvent() {
+        setVisibleEvent(!setVisibleEvent)
+        eventCreationHelper()
     }
     const renderAdmin = () => {
         if (props.props.userType == "admin") {
@@ -168,18 +174,48 @@ export function BookingTile(props) {
             )
         }
         else{
-            return (
-                <View>
-                <TextInput
-                    label="Fedback"
-                    value={text}
-                    onChangeText={text => setText(text)}
-                    multiline={true}
-                    numberOfLines={4}
-                    editable={false}
-                    />
-                </View>
-            )
+            if (booking.status == "Approved"){
+                return (
+                    <View>
+                    <TextInput
+                        label="Fedback"
+                        value={text}
+                        onChangeText={text => setText(text)}
+                        multiline={true}
+                        numberOfLines={4}
+                        editable={false}
+                        />
+                    <Button mode="contained" color="#c23838" onPress={confirmEvent} style={styles.btn}>Create Event</Button>
+                    <Portal>
+                    <Dialog visible={visibleEvent} onDismiss={confirmEvent}>
+                        <Dialog.Title>Confirmation</Dialog.Title>
+                        <Dialog.Content>
+                        <Paragraph>Create Event?</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                        <Button onPress={createEvent}>Yes</Button>
+                        <Button onPress={confirmEvent}>No</Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                    </Portal>
+                    </View>
+                )
+            }
+            else{
+                return (
+                    <View>
+                    <TextInput
+                        label="Fedback"
+                        value={text}
+                        onChangeText={text => setText(text)}
+                        multiline={true}
+                        numberOfLines={4}
+                        editable={false}
+                        />
+                    </View>
+                )
+            }
+
         }
     }
     return ( 
