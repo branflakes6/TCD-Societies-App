@@ -44,23 +44,41 @@ export function BookingTile(props) {
     
     function approveBooking () {
         setVisibleAp(!visibleAp)
-        UpdateBooking("Approved")
+        var propData = {
+            booking:booking,
+            update:"Approved"
+        }
+        UpdateBooking(propData)
     }
     function denyBooking () {
         setVisibleDen(!visibleDen)
-        UpdateBooking("Denied")
+        var propData = {
+            booking:booking,
+            update:"Denied"
+        }
+        UpdateBooking(propData)
     }
     function cBooking () {
         setVisibleMeat(!visibleMeat)
-        closeBooking()
+        var propData = {
+            booking:booking,
+        }
+        closeBooking(propData)
     }
     function cFeedback () {
         setVisibleFeedback(!visibleFeedback)
-        sendFeedback(text)
+        var propData = {
+            booking:booking,
+            text:text
+        }
+        sendFeedback(propData)
     }
-    function createEvent() {
+    function createNewEvent() {
         setVisibleEvent(!setVisibleEvent)
-        eventCreationHelper()
+        var propData = {
+            event:booking
+        }
+        createEvent(propData)
     }
     const renderAdmin = () => {
         if (props.props.userType == "admin") {
@@ -155,7 +173,7 @@ export function BookingTile(props) {
                         <Paragraph>Create Event?</Paragraph>
                         </Dialog.Content>
                         <Dialog.Actions>
-                        <Button onPress={createEvent}>Yes</Button>
+                        <Button onPress={createNewEvent}>Yes</Button>
                         <Button onPress={confirmEvent}>No</Button>
                         </Dialog.Actions>
                     </Dialog>
@@ -186,7 +204,7 @@ export function BookingTile(props) {
             <Card mode="outlined">
             <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
             <Card.Content>
-                <Title> Current Booing Status: {booking.status}</Title>
+                <Title> Current Booing Staus: {booking.status}</Title>
                 <List.Section >
                     <List.Accordion title="Booking Details">
                         <List.Item title="Room" description={booking.room} />

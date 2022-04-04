@@ -35,8 +35,10 @@ export function UpdateUser(props) {
         });
 }
 
-export function UpdateBooking(update) {
-        
+export function UpdateBooking(props) {
+    
+    const update = props.update
+    const booking = props.booking
     const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
     entityRef
         .update({status:update})
@@ -47,7 +49,8 @@ export function UpdateBooking(update) {
             console.log(error)
         });
 }
-export function closeBooking() {
+export function closeBooking(props) {
+    const booking = props.booking
     const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
     entityRef
         .update({open:false})
@@ -58,7 +61,9 @@ export function closeBooking() {
             console.log(error)
         });
 }
-export function sendFeedback (text) {
+export function sendFeedback (props) {
+    const booking = props.booking
+    const text = props.text
     const entityRef = firebase.firestore().collection('bookings').doc(booking.id);
     entityRef
         .update({feedback:text})
@@ -68,7 +73,4 @@ export function sendFeedback (text) {
         .catch(error => {
             console.log(error)
         });
-}
-export function eventCreationHelper() {
-
 }
