@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import Navigator from './components/header/drawer';
 
 import Homescreen from './components/Homescreen';
 import Aboutscreen from './components/Aboutscreen';
@@ -10,7 +9,6 @@ import Listscreen from './components/Listscreen';
 import Userscreen from './components/Userscreen';
 import LoginRegister from './components/LoginRegisterScreen';
 import Eventscreen from './components/Eventscreen';
-// import { LoginScreen } from '../RoomBookingApp/src/tst/login'
 import { RegistrationScreen } from '../RoomBookingApp/src/tst/register'
 
 const Stack = createStackNavigator();
@@ -22,8 +20,6 @@ export default function App() {
   const[verified, setVerified] = useState()
   
   function setLogIn(email){
-    // setLoggedIn(true)
-    // setEmail(email)
     print('verified : ', verified)
   }
 

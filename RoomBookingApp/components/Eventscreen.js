@@ -1,5 +1,5 @@
 import React, { useState,  useEffect} from 'react'
-import { FlatList, Text, TextInput, TouchableOpacity, View, Button, ScrollView  } from 'react-native'
+import { FlatList, Text, View, ScrollView  } from 'react-native'
 import styles from '../src/tst/styles.js';
 
 import { readEvents } from '../src/firebase/read'

@@ -20,14 +20,20 @@ const LoginRegister = ({ navigation, setVerified }) => {
     const [fullName, setFullName] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const storeData = async (value) => {
+    const storeEmail = async (value) => {
         try {
           await AsyncStorage.setItem('@email', value)
         } catch (e) {
           console.log(e)
         }
       }
-
+    const storeType = async (value) => {
+        try {
+          await AsyncStorage.setItem('@userType', value)
+        } catch (e) {
+          console.log(e)
+        }
+      } 
     function login(email, password){
         firebase
             .auth()
@@ -46,7 +52,9 @@ const LoginRegister = ({ navigation, setVerified }) => {
                         console.log('user logged in')
                         const user = firestoreDocument.data()
                         setVerified(true)
-                        storeData(user.email)
+                        console.log(user)
+                        storeEmail(user.email)
+                        storeType(user.userType)
                         // navigation.navigate('Home', {user: user})
                         
                         

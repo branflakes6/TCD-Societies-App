@@ -1,15 +1,17 @@
 import React, { useState,  useEffect} from 'react'
-import { FlatList, Text, TextInput, TouchableOpacity, View, Button, ScrollView  } from 'react-native'
+import { FlatList, Text, View, ScrollView  } from 'react-native'
 import styles from '../src/tst/styles.js';
 
-import { readBooking } from '../src/firebase/read'
+import { readAllBookings, readBooking } from '../src/firebase/read'
 import { BookingTile } from '../src/components/bookingTile'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const About = ({ navigation }) => {
     const [entities, setEntities] = useState([])
+    const [userType, setUserType] = React.useState('');
     var email = ""
+    var userT= ""
     const onScreenLoad = () => {
         getData()
     } 
@@ -20,9 +22,11 @@ const About = ({ navigation }) => {
     
     const getData = async () => {
         try {
+        userT = await AsyncStorage.getItem('@userType')
         const value = await AsyncStorage.getItem('@email')
         if(value !== null) {
             email = value
+            setUserType(userT)
             callRead()
         }
         } catch(e) {
@@ -34,20 +38,24 @@ const About = ({ navigation }) => {
         var propData = {
             setEntities:setEntities,
             email:email,
+            userType:userT
         }
         readBooking(propData)
     }
     const renderEntity = ({item, index}) => {
         console.log(item)
+        var propData = {
+            item:item,
+            userType:userType
+        }
         return (
         <View>
-            <BookingTile props={item}/> 
+            <BookingTile props={propData}/> 
             <Text>{"\n"}</Text>
         </View>
         )
 
     }
-
     return (
         <ScrollView>
         <View style={styles.container}>

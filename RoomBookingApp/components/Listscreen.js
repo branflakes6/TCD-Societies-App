@@ -39,8 +39,6 @@ const Listings = ({ navigation }) => {
                             Go to Homescreen
                 </Text>
                     </TouchableOpacity>
-
-
                     <View style={styles.card}>
                         <Image style={styles.cardImage} source={house6} />
                         <View style={styles.cardHeader}>
