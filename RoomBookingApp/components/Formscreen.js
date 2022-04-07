@@ -7,8 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import moment from 'moment';
 import styles from '../styles/formStyle';
 import { TextInput, Text, Button, List, Provider as PaperProvider } from 'react-native-paper';
-import { Picker } from '@react-native-community/picker';
-import MultiSelect from 'react-native-multiple-select';
+import { Picker } from '@react-native-picker/picker';
 
 const Form = ({ navigation }) => {
     const [name, nameOfEvent] = React.useState('');
