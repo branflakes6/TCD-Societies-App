@@ -1,13 +1,14 @@
-
 import React, { useState } from 'react';
 import { View, Platform, ScrollView, Alert, Switch } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import moment from 'moment';
-import styles from '../styles/formStyle';
 import { TextInput, Text, Button, List, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import moment from 'moment';
+import styles from '../styles/formStyle';
+import emailjs from 'emailjs-com';
+import { writeBooking } from '../src/firebase/write';
 
 const Form = ({ navigation }) => {
     const [name, nameOfEvent] = React.useState('');
@@ -131,34 +132,77 @@ const Form = ({ navigation }) => {
                     style: "cancel"
                 },
                 {
-                    text: "Continue", onPress: () => console.log("OK Pressed") & console.log({
-                        "Name of Event": name,
-                        "Email": emails,
-                        "Phone Number": number,
-                        "Date of Event": date,
-                        "Time of Event": eventTime,
-                        "Organising Body": orginiser,
-                        "Organiser Name": orgName,
-                        "Room of Event": roomN,
-                        "Preparation From": prepareFrom,
-                        "Preparation To": prepareTo,
-                        "End Time": eventEnd,
-                        "Number of Participants": participants,
-                        "Number of Staff": staff,
-                        "Number of Guests": numGuest,
-                        "Equipment": equip,
-                        "Staging": stag,
-                        "Food": foods,
-                        "Alcohol": alcohols,
-                        "Caterer": catererServ,
-                        "Power": pow,
-                        "Facilities": otherFacilities,
-                        "Others": others,
-                        "Event Description": evntDesc
-                    }) & navigation.navigate('Home')
+                    text: "Continue", onPress: () =>
+                        sendBooking() &
+                        sendEmail() &
+                        console.log({
+                            "Name of Event": name,
+                            "Organiser Email": emails,
+                            "Organiser Phone Number": number,
+                            "Date of Event": date,
+                            "Time of Event": eventTime,
+                            "Organising Body": orginiser,
+                            "Organiser Name": orgName,
+                            "Venue/Room of Event": roomN,
+                            "Preparation Time From": prepareFrom,
+                            "Preparation Time Until": prepareTo,
+                            "End Time": eventEnd,
+                            "Number of Participants": participants,
+                            "Number of Staff": staff,
+                            "Number of Guests": numGuest,
+                            "Equipment Being Brought?": equip,
+                            "Staging/Set Up Required?": stag,
+                            "Food at Event?": foods,
+                            "Alcohol at Event?": alcohols,
+                            "Caterer at Event?": catererServ,
+                            "Power Source Required?": pow,
+                            "Room Facilities Required?": otherFacilities,
+                            "Other Requirements?": others,
+                            "Event Description": evntDesc
+                        }) & navigation.navigate('Home')
                 }
             ],
         );
+
+    const sendEmail = async () => {
+        console.log("ARRIVED AT SEND EMAIL!!!!")
+
+        let templateParams = {
+            //from_name: process.env.REACT_APP_EMAILJS_SENDER,
+            //to_name: this.tcdEmail,
+            nameOfEvent: name,
+            dateOfEvent: date,
+            timeOfEvent: eventTime,
+            organisingBody: orginiser,
+            orginiserName: orgName,
+            mobileNumber: number,
+            tcdEmail: emails,
+            eventDescription: evntDesc,
+            room: roomN,
+            prepFrom: prepareFrom,
+            prepTo: prepareTo,
+            endTime: eventEnd,
+            numParticipants: participants,
+            numStaff: staff,
+            guests: numGuest,
+            equipment: equip,
+            staging: stag,
+            food: foods,
+            alcohol: alcohols,
+            caterer: catererServ,
+            power: pow,
+            facilities: otherFacilities,
+            others: others
+        }
+
+        emailjs.send('service_c8eqpwr', 'template_waahbmx', templateParams, 'user_PX5dMk1psBpqZh1IpmXwY')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+    }
+
 
     return (
         <PaperProvider>
@@ -198,7 +242,7 @@ const Form = ({ navigation }) => {
                             color='#f4511e'>
                             <Text
                                 style={styles.buttonText}>
-                                Date of Event
+                                Time of Event
                             </Text>
                         </Button>
                         <Text style={styles.dateText}>Time of Event: {eventTime}</Text>
@@ -208,7 +252,27 @@ const Form = ({ navigation }) => {
                             selectionColor='#000'
                             mode="outlined"
                             style={styles.input}
-                            label="Email"
+                            label="Name of Organising School/Dept/Club/Society"
+                            onChangeText={organisingBody}
+                            value={orginiser}
+                        />
+
+                        <TextInput
+                            activeOutlineColor='#0569b9'
+                            selectionColor='#000'
+                            mode="outlined"
+                            style={styles.input}
+                            label="Event Organiser Name"
+                            onChangeText={orginiserName}
+                            value={orgName}
+                        />
+
+                        <TextInput
+                            activeOutlineColor='#0569b9'
+                            selectionColor='#000'
+                            mode="outlined"
+                            style={styles.input}
+                            label="Email Address"
                             onChangeText={tcdEmail}
                             value={emails}
                             keyboardType="email-address"
@@ -219,7 +283,7 @@ const Form = ({ navigation }) => {
                             selectionColor='#000'
                             mode="outlined"
                             style={styles.input}
-                            label="Phone Number"
+                            label="Phone Number (mobile)"
                             onChangeText={mobileNumber}
                             value={number}
                             keyboardType="phone-pad"
@@ -229,47 +293,13 @@ const Form = ({ navigation }) => {
                             activeOutlineColor='#0569b9'
                             selectionColor='#000'
                             mode="outlined"
+                            multiline={true}
+                            numberOfLines={5}
                             style={styles.input}
-                            label="Organising Body"
-                            onChangeText={organisingBody}
-                            value={orginiser}
+                            label="Event Description"
+                            onChangeText={eventDescription}
+                            value={evntDesc}
                         />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Organiser Name"
-                            onChangeText={orginiserName}
-                            value={orgName}
-                        />
-                        {/* 
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Room of Event"
-                            onChangeText={room}
-                            value={roomN}
-                        /> */}
-                        {/* 
-                        <List.Section>
-                            <List.Accordion
-                                title="Room of Event" >
-                                <List.Item title="191 Pearse Street" description="House 6" value="191 Pearse Street" onChange={handleChange}/>
-                                <List.Item title="AV Room" description="The Atrium, Room 3" />
-                                <List.Item title="Conversation Room" description="The Atrium, Room 4" />
-                                <List.Item title="Debating Chember" description="GMB (Graduates Memorial Building)" />
-                                <List.Item title="Eliz Room" description="House 6" />
-                                <List.Item title="Hist Conversation Room" description="GMB (Graduates Memorial Building)" />
-                                <List.Item title="Hist Rec Room" description="GMB (Graduates Memorial Building)" />
-                                <List.Item title="Phil Conversation Room" description="GMB (Graduates Memorial Building)" />
-                                <List.Item title="Resource Room" description="GMB (Graduates Memorial Building)" />
-                                <List.Item title="Workshop and Commitee Room" description="The Atrium, Room 2" />
-                            </List.Accordion>
-                        </List.Section> */}
 
                         <Picker
                             mode='dropdown'
@@ -277,49 +307,26 @@ const Form = ({ navigation }) => {
                             selectedValue={roomN}
                             onValueChange={(itemValue) => room(itemValue)}
                         >
-                            <Picker.Item label="Room of Event" value="" />
+                            <Picker.Item label="Location of Event (Please Select)" value="" />
                             <Picker.Item label="191 Pearse Street - House 6" value="191 Pearse Street" />
+                            <Picker.Item label="Anexa - Lloyd Institute" value="Anexa" />
                             <Picker.Item label="AV Room - The Atrium, Room 3" value="AV Room" />
+                            <Picker.Item label="Computer Room - GMB" value="Computer Room" />
                             <Picker.Item label="Conversation Room - The Atrium, Room 4" value="Conversation Room" />
                             <Picker.Item label="Debating Chember - GMB" value="Debating Chember" />
                             <Picker.Item label="Eliz Room - House 6" value="Eliz Room" />
+                            <Picker.Item label="Goldsmith Hall - Goldsmith" value="Goldsmith Hall" />
                             <Picker.Item label="Hist Conversation Room - GMB" value="Hist Conversation Room" />
                             <Picker.Item label="Hist Rec Room - GMB" value="Hist Rec Room" />
+                            <Picker.Item label="Lab 3 - Lloyd Institute" value="Lab 3" />
                             <Picker.Item label="Phil Conversation Room - GMB" value="Phil Conversation Room" />
                             <Picker.Item label="Resource Room - GMB" value="Resource Room" />
+                            <Picker.Item label="The Atrium Room 50 - GMB" value="The Atrium Room 50" />
                             <Picker.Item label="Workshop & Commitee Room - The Atrium, Room 2" value="Workshop and Commitee Room" />
-
+                            <Picker.Item label="Zoom Room One - CSC Zoom Room" value="Zoom Room One" />
+                            <Picker.Item label="Zoom Room Three - CSC Zoom Room" value="Zoom Room Three" />
+                            <Picker.Item label="Zoom Room Two - CSC Zoom Room" value="Zoom Room Two" />
                         </Picker>
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Preparation From"
-                            onChangeText={prepFrom}
-                            value={prepareFrom}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Preparation To"
-                            onChangeText={prepTo}
-                            value={prepareTo}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="End Time"
-                            onChangeText={endTime}
-                            value={eventEnd}
-                        />
 
                         <TextInput
                             activeOutlineColor='#0569b9'
@@ -337,7 +344,7 @@ const Form = ({ navigation }) => {
                             selectionColor='#000'
                             mode="outlined"
                             style={styles.input}
-                            label="Number of Staff"
+                            label="Number of Event Staff"
                             onChangeText={numStaff}
                             value={staff}
                             keyboardType="phone-pad"
@@ -348,7 +355,37 @@ const Form = ({ navigation }) => {
                             selectionColor='#000'
                             mode="outlined"
                             style={styles.input}
-                            label="Number of Guests"
+                            label="Preparation Time From"
+                            onChangeText={prepFrom}
+                            value={prepareFrom}
+                        />
+
+                        <TextInput
+                            activeOutlineColor='#0569b9'
+                            selectionColor='#000'
+                            mode="outlined"
+                            style={styles.input}
+                            label="Preparation Time To"
+                            onChangeText={prepTo}
+                            value={prepareTo}
+                        />
+
+                        <TextInput
+                            activeOutlineColor='#0569b9'
+                            selectionColor='#000'
+                            mode="outlined"
+                            style={styles.input}
+                            label="Event End Time"
+                            onChangeText={endTime}
+                            value={eventEnd}
+                        />
+
+                        <TextInput
+                            activeOutlineColor='#0569b9'
+                            selectionColor='#000'
+                            mode="outlined"
+                            style={styles.input}
+                            label="Please List any Special Guests or VIPs"
                             onChangeText={guests}
                             value={numGuest}
                             keyboardType="phone-pad"
@@ -367,27 +404,7 @@ const Form = ({ navigation }) => {
                         </Button>
                         {shouldShow ? (
                             <>
-                                <TextInput
-                                    activeOutlineColor='#0569b9'
-                                    selectionColor='#000'
-                                    mode="outlined"
-                                    style={styles.input}
-                                    label="Equipment"
-                                    onChangeText={equipment}
-                                    value={equip}
-                                />
-
-                                <TextInput
-                                    activeOutlineColor='#0569b9'
-                                    selectionColor='#000'
-                                    mode="outlined"
-                                    style={styles.input}
-                                    label="Staging"
-                                    onChangeText={staging}
-                                    value={stag}
-                                />
-
-                                <Text style={styles.text}>Are you going to have food in the room?</Text>
+                                <Text style={styles.text}>Is food being served?</Text>
                                 <Switch
                                     style={styles.switch}
                                     trackColor={{ false: '#767577', true: '#0569b9' }}
@@ -403,24 +420,14 @@ const Form = ({ navigation }) => {
                                             selectionColor='#000'
                                             mode="outlined"
                                             style={styles.input}
-                                            label="Caterer Service Name"
+                                            label="Are you using external caters? If so, please provide the name of the caterer"
                                             onChangeText={caterer}
                                             value={catererServ}
                                         />
                                     </>
                                 ) : null}
 
-                                {/* <TextInput
-                                    activeOutlineColor='#0569b9'
-                                    selectionColor='#000'
-                                    mode="outlined"
-                                    style={styles.input}
-                                    label="Food"
-                                    onChangeText={food}
-                                    value={foods}
-                                /> */}
-
-                                <Text style={styles.text}>Are you going to have alcohol in the room?</Text>
+                                <Text style={styles.text}>Is alcohol being served?</Text>
                                 <Switch
                                     style={styles.switch}
                                     trackColor={{ false: '#767577', true: '#0569b9' }}
@@ -430,27 +437,7 @@ const Form = ({ navigation }) => {
                                     value={isEnabled2}>
                                 </Switch>
 
-                                {/* <TextInput
-                                    activeOutlineColor='#0569b9'
-                                    selectionColor='#000'
-                                    mode="outlined"
-                                    style={styles.input}
-                                    label="Alcohol"
-                                    onChangeText={alcohol}
-                                    value={alcohols}
-                                /> */}
-
-                                {/* <TextInput
-                                    activeOutlineColor='#0569b9'
-                                    selectionColor='#000'
-                                    mode="outlined"
-                                    style={styles.input}
-                                    label="Caterer"
-                                    onChangeText={caterer}
-                                    value={catererServ}
-                                /> */}
-
-                                <Text style={styles.text}>Do you require power in the room?</Text>
+                                <Text style={styles.text}>Do you require a power source/sockets in the room?</Text>
                                 <Switch
                                     style={styles.switch}
                                     trackColor={{ false: '#767577', true: '#0569b9' }}
@@ -460,48 +447,48 @@ const Form = ({ navigation }) => {
                                     value={isEnabled3}>
                                 </Switch>
 
-                                {/* <TextInput
+                                <TextInput
                                     activeOutlineColor='#0569b9'
                                     selectionColor='#000'
                                     mode="outlined"
                                     style={styles.input}
-                                    label="Power"
-                                    onChangeText={power}
-                                    value={pow}
-                                /> */}
+                                    label="Any Equipment being used at the event?"
+                                    onChangeText={equipment}
+                                    value={equip}
+                                />
 
                                 <TextInput
                                     activeOutlineColor='#0569b9'
                                     selectionColor='#000'
                                     mode="outlined"
                                     style={styles.input}
-                                    label="Facilities (E.g. Wheelchair Access)"
+                                    label="Any staging or room setup required?"
+                                    onChangeText={staging}
+                                    value={stag}
+                                />
+
+                                <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Any Accesibility Requirements? (E.g. Wheelchair Access)"
                                     onChangeText={facilities}
                                     value={otherFacilities}
+                                />
+
+                                <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Other Misc. Requirements"
+                                    onChangeText={other}
+                                    value={others}
                                 />
                             </>
                         ) : null}
 
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Other Requirements"
-                            onChangeText={other}
-                            value={others}
-                        />
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            multiline={true}
-                            numberOfLines={5}
-                            style={styles.input}
-                            label="Event Description"
-                            onChangeText={eventDescription}
-                            value={evntDesc}
-                        />
 
                         <Button
                             style={styles.button}
