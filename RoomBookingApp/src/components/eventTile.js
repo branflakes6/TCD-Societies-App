@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList} from 'react-native'
 import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, Switch } from 'react-native-paper'
 import { readEventsUser } from '../firebase/read';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {attendingEvent} from '../firebase/update'
+import {attendingEvent, notAttendingEvent} from '../firebase/update'
 
 
 export function EventTile(props) {
@@ -60,6 +60,15 @@ export function EventTile(props) {
         attendingEvent(propData)
 
     }
+    function notAttending(){
+
+        var propData = {
+            event:event,
+            email:email
+        }
+        notAttendingEvent(propData)
+
+    }
 
 
     const styles = StyleSheet.create({
@@ -111,7 +120,7 @@ export function EventTile(props) {
             </Card.Content>
             <Card.Actions>
                 <Button mode="contained" color="#65db56" onPress={attending} style={styles.btn}>Going</Button>
-                <Button mode="contained" color="#c23838" style={styles.btn}>Not Going</Button>
+                <Button mode="contained" color="#c23838" onPress={notAttending}style={styles.btn}>Not Going</Button>
             </Card.Actions>
 
             <List.Section>
