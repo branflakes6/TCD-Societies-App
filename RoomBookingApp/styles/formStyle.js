@@ -49,6 +49,32 @@ export default StyleSheet.create({
         color: '#fff',
         backgroundColor: '#0569b9',
     },
+    advanceButton: {
+        marginTop: 10,
+        //backgroundColor: '#0569b9',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    advanceButtonText: {
+        color: '#000',
+        fontSize: 15,
+        textDecorationLine: 'underline',
+        fontWeight: 'bold'
+    },
+    text: {
+        flex: 1,
+        marginTop: 10,
+        color: 'black',  
+        fontSize: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+
+    },
+    switch: {
+        marginBottom: -10,
+        alignSelf: 'center',
+    },
 
 });
 

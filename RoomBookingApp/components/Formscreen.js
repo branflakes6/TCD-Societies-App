@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Platform, ScrollView, Alert } from 'react-native';
+import { View, Platform, ScrollView, Alert, Switch } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -8,6 +8,7 @@ import moment from 'moment';
 import styles from '../styles/formStyle';
 import { TextInput, Text, Button, List, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
+import MultiSelect from 'react-native-multiple-select';
 
 const Form = ({ navigation }) => {
     const [name, nameOfEvent] = React.useState('');
@@ -36,6 +37,37 @@ const Form = ({ navigation }) => {
 
     const [mode, setMode] = React.useState('');
     const [show, setShow] = React.useState(false);
+    const [shouldShow, setShouldShow] = useState(false);
+    const [isEnabled1, setIsEnabled1] = useState(false);
+    const [isEnabled2, setIsEnabled2] = useState(false);
+    const [isEnabled3, setIsEnabled3] = useState(false);
+
+    const foodToggleSwitch = () => {
+        if (isEnabled1) {
+            food("No");
+        } else {
+            food("Yes");
+        }
+        setIsEnabled1(previousState => !previousState);
+    };
+
+    const alcoholToggleSwitch = () => {
+        if (isEnabled2) {
+            alcohol("No");
+        } else {
+            alcohol("Yes");
+        }
+        setIsEnabled2(previousState => !previousState);
+    };
+
+    const powerToggleSwitch = () => {
+        if (isEnabled3) {
+            power("No");
+        } else {
+            power("Yes");
+        }
+        setIsEnabled3(previousState => !previousState);
+    };
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -181,7 +213,7 @@ const Form = ({ navigation }) => {
                             onChangeText={orginiserName}
                             value={orgName}
                         />
-{/* 
+                        {/* 
                         <TextInput
                             activeOutlineColor='#0569b9'
                             selectionColor='#000'
@@ -191,7 +223,7 @@ const Form = ({ navigation }) => {
                             onChangeText={room}
                             value={roomN}
                         /> */}
-{/* 
+                        {/* 
                         <List.Section>
                             <List.Accordion
                                 title="Room of Event" >
@@ -214,7 +246,7 @@ const Form = ({ navigation }) => {
                             selectedValue={roomN}
                             onValueChange={(itemValue) => room(itemValue)}
                         >
-                            <Picker.Item label="Room of Event" value=""/>
+                            <Picker.Item label="Room of Event" value="" />
                             <Picker.Item label="191 Pearse Street - House 6" value="191 Pearse Street" />
                             <Picker.Item label="AV Room - The Atrium, Room 3" value="AV Room" />
                             <Picker.Item label="Conversation Room - The Atrium, Room 4" value="Conversation Room" />
@@ -225,6 +257,7 @@ const Form = ({ navigation }) => {
                             <Picker.Item label="Phil Conversation Room - GMB" value="Phil Conversation Room" />
                             <Picker.Item label="Resource Room - GMB" value="Resource Room" />
                             <Picker.Item label="Workshop & Commitee Room - The Atrium, Room 2" value="Workshop and Commitee Room" />
+
                         </Picker>
 
                         <TextInput
@@ -290,86 +323,143 @@ const Form = ({ navigation }) => {
                             keyboardType="phone-pad"
                         />
 
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Equipment"
-                            onChangeText={equipment}
-                            value={equip}
-                        />
+                        <Button
+                            style={styles.advanceButton}
+                            title="Hide/Show Component"
+                            color='#0569b9'
+                            activeOpacity={0.1}
+                            onPress={() => setShouldShow(!shouldShow)}>
+                            <Text
+                                style={styles.advanceButtonText}>
+                                Advance Options
+                            </Text>
+                        </Button>
+                        {shouldShow ? (
+                            <>
+                                <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Equipment"
+                                    onChangeText={equipment}
+                                    value={equip}
+                                />
+
+                                <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Staging"
+                                    onChangeText={staging}
+                                    value={stag}
+                                />
+
+                                <Text style={styles.text}>Are you going to have food in the room?</Text>
+                                <Switch
+                                    style={styles.switch}
+                                    trackColor={{ false: '#767577', true: '#0569b9' }}
+                                    thumbColor={isEnabled1 ? '#f4f3f4' : '#f4f3f4'}
+                                    ios_backgroundColor="#3e3e3e"
+                                    onValueChange={foodToggleSwitch}
+                                    value={isEnabled1}>
+                                </Switch>
+                                {isEnabled1 ? (
+                                    <>
+                                        <TextInput
+                                            activeOutlineColor='#0569b9'
+                                            selectionColor='#000'
+                                            mode="outlined"
+                                            style={styles.input}
+                                            label="Caterer Service Name"
+                                            onChangeText={caterer}
+                                            value={catererServ}
+                                        />
+                                    </>
+                                ) : null}
+
+                                {/* <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Food"
+                                    onChangeText={food}
+                                    value={foods}
+                                /> */}
+
+                                <Text style={styles.text}>Are you going to have alcohol in the room?</Text>
+                                <Switch
+                                    style={styles.switch}
+                                    trackColor={{ false: '#767577', true: '#0569b9' }}
+                                    thumbColor={isEnabled2 ? '#f4f3f4' : '#f4f3f4'}
+                                    ios_backgroundColor="#3e3e3e"
+                                    onValueChange={alcoholToggleSwitch}
+                                    value={isEnabled2}>
+                                </Switch>
+
+                                {/* <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Alcohol"
+                                    onChangeText={alcohol}
+                                    value={alcohols}
+                                /> */}
+
+                                {/* <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Caterer"
+                                    onChangeText={caterer}
+                                    value={catererServ}
+                                /> */}
+
+                                <Text style={styles.text}>Do you require power in the room?</Text>
+                                <Switch
+                                    style={styles.switch}
+                                    trackColor={{ false: '#767577', true: '#0569b9' }}
+                                    thumbColor={isEnabled3 ? '#f4f3f4' : '#f4f3f4'}
+                                    ios_backgroundColor="#3e3e3e"
+                                    onValueChange={powerToggleSwitch}
+                                    value={isEnabled3}>
+                                </Switch>
+
+                                {/* <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Power"
+                                    onChangeText={power}
+                                    value={pow}
+                                /> */}
+
+                                <TextInput
+                                    activeOutlineColor='#0569b9'
+                                    selectionColor='#000'
+                                    mode="outlined"
+                                    style={styles.input}
+                                    label="Facilities (E.g. Wheelchair Access)"
+                                    onChangeText={facilities}
+                                    value={otherFacilities}
+                                />
+                            </>
+                        ) : null}
 
                         <TextInput
                             activeOutlineColor='#0569b9'
                             selectionColor='#000'
                             mode="outlined"
                             style={styles.input}
-                            label="Staging"
-                            onChangeText={staging}
-                            value={stag}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Food"
-                            onChangeText={food}
-                            value={foods}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Alcohol"
-                            onChangeText={alcohol}
-                            value={alcohols}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Caterer"
-                            onChangeText={caterer}
-                            value={catererServ}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Power"
-                            onChangeText={power}
-                            value={pow}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Facilities"
-                            onChangeText={facilities}
-                            value={otherFacilities}
-                        />
-
-                        <TextInput
-                            activeOutlineColor='#0569b9'
-                            selectionColor='#000'
-                            mode="outlined"
-                            style={styles.input}
-                            label="Others"
+                            label="Other Requirements"
                             onChangeText={other}
                             value={others}
                         />
-
                         <TextInput
                             activeOutlineColor='#0569b9'
                             selectionColor='#000'
