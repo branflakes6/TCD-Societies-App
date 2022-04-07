@@ -16,7 +16,7 @@ const Form = ({ navigation }) => {
     const [orginiser, organisingBody] = React.useState('');
     const [orgName, orginiserName] = React.useState('');
     const [number, mobileNumber] = React.useState('');
-    const [emails, email] = React.useState('');
+    const [emails, tcdEmail] = React.useState('');
     const [evntDesc, eventDescription] = React.useState('');
     const [roomN, room] = React.useState('');
     const [prepareFrom, prepFrom] = React.useState('');
@@ -87,6 +87,38 @@ const Form = ({ navigation }) => {
     const showTimepicker = () => {
         showMode('time');
     };
+
+    const sendBooking = () => {
+        var booking = {
+            nameOfEvent: name,
+            dateOfEvent: date,
+            timeOfEvent: eventTime,
+            organisingBody: orginiser,
+            orginiserName: orgName,
+            mobileNumber: number,
+            tcdEmail: emails,
+            eventDescription: evntDesc,
+            room: roomN,
+            prepFrom: prepareFrom,
+            prepTo: prepareTo,
+            endTime: eventEnd,
+            numParticipants: participants,
+            numStaff: staff,
+            guests: numGuest,
+            equipment: equip,
+            staging: stag,
+            food: foods,
+            alcohol: alcohols,
+            caterer: catererServ,
+            power: pow,
+            facilities: otherFacilities,
+            others: others
+        }
+        var propData = {
+            booking: booking
+        }
+        writeBooking(propData)
+    }
 
     const confirmationAlert = () =>
         Alert.alert(

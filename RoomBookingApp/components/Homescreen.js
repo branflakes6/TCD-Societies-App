@@ -25,8 +25,39 @@ const Home = ({ navigation }) => {
                         Request a Room
                     </Text>
 
-               </TouchableOpacity>
-                
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("Bookings")}>
+                    <Text style={styles.buttonText}>
+                        View My Bookings
+                    </Text>
+
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("Listings")}>
+                    <Text style={styles.buttonText}>
+                        View Available Listings
+                    </Text>
+
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("User")}>
+                    <Text style={styles.buttonText}>
+                        My Profile
+                    </Text>
+
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("Events")}>
+                    <Text style={styles.buttonText}>
+                        Events
+                    </Text>
+
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );

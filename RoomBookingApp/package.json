@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-native-community/datetimepicker": "4.0.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/picker": "^1.8.1",
@@ -18,9 +19,10 @@
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "@react-navigation/stack": "^6.1.1",
+    "emailjs-com": "^3.2.0",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
-    "firebase": "^9.6.6",
+    "firebase": "^9.6.7",
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -28,17 +30,24 @@
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+<<<<<<< HEAD
     "react-native-multi-select-picker": "^1.0.11",
     "react-native-multiple-select": "^0.5.7",
     "react-native-paper": "^4.11.2",
     "react-native-reanimated": "^2.3.3",
+=======
+    "react-native-modal-datetime-picker": "^13.0.1",
+    "react-native-paper": "^4.11.2",
+    "react-native-reanimated": "~2.3.1",
+>>>>>>> main
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
     "react-navigation": "^4.4.4",
     "react-navigation-drawer": "^2.7.2",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "expo-updates": "~0.11.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
