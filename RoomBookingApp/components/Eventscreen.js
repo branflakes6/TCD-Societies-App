@@ -1,5 +1,6 @@
 import React, { useState,  useEffect} from 'react'
 import { FlatList, Text, View, ScrollView  } from 'react-native'
+import { Card, Button, Title, Paragraph, IconButton, Colors } from 'react-native-paper';
 import styles from '../src/tst/styles.js';
 
 import { readEvents } from '../src/firebase/read'
@@ -50,6 +51,18 @@ const Event = ({ navigation }) => {
     return (
         <ScrollView>
         <View style={styles.container}>
+        <Card>
+            <Card.Content>
+                <Title>Sort By 
+                    <IconButton
+                    icon="arrow-down-drop-circle"
+                    size={20}
+                    onPress={() => console.log('Pressed')}
+                    />
+                </Title>
+                
+            </Card.Content>
+        </Card>
         <View style={styles.formContainer}>
             { entities && (
                 <View style={styles.listContainer}>

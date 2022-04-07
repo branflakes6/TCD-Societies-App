@@ -110,7 +110,6 @@ export function writeUser(props) {
 
     const userID = props.user.email
     const user = props.user
-
     const collection = firebase.firestore().collection('users').doc(userID)
     const length = Object.keys(user).length
     if (user && length > 0) {

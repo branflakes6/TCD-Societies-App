@@ -13,7 +13,7 @@ export function EventTile(props) {
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [description, viewDescription] = React.useState(false)
     const [expanded, setExpanded] = React.useState(true);
-
+    const [userEmail, setUserEmail] = React.useState('');
     const handlePress = () => setExpanded(!expanded);
     const showDescription = () => viewDescription(!description)
 
@@ -22,7 +22,7 @@ export function EventTile(props) {
     const eventTime = event.dateOfEvent + " - " + event.timeOfEvent
 
     const [entities, setEntities] = useState([])
-    var email = "MxPLgEurPSfJuXrmv3odQKkaVS93"
+    var email = ""
     const onScreenLoad = () => {
         getData()
     } 
@@ -35,6 +35,7 @@ export function EventTile(props) {
         const value = await AsyncStorage.getItem('@email')
         if(value !== null) {
             email = value
+            setUserEmail(email)
             callRead()
         }
         } catch(e) {
@@ -43,7 +44,6 @@ export function EventTile(props) {
     }
 
     function callRead() {
-        console.log(email)
         var propData = {
             setEntities:setEntities,
             email:email,
@@ -52,10 +52,9 @@ export function EventTile(props) {
     }
 
     function attending(){
-
         var propData = {
             event:event,
-            email:email
+            email:userEmail
         }
         attendingEvent(propData)
 
@@ -64,12 +63,11 @@ export function EventTile(props) {
 
         var propData = {
             event:event,
-            email:email
+            email:userEmail
         }
         notAttendingEvent(propData)
 
     }
-
 
     const styles = StyleSheet.create({
         container: {

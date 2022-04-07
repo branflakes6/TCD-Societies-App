@@ -101,7 +101,29 @@ export function readEvents(props){
             )
     
 }
+export function readAttendeeEvents(props){
 
+    const collection = firebase.firestore().collection('events')
+    const userID = props.email
+    
+        collection
+            .where("attendees", "array-contains", userID)
+            .onSnapshot(
+                querySnapshot => {
+                    const newEntities = []
+                    querySnapshot.forEach(doc => {
+                        const entity = doc.data()
+                        entity.id = doc.id
+                        newEntities.push(entity)
+                    });
+                    props.setEntities(newEntities)
+                },
+                error => {
+                    console.log('Error : ', error)
+                }
+            )
+    
+}
 export function readEventsUser(props){
 
     const collection = firebase.firestore().collection('users')
