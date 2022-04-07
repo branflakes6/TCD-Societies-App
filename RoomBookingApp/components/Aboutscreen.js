@@ -75,4 +75,4 @@ const About = ({ navigation }) => {
     )
 };
 
-export default About;
+export default Bookings;
