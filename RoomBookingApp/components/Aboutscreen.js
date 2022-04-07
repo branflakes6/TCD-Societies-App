@@ -43,7 +43,6 @@ const About = ({ navigation }) => {
         readBooking(propData)
     }
     const renderEntity = ({item, index}) => {
-        console.log(item)
         var propData = {
             item:item,
             userType:userType
