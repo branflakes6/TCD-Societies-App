@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Button, Platform, Text, ScrollView, Alert } from 'react-native';
+import {StyleSheet, SafeAreaView, SectionList, FlatList, View, Button, Platform, Text, ScrollView, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -8,6 +8,10 @@ import moment from 'moment';
 import styles from '../styles/styles';
 import emailjs from 'emailjs-com';
 import { writeBooking } from '../src/firebase/write';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+import { firebase } from '../../RoomBookingApp/src/firebase/config';
+
 
 const Form = ({ navigation }) => {
     const [name, nameOfEvent] = React.useState('');
@@ -33,7 +37,7 @@ const Form = ({ navigation }) => {
     const [pow, power] = React.useState('');
     const [otherFacilities, facilities] = React.useState('');
     const [others, other] = React.useState('');
-
+    const [recommendations, setRecommentdations] = useState([])
     const [mode, setMode] = React.useState('');
     const [show, setShow] = React.useState(false);
 
@@ -132,6 +136,98 @@ const Form = ({ navigation }) => {
                 }
             ],
         );
+
+        const ListItem = ({ item }) => {
+            console.log(item)
+            return (
+              <View style={styles.item}>
+                {/* <Image
+                  source={{
+                    uri: item.uri,
+                  }}
+                  style={styles.itemPhoto}
+                  resizeMode="cover"
+                /> */}
+                <Text style={styles.itemText}>{"Name : "}{item.Name}</Text>
+                <Text style={styles.itemText}>{"Capacity : "}{item.Capacity}</Text>
+                <Text style={styles.itemText}>{"SocketCount : "}{item.SocketCount}</Text>
+                <Text style={styles.itemText}>{"Projector : "}{item.Projector}</Text>
+                <Text style={styles.itemText}>{"Screen : "}{item.Screen}</Text>
+                <Text style={styles.itemText}>{"Tables&Chair Provided : "}{'True'}</Text>
+                <Text style={styles.itemText}>{"Wheelchair Access : "}{'True'}</Text>
+                   
+              </View>
+            );
+          };
+          
+        function roomSuggestion() {
+
+            var requirements = {    
+                Building : roomN,
+                Capacity : participants,
+                Name : roomN,
+                SocketCount : 3,
+                Projector : pow,
+                Screen : equip,
+                Size : participants*2,
+                TablesChairs : catererServ,
+                Venue :	'Trinity Campus',
+                WheelchairAccess : true
+            }
+    
+            const collection = firebase.firestore()
+                .collection('rooms')
+                .get()
+                .then( querySnapshot => {
+                    var sortedRooms = []
+                    var points = {}
+                    querySnapshot.forEach(documentSnapshot => {
+                        const entity = documentSnapshot.data()
+                        sortedRooms.push(entity)
+                    });
+                    sortedRooms.forEach(room => {
+                        var point = 0
+                        if (requirements['Capacity'] < room['Capacity']) point++
+                        if (requirements['SocketCount'] < room['SocketCount']) point++
+                        if (requirements['Size'] < room['Size']) point++
+                        if (requirements['Projector'] == room['Projector']) point++
+                        if (requirements['Screen'] == room['Screen']) point++
+                        if (requirements['TablesChairs'] == room['TablesChairs']) point++
+                        if (requirements['WheelchairAccess'] == room['WheelchairAccess']) point++
+                        room['Points'] = point
+                    })
+    
+                    sortedRooms.sort(objectComparisonCallback)
+                    setRecommentdations(sortedRooms)                
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+    
+        }
+
+        const objectComparisonCallback = (arrayItemA, arrayItemB) => {
+            if (arrayItemA.Points < arrayItemB.Points) {
+              return 1
+            }
+          
+            if (arrayItemA.Points > arrayItemB.Points) {
+              return -1
+            }
+          
+            return 0
+        }
+
+        const Item = ({ title }) => (
+            <View style={styles.item}>
+              <Text style={styles.title}>{title}</Text>
+            </View>
+        );
+    
+        const renderItem = ({ item }) => (
+            <Item title={item.Name} />
+        );
+        
 
         const sendEmail = async () => {
             console.log("ARRIVED AT SEND EMAIL!!!!")
@@ -367,6 +463,30 @@ const Form = ({ navigation }) => {
                             onChange={onChange}
                             minimumDate={new Date()}
                         />
+                    )}
+                    <TouchableOpacity style={styles.button} onPress={() => roomSuggestion()} >
+                        <Text style={styles.buttonText}>Suggest room</Text>
+                    </TouchableOpacity>
+
+
+                    { recommendations && (
+                        <View style={styles.container}>
+
+                                  <FlatList
+                                    horizontal
+                                    data={recommendations}
+                                    renderItem={({ item }) => <ListItem item={item} />}
+                                    showsHorizontalScrollIndicator={false}
+                                  />
+                      </View>
+                        // <View style={styles.listContainer}>
+                        //     <FlatList
+                        //         data={recommendations}
+                        //         renderItem={renderItem}
+                        //         keyExtractor={item => item.Name}
+                        //         removeClippedSubviews={true}
+                        //     />
+                        // </View>
                     )}
                 </KeyboardAwareScrollView>
             </View>

@@ -42,4 +42,6 @@ export default StyleSheet.create({
         padding: 10,
         marginTop: 10
     }
+
+    
 });
