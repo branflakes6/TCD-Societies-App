@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet} from 'react-native'
+import { View, StyleSheet, FlatList} from 'react-native'
 import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, Provider, Subheading, Text, Switch } from 'react-native-paper'
 import { readEventsUser } from '../firebase/read';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,6 +41,7 @@ export function EventTile(props) {
             console.log(e)
         }
     }
+
     function callRead() {
         console.log(email)
         var propData = {
@@ -49,6 +50,7 @@ export function EventTile(props) {
         }
         readEventsUser(propData)
     }
+
     function attending(){
 
         var propData = {
@@ -71,6 +73,13 @@ export function EventTile(props) {
             marginHorizontal: 4
         }
       });
+    const renderEntity = ({item, index}) => {
+        return (
+        <View> 
+            <List.Subheader> {index + 1} . {item}</List.Subheader>
+        </View>
+        )
+    }
     return ( 
         
         <Provider>
@@ -110,9 +119,12 @@ export function EventTile(props) {
                 title="Attendess"
                 left={props => <List.Icon {...props} icon="folder" />}
                 expanded={expanded}
-                onPress={handlePress}>
-                <List.Item title="First item" />
-                <List.Item title="Second item" />
+                onPress={handlePress}
+                >
+                <FlatList 
+                data={event.attendees}
+                renderItem={renderEntity}
+                />
             </List.Accordion>
             </List.Section>
             </Card> 

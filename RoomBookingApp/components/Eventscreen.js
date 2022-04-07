@@ -38,8 +38,6 @@ const Event = ({ navigation }) => {
         readEvents(propData)
     }
     const renderEntity = ({item, index}) => {
-        
-
         return (
         <View>
             <EventTile props={item}/> 
