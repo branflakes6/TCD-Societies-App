@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
+
+import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Homescreen from './components/Homescreen';
@@ -15,7 +16,7 @@ import { RegistrationScreen } from '../RoomBookingApp/src/tst/register'
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function root() {
+function menu() {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={Homescreen} />
@@ -46,7 +47,7 @@ export default function App() {
             headerStyle: {
               backgroundColor: '#f4511e',
             },
-            headerTintColor: '#fff',
+            headerTintColor: ' #fff',
             headerTitleStyle: {
               fontWeight: 'bold',
 
@@ -54,12 +55,11 @@ export default function App() {
             headerShown: true,
             headerTitleAlign: 'center'
           }}>
-          <Stack.Screen name="Home" component={Homescreen} />
-          <Stack.Screen name="Bookings" component={Aboutscreen} />
-          <Stack.Screen name="Form" component={Formscreen} />
-          <Stack.Screen name="Listings" component={Listscreen} />
-          <Stack.Screen name="User" component={Userscreen} />
-          <Stack.Screen name="Events" component={Eventscreen} />
+          <Stack.Screen
+            name="Welcome to the Trinity Room Book"
+            component={menu}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator> : 
         <Stack.Navigator
           screenOptions={{
