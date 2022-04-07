@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { FlatList, Text, TextInput, TouchableOpacity, View, Button  } from 'react-native'
 import styles from '../tst/styles.js';
-
+import { firebase } from '../firebase/config';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 import { readSingleRoom, readAllRoom } from '../firebase/read'
 import { writeRoom } from '../firebase/write'
 import { Delete, DeleteRoom } from '../firebase/delete'
@@ -14,7 +16,7 @@ export function TestRoom() {
     const [roomName, setRoomName] = useState('')
     const [roomBookStatus, setBookStatus] = useState('')
     const [entities, setEntities] = useState([])
- 
+    const [recommendations, setRecommentdations] = useState([])
     function callBulkWrite() {
         var names = ['Debating Chamber', 'Phil Conversation Room','Hist Conversation Room','Rec Room','Resource Room','Computer Room', 'Goldsmith Hall','The Atrium Room 50','The Main Atrium Space']
         var socketCounts = [45,76,34,56,23,76,56,44,24]
@@ -45,6 +47,9 @@ export function TestRoom() {
         });
 
     }
+
+
+    
     function callWrite() {
         var room = {
             Name : "lab3",
@@ -71,11 +76,64 @@ export function TestRoom() {
         readSingleRoom(propData)
     }
 
-    function callReadAllRoom() {
-        var propData = {
-            setEntities:setEntities,
+    function roomSuggestion() {
+
+        var requirements = {    
+            Booked : true,
+            Building : 'GMB',
+            Capacity : 35,
+            Description : 'Room for soc event',
+            Name : 'Name',
+            SocketCount : 3,
+            Projector : true,
+            Screen : true,
+            Size : 30,
+            TablesChairs : true,
+            Venue :	'Trinity Campus',
+            WheelchairAccess : true
         }
-        readAllRoom(propData)
+        
+        const objectComparisonCallback = (arrayItemA, arrayItemB) => {
+            if (arrayItemA.Points < arrayItemB.Points) {
+              return 1
+            }
+          
+            if (arrayItemA.Points > arrayItemB.Points) {
+              return -1
+            }
+          
+            return 0
+        }
+
+        const collection = firebase.firestore()
+            .collection('rooms')
+            .get()
+            .then( querySnapshot => {
+                var sortedRooms = []
+                var points = {}
+                querySnapshot.forEach(documentSnapshot => {
+                    const entity = documentSnapshot.data()
+                    recommend.push(entity)
+                });
+                sortedRooms.forEach(room => {
+                    var point = 0
+                    if (requirements['Capacity'] < room['Capacity']) point++
+                    if (requirements['SocketCount'] < room['SocketCount']) point++
+                    if (requirements['Size'] < room['Size']) point++
+                    if (requirements['Projector'] == room['Projector']) point++
+                    if (requirements['Screen'] == room['Screen']) point++
+                    if (requirements['TablesChairs'] == room['TablesChairs']) point++
+                    if (requirements['WheelchairAccess'] == room['WheelchairAccess']) point++
+                    room['Points'] = point
+                })
+
+                sortedRooms.sort(objectComparisonCallback)
+                setRecommentdations(sortedRooms)                
+            })
+            .catch(error => {
+                console.log(error)
+            });
+
     }
 
     function callDeleteRoom() {
@@ -104,8 +162,17 @@ export function TestRoom() {
         return (
         <BookingTile props={item}/> 
         )
-
     }
+
+    const Item = ({ title }) => (
+        <View style={styles.item}>
+          <Text style={styles.title}>{title}</Text>
+        </View>
+    );
+
+    const renderItem = ({ item }) => (
+        <Item title={item.Name} />
+    );
 
     return (
         <View style={styles.container}>
@@ -129,7 +196,7 @@ export function TestRoom() {
                 <Text style={styles.buttonText}>Read Single Room</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={() => callReadAllRoom()} >
+            <TouchableOpacity style={styles.button} onPress={() => testRecommendationFeature()} >
                 <Text style={styles.buttonText}>Read All Room</Text>
             </TouchableOpacity>
 
@@ -142,13 +209,17 @@ export function TestRoom() {
                 <Text style={styles.buttonText}>Update room</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity style={styles.button} onPress={() => roomSuggestion()} >
+                <Text style={styles.buttonText}>Suggest room</Text>
+            </TouchableOpacity>
 
-            { entities && (
+
+            { recommendations && (
                 <View style={styles.listContainer}>
                     <FlatList
-                        data={entities}
-                        renderItem={renderEntity}
-                        keyExtractor={(item) => item.id}
+                        data={recommendations}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.Name}
                         removeClippedSubviews={true}
                     />
                 </View>
