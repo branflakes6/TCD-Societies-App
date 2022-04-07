@@ -62,7 +62,6 @@ const Event = ({ navigation }) => {
     return (
         <Provider>
         <ScrollView>
-        <View style={styles.container}>
         <Card>
             <Card.Content>
                 <Title>Sort By 
@@ -100,6 +99,7 @@ const Event = ({ navigation }) => {
                 
             </Card.Content>
         </Card>
+        <View style={styles.container}>
         <View style={styles.formContainer}>
             { entities && (
                 <View style={styles.listContainer}>

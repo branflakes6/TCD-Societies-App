@@ -86,7 +86,6 @@ export function readEvents(props){
     console.log(props)
 
     if (mode == "Owner"){
-        console.log("O")
         collection
         .where("tcdEmail", "==", userID)
         .onSnapshot(
@@ -105,8 +104,6 @@ export function readEvents(props){
         )
     }
     else if (mode == "Attendee"){
-        console.log("A")
-
         collection
         .where("attendees", "array-contains", userID)
         .onSnapshot(
@@ -125,8 +122,6 @@ export function readEvents(props){
         )
     }
     else {
-        console.log("E")
-
         collection
         .where("status", "==", "Approved")
         .onSnapshot(
