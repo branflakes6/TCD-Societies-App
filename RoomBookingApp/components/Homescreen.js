@@ -6,8 +6,8 @@ import styles from '../styles/styles';
 import logo from './images/Logo.png';
 
 
-const Home = ({ navigation }) => {
 
+const Home = ({ navigation }) => {
 
     return (
       <ScrollView>
@@ -17,23 +17,17 @@ const Home = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.container}>
-                <Text style={styles.headerText}>
-                    Welcome to the Trinity Room Book!
-                </Text>
-                <Image source={logo} style={styles.appLogo} />
+              <Image source={logo} style={styles.appLogo}/>
 
-                <TouchableOpacity
+              <TouchableOpacity
                     style={styles.button}
                     onPress={() => navigation.navigate("Form")}>
                     <Text style={styles.buttonText}>
                         Request a Room
                     </Text>
              
-                </TouchableOpacity>
-                
+                </TouchableOpacity> 
             </View>
-            
-
         </ScrollView>
     );
 };

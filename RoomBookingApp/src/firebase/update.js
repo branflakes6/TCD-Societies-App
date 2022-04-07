@@ -75,23 +75,48 @@ export function sendFeedback (props) {
 }
 export function attendingEvent(props) {
     console.log(props)
-    const email = props.email
+    const userEmail= props.email
     const eventID = props.event.id
-    
-    const entityRef = firebase.firestore().collection('users').doc(email);
-    entityRef
-        .update({events : firebase.firestore.FieldValue.arrayUnion(eventID)})
+    const usr = firebase.firestore().collection('users')
+        usr.where("email", "==", userEmail)
+        .get()
+        .then( snapshots=> {
+            snapshots.forEach (snapshot => {
+                snapshot.ref.update({events : firebase.firestore.FieldValue.arrayUnion(eventID)})
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    const event = props.event
+    const collection = firebase.firestore().collection('events').doc(event.id);
+    collection
+        .update({attendees : firebase.firestore.FieldValue.arrayUnion(userEmail)})
         .then(() => {
-            console.log('User updated!');
+            console.log();
           })
         .catch(error => {
             console.log(error)
         });
-
+}
+export function notAttendingEvent(props) {
+    const userEmail= props.email
+    const eventID = props.event.id
+    const usr = firebase.firestore().collection('users')
+        usr.where("email", "==", userEmail)
+        .get()
+        .then( snapshots=> {
+            snapshots.forEach (snapshot => {
+                snapshot.ref.update({events : firebase.firestore.FieldValue.arrayRemove(eventID)})
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        });
     const event = props.event
     const collection = firebase.firestore().collection('events').doc(event.id);
     collection
-        .update({attendees : firebase.firestore.FieldValue.arrayUnion(email)})
+        .update({attendees : firebase.firestore.FieldValue.arrayRemove(userEmail)})
         .then(() => {
             console.log();
           })

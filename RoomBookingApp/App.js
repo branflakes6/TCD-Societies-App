@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -38,6 +39,7 @@ export default function App() {
   }
 
   return (
+    
     <NavigationContainer>
       {verified ? 
         <Stack.Navigator
@@ -48,7 +50,7 @@ export default function App() {
             headerTintColor: ' #fff',
             headerTitleStyle: {
               fontWeight: 'bold',
-              
+
             },
             headerShown: true,
             headerTitleAlign: 'center'
@@ -67,19 +69,21 @@ export default function App() {
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold',
-              
+
             },
             headerShown: true,
             headerTitleAlign: 'center'
-          }}>
-          <Stack.Screen 
-            name="Login" 
-            initialParams={{setLoggedIn: loggedIn}}  
+          }}
+        >
+          <Stack.Screen
+            name="Login"
+            initialParams={{ setLoggedIn: loggedIn }}
           >
             {() => <LoginRegister setLoggedIn={setLogIn} setVerified={setVerified}/>} 
           </Stack.Screen>
           
         </Stack.Navigator>
+        
       }
     </NavigationContainer>
   );

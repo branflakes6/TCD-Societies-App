@@ -82,9 +82,71 @@ export function readEvents(props){
 
     const collection = firebase.firestore().collection('events')
     const userID = props.email
+    const mode = props.mode
+    console.log(props)
+
+    if (mode == "Owner"){
+        collection
+        .where("tcdEmail", "==", userID)
+        .onSnapshot(
+            querySnapshot => {
+                const newEntities = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    newEntities.push(entity)
+                });
+                props.setEntities(newEntities)
+            },
+            error => {
+                console.log('Error : ', error)
+            }
+        )
+    }
+    else if (mode == "Attendee"){
+        collection
+        .where("attendees", "array-contains", userID)
+        .onSnapshot(
+            querySnapshot => {
+                const newEntities = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    newEntities.push(entity)
+                });
+                props.setEntities(newEntities)
+            },
+            error => {
+                console.log('Error : ', error)
+            }
+        )
+    }
+    else {
+        collection
+        .where("status", "==", "Approved")
+        .onSnapshot(
+            querySnapshot => {
+                const newEntities = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    newEntities.push(entity)
+                });
+                props.setEntities(newEntities)
+            },
+            error => {
+                console.log('Error : ', error)
+            }
+        )
+    }   
+}
+export function readAttendeeEvents(props){
+
+    const collection = firebase.firestore().collection('events')
+    const userID = props.email
     
         collection
-            .where("status", "==", "Approved")
+            .where("attendees", "array-contains", userID)
             .onSnapshot(
                 querySnapshot => {
                     const newEntities = []
@@ -101,7 +163,6 @@ export function readEvents(props){
             )
     
 }
-
 export function readEventsUser(props){
 
     const collection = firebase.firestore().collection('users')
@@ -122,7 +183,6 @@ export function readEventsUser(props){
                     console.log('Error : ', error)
                 }
             )
-    
 }
 
 // returns room objects 
