@@ -12,7 +12,9 @@ export function EventTile(props) {
     const event = props.props
     const LeftContent = props => <Avatar.Icon {...props} icon="calendar"/>
     const [description, viewDescription] = React.useState(false)
+    const [expanded, setExpanded] = React.useState(true);
 
+    const handlePress = () => setExpanded(!expanded);
     const showDescription = () => viewDescription(!description)
 
     const eventTitle = event.nameOfEvent + " - " + event.organisingBody
@@ -100,11 +102,22 @@ export function EventTile(props) {
             </Card.Content>
             <Card.Actions>
                 <Button mode="contained" color="#65db56" onPress={attending} style={styles.btn}>Going</Button>
-                {/* <Button mode="contained" color="#c23838" onPress={confirmDeny} style={styles.btn}>Not Going</Button> */}
-                <Switch value={isSwitchOn} /> 
+                <Button mode="contained" color="#c23838" style={styles.btn}>Not Going</Button>
             </Card.Actions>
+
+            <List.Section>
+            <List.Accordion
+                title="Attendess"
+                left={props => <List.Icon {...props} icon="folder" />}
+                expanded={expanded}
+                onPress={handlePress}>
+                <List.Item title="First item" />
+                <List.Item title="Second item" />
+            </List.Accordion>
+            </List.Section>
             </Card> 
             <Divider/>
+            
     </View>
     </Provider>
     )
