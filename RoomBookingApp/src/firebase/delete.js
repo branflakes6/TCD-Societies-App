@@ -1,7 +1,6 @@
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import 'firebase/compat/analytics';
 
 export async function DeleteRoom(props) {
     const room = props.roomID
