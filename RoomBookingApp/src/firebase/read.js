@@ -82,24 +82,68 @@ export function readEvents(props){
 
     const collection = firebase.firestore().collection('events')
     const userID = props.email
-    
+    const mode = props.mode
+    console.log(props)
+
+    if (mode == "Owner"){
+        console.log("O")
         collection
-            .where("status", "==", "Approved")
-            .onSnapshot(
-                querySnapshot => {
-                    const newEntities = []
-                    querySnapshot.forEach(doc => {
-                        const entity = doc.data()
-                        entity.id = doc.id
-                        newEntities.push(entity)
-                    });
-                    props.setEntities(newEntities)
-                },
-                error => {
-                    console.log('Error : ', error)
-                }
-            )
-    
+        .where("tcdEmail", "==", userID)
+        .onSnapshot(
+            querySnapshot => {
+                const newEntities = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    newEntities.push(entity)
+                });
+                props.setEntities(newEntities)
+            },
+            error => {
+                console.log('Error : ', error)
+            }
+        )
+    }
+    else if (mode == "Attendee"){
+        console.log("A")
+
+        collection
+        .where("attendees", "array-contains", userID)
+        .onSnapshot(
+            querySnapshot => {
+                const newEntities = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    newEntities.push(entity)
+                });
+                props.setEntities(newEntities)
+            },
+            error => {
+                console.log('Error : ', error)
+            }
+        )
+    }
+    else {
+        console.log("E")
+
+        collection
+        .where("status", "==", "Approved")
+        .onSnapshot(
+            querySnapshot => {
+                const newEntities = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    newEntities.push(entity)
+                });
+                props.setEntities(newEntities)
+            },
+            error => {
+                console.log('Error : ', error)
+            }
+        )
+    }   
 }
 export function readAttendeeEvents(props){
 
@@ -144,7 +188,6 @@ export function readEventsUser(props){
                     console.log('Error : ', error)
                 }
             )
-    
 }
 
 // returns room objects 

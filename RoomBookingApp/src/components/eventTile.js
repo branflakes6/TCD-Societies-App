@@ -44,11 +44,11 @@ export function EventTile(props) {
     }
 
     function callRead() {
-        var propData = {
-            setEntities:setEntities,
-            email:email,
-        }
-        readEventsUser(propData)
+        // var propData = {
+        //     setEntities:setEntities,
+        //     email:email,
+        // }
+        //readEventsUser(propData)
     }
 
     function attending(){
@@ -57,7 +57,6 @@ export function EventTile(props) {
             email:userEmail
         }
         attendingEvent(propData)
-
     }
     function notAttending(){
 
@@ -66,7 +65,6 @@ export function EventTile(props) {
             email:userEmail
         }
         notAttendingEvent(propData)
-
     }
 
     const styles = StyleSheet.create({
