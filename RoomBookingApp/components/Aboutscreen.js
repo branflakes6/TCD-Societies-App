@@ -7,7 +7,7 @@ import { BookingTile } from '../src/components/bookingTile'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const About = ({ navigation }) => {
+const Bookings = ({ navigation }) => {
     const [entities, setEntities] = useState([])
     const [userType, setUserType] = React.useState('');
     var email = ""

@@ -209,7 +209,7 @@ const Form = ({ navigation }) => {
                             mode="outlined"
                             style={styles.input}
                             label="Email"
-                            onChangeText={email}
+                            onChangeText={tcdEmail}
                             value={emails}
                             keyboardType="email-address"
                         />
