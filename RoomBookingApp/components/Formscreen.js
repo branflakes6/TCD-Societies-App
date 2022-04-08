@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import {StyleSheet, SafeAreaView, SectionList, FlatList, View, Button, Platform, Text, ScrollView, Alert } from 'react-native';
+import {StyleSheet, SafeAreaView, SectionList, FlatList, View, Platform, ScrollView, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { TextInput, Text, Button, List, Provider as PaperProvider } from 'react-native-paper';
+import { TextInput, Text, List,Button, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import moment from 'moment';
 import styles from '../styles/formStyle';
@@ -207,9 +207,8 @@ const Form = ({ navigation }) => {
                 WheelchairAccess : true
             }
     
-            const collection = firebase.firestore()
-                .collection('rooms')
-                .get()
+            const collection = firebase.firestore().collection('rooms')
+                collection.get()
                 .then( querySnapshot => {
                     var sortedRooms = []
                     var points = {}
@@ -293,47 +292,7 @@ const Form = ({ navigation }) => {
             }
         
             emailjs.send('service_c8eqpwr','template_waahbmx', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
-
-    const sendEmail = async () => {
-        console.log("ARRIVED AT SEND EMAIL!!!!")
-
-        let templateParams = {
-            //from_name: process.env.REACT_APP_EMAILJS_SENDER,
-            //to_name: this.tcdEmail,
-            nameOfEvent: name,
-            dateOfEvent: date,
-            timeOfEvent: eventTime,
-            organisingBody: orginiser,
-            orginiserName: orgName,
-            mobileNumber: number,
-            tcdEmail: emails,
-            eventDescription: evntDesc,
-            room: roomN,
-            prepFrom: prepareFrom,
-            prepTo: prepareTo,
-            endTime: eventEnd,
-            numParticipants: participants,
-            numStaff: staff,
-            guests: numGuest,
-            equipment: equip,
-            staging: stag,
-            food: foods,
-            alcohol: alcohols,
-            caterer: catererServ,
-            power: pow,
-            facilities: otherFacilities,
-            others: others
         }
-
-        emailjs.send('service_c8eqpwr', 'template_waahbmx', templateParams, 'user_PX5dMk1psBpqZh1IpmXwY')
-
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
-    }
-
 
     return (
         <PaperProvider>
@@ -419,7 +378,7 @@ const Form = ({ navigation }) => {
                             value={number}
                             keyboardType="phone-pad"
                         />
-                    )}
+                    
                     <TouchableOpacity style={styles.button} onPress={() => roomSuggestion()} >
                         <Text style={styles.buttonText}>Suggest room</Text>
                     </TouchableOpacity>
@@ -444,9 +403,7 @@ const Form = ({ navigation }) => {
                         //     />
                         // </View>
                     )}
-                </KeyboardAwareScrollView>
-            </View>
-        </ScrollView>
+
 
                         <TextInput
                             activeOutlineColor='#0569b9'
@@ -665,9 +622,9 @@ const Form = ({ navigation }) => {
                                 onChange={onChange}
                             />
                         )}
-                    </KeyboardAwareScrollView>
-                </View>
-            </ScrollView>
+                </KeyboardAwareScrollView>
+            </View>
+        </ScrollView> 
         </PaperProvider>
     );
 };
