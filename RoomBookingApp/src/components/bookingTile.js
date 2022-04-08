@@ -30,6 +30,8 @@ export function BookingTile(props) {
     const eventTitle = booking.nameOfEvent + " - " + booking.organisingBody
     const persons = parseInt(booking.numParticipants) + parseInt(booking.numStaff) + parseInt(booking.guests)
     const eventTime = booking.dateOfEvent + " - " + booking.timeOfEvent
+    var date = moment(new Date(1528101680 * 1000)).format('MM/DD/YYYY hh:MM');
+    console.log(date)
 
     const styles = StyleSheet.create({
         container: {

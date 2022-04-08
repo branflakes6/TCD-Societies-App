@@ -15,6 +15,7 @@ import { firebase } from '../../RoomBookingApp/src/firebase/config';
 
 
 const Form = ({ navigation }) => {
+    const [roomID, setRoomID] = React.useState("");
     const [name, nameOfEvent] = React.useState('');
     const [date, dateOfEvent] = React.useState(new Date());
     const [eventTime, timeOfEvent] = React.useState('');
@@ -93,7 +94,7 @@ const Form = ({ navigation }) => {
         showMode('time');
     };
 
-    const sendBooking = () => {
+    const sendBooking = async () => {
         var booking = {
             nameOfEvent: name,
             dateOfEvent: date,
@@ -120,11 +121,27 @@ const Form = ({ navigation }) => {
             others: others
         }
         var propData = {
-            booking: booking
+            booking: booking,
+            setRoomID:setRoomID
         }
         writeBooking(propData)
-    }
 
+        return "done" 
+    }
+    const proccessForm = async () => {
+        try {
+            let val = await sendBooking()
+            if (val == "done"){
+                console.log("roomID", roomID)
+                sendEmail()
+            }
+        }
+        catch(e) {
+            console.log(e)
+        }
+       
+
+    }
     const confirmationAlert = () =>
         Alert.alert(
             "Do you want to submit the form?",
@@ -137,8 +154,7 @@ const Form = ({ navigation }) => {
                 },
                 {
                     text: "Continue", onPress: () =>
-                        sendBooking() &
-                        sendEmail() &
+                        proccessForm() &
                         console.log({
                             "Name of Event": name,
                             "Organiser Email": emails,
@@ -293,7 +309,8 @@ const Form = ({ navigation }) => {
                 caterer: catererServ,
                 power: pow,
                 facilities: otherFacilities,
-                others: others
+                others: others,
+                bookingID: bookingID
             }
         
             emailjs.send('service_c8eqpwr','template_waahbmx', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')

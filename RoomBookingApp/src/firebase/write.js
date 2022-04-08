@@ -33,17 +33,17 @@ export function writeBooking(props) {
     console.log("writting booking")
     const collection = firebase.firestore().collection('bookings')
     const booking = props.booking
+    console.log(props)
 
     const length = Object.keys(booking).length
     if (booking && length > 0) {
         const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         booking.timestamp = timestamp
         booking.open = true
-
         collection
             .add(booking)
             .then(_doc => {
-                console.log(_doc)
+                props.setRoomID(_doc.id)
             })
             .catch((error) => {
                 alert(error)
@@ -95,7 +95,7 @@ export function writeRoom(props) {
         collection
             .set(props.room)
             .then(_doc => {
-                console.log(_doc)
+                //console.log(_doc)
             })
             .catch((error) => {
                 alert(error)
