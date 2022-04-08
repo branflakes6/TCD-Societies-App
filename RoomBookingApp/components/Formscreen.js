@@ -586,7 +586,7 @@ const Form = ({ navigation }) => {
                         ) : null}
 
                         <Button style={styles.button} onPress={() => roomSuggestion()} >
-                            <Text style={styles.buttonText}>Suggest room</Text>
+                            <Text style={styles.buttonText}>Don't know which room to book? Click for Suggestions</Text>
                         </Button>
 
                         {recommendations && (
