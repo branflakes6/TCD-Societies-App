@@ -236,7 +236,7 @@ const Form = ({ navigation }) => {
 
                         <Button
                             style={styles.datetimeButton}
-                            title="Time of Event"
+                            title="Event Start Time"
                             onPress={showTimepicker}
                             onChange={timeOfEvent}
                             color='#0569b9'>
