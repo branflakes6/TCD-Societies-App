@@ -9,12 +9,12 @@ export default StyleSheet.create({
     headerText: {
         fontSize: 20,
         textAlign: 'center',
-        color: '#0569b9',
+        color: '#f4511e',
     },
     button: {
         marginTop: 20,
         padding: 10,
-        backgroundColor: '#0569b9',
+        backgroundColor: '#f4511e',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
@@ -31,9 +31,6 @@ export default StyleSheet.create({
     separator: {
         marginTop: 10,
     },
-
-
-    /******** card **************/
     card: {
         shadowColor: '#00000021',
         shadowOffset: {
@@ -69,58 +66,5 @@ export default StyleSheet.create({
     cardImage: {
         height: 150,
         width: null,
-    },
-
-    /******** card components **************/
-    title: {
-        fontSize: 20,
-    },
-    description: {
-        fontSize: 15,
-        color: "#888",
-        flex: 1,
-        marginTop: 5,
-        marginBottom: 5,
-    },
-    time: {
-        fontSize: 13,
-        color: "#808080",
-        marginTop: 5
-    },
-    icon: {
-        width: 25,
-        height: 25,
-    },
-    iconData: {
-        width: 15,
-        height: 15,
-        marginTop: 5,
-        marginRight: 5
-    },
-    timeContainer: {
-        flexDirection: 'row'
-    },
-    /******** social bar ******************/
-    socialBarContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        flex: 1
-    },
-    socialBarSection: {
-        justifyContent: 'center',
-        flexDirection: 'row',
-        flex: 1,
-    },
-    socialBarlabel: {
-        marginLeft: 8,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-    },
-    socialBarButton: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
     }
-
 });

@@ -1,7 +1,6 @@
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-//import 'firebase/compat/analytics';
 
 export function Write(props) {
     
@@ -39,6 +38,7 @@ export function writeBooking(props) {
     if (booking && length > 0) {
         const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         booking.timestamp = timestamp
+        booking.open = true
 
         collection
             .add(booking)
@@ -49,6 +49,35 @@ export function writeBooking(props) {
                 alert(error)
             });
     }
+}
+export function createEvent(props){
+    const collection = firebase.firestore().collection('events')
+    const event = props.event
+    console.log(event)
+
+    const length = Object.keys(event).length
+    if (event && length > 0) {
+        const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+        event.timestamp = timestamp
+        event.attendees = [event.tcdEmail]
+        collection
+            .add(event)
+            .then(_doc => {
+                console.log(_doc)
+            })
+            .catch((error) => {
+                alert(error)
+            });
+    }
+    const entityRef = firebase.firestore().collection('bookings').doc(event.id);
+    entityRef
+        .update({hasEvent:true})
+        .then(() => {
+            console.log('Booking updated!');
+          })
+        .catch(error => {
+            console.log(error)
+        });
 }
 
 // this is for writing rooms to the room database. This is not for updating room status
@@ -80,7 +109,6 @@ export function writeUser(props) {
 
     const userID = props.user.email
     const user = props.user
-
     const collection = firebase.firestore().collection('users').doc(userID)
     const length = Object.keys(user).length
     if (user && length > 0) {

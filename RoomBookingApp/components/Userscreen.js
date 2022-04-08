@@ -3,7 +3,6 @@ import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from '../styles/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import { readUser } from '../src/firebase/read'
 
 const User = ({ navigation }) => {
 

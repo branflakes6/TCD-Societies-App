@@ -20,14 +20,20 @@ const LoginRegister = ({ navigation, setVerified }) => {
     const [fullName, setFullName] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const storeData = async (value) => {
+    const storeEmail = async (value) => {
         try {
           await AsyncStorage.setItem('@email', value)
         } catch (e) {
           console.log(e)
         }
       }
-
+    const storeType = async (value) => {
+        try {
+          await AsyncStorage.setItem('@userType', value)
+        } catch (e) {
+          console.log(e)
+        }
+      } 
     function login(email, password){
         firebase
             .auth()
@@ -46,7 +52,9 @@ const LoginRegister = ({ navigation, setVerified }) => {
                         console.log('user logged in')
                         const user = firestoreDocument.data()
                         setVerified(true)
-                        storeData(user.email)
+                        console.log(user)
+                        storeEmail(user.email)
+                        storeType(user.userType)
                         // navigation.navigate('Home', {user: user})
                         
                         
@@ -117,9 +125,6 @@ const LoginRegister = ({ navigation, setVerified }) => {
         <View>
         { !registering ? 
         <View>
-            <Text style={styles.headerText}>
-                Login
-            </Text>
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
@@ -143,10 +148,10 @@ const LoginRegister = ({ navigation, setVerified }) => {
                     style={styles.button}
                     onPress={() => login(email, password)}
                 >
-                    <Text style={styles.buttonTitle}>Log in</Text>
+                    <Text style={styles.buttonText}>Log in</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Don't have an account? <Text onPress={startRegistration} style={styles.footerLink}>Sign up</Text></Text>
+                    <Text style={styles.footerText}>Don't have an account? <Text onPress={startRegistration} style={styles.blueText}>Sign up</Text></Text>
                 </View>
         </View>
         : 
@@ -194,10 +199,10 @@ const LoginRegister = ({ navigation, setVerified }) => {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => register(email, fullName, password, confirmPassword)}>
-                    <Text style={styles.buttonTitle}>Create account</Text>
+                    <Text style={styles.buttonText}>Create account</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Already got an account? <Text onPress={startLogin} style={styles.footerLink}>Log in</Text></Text>
+                    <Text style={styles.footerText}>Already got an account? <Text onPress={startLogin} style={styles.blueText}>Log in</Text></Text>
                 </View>
             </KeyboardAwareScrollView>
         </View>

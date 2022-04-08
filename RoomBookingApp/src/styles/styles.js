@@ -9,19 +9,13 @@ export default StyleSheet.create({
     headerText: {
         fontSize: 20,
         textAlign: 'center',
-        color: '#0569b9',
+        color: '#f4511e',
     },
     infoText: {
         margin: 20,
         fontSize: 16,
         textAlign: 'center',
-        color: '#000',
-    },
-    blueText: {
-        margin: 0,
-        fontSize: 16,
-        textAlign: 'center',
-        color: '#0569b9',
+        color: '#f4511e',
     },
     appLogo: {
         width: 200,
@@ -33,7 +27,7 @@ export default StyleSheet.create({
     button: {
         marginTop: 20,
         padding: 10,
-        backgroundColor: '#0569b9',
+        backgroundColor: '#f4511e',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
@@ -41,7 +35,6 @@ export default StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 15,
-        fontWeight: 'bold',
     },
     input: {
         borderWidth: 1,
@@ -49,6 +42,4 @@ export default StyleSheet.create({
         padding: 10,
         marginTop: 10
     }
-
-    
 });

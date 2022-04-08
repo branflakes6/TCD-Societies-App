@@ -9,12 +9,12 @@ export default StyleSheet.create({
     headerText: {
         fontSize: 20,
         textAlign: 'center',
-        color: '#0569b9',
+        color: '#f4511e',
     },
     button: {
         marginTop: 20,
         padding: 10,
-        backgroundColor: '#0569b9',
+        backgroundColor: '#f4511e',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
