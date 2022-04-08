@@ -239,7 +239,7 @@ const Form = ({ navigation }) => {
                             title="Time of Event"
                             onPress={showTimepicker}
                             onChange={timeOfEvent}
-                            color='#f4511e'>
+                            color='#0569b9'>
                             <Text
                                 style={styles.buttonText}>
                                 Time of Event

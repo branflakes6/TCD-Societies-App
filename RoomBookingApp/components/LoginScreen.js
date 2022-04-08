@@ -40,7 +40,7 @@ const Login = ({ setLoggedIn }) => {
                     style={styles.button}
                     onPress={() => setProp()}
                     >
-                    <Text style={styles.buttonTitle}>Log in</Text>
+                    <Text style={styles.buttonText}>Log in</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>
                     {/* <Text style={styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text> */}
