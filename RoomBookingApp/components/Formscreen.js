@@ -247,6 +247,7 @@ const Form = ({ navigation }) => {
                         point = 0
                     }
                     room['Points'] = point
+                    console.log(point)
                 })
 
                 sortedRooms.sort(objectComparisonCallback)
@@ -277,45 +278,42 @@ const Form = ({ navigation }) => {
             <Item title={item.Name} />
         );
         
+    }
+    const sendEmail = async () => {
+        console.log("ARRIVED AT SEND EMAIL!!!!")
+        console.log(emails)
+        let templateParams = {
+            //from_name: process.env.REACT_APP_EMAILJS_SENDER,
+            //to_name: this.tcdEmail,
 
-        const sendEmail = async () => {
-            console.log("ARRIVED AT SEND EMAIL!!!!")
-            console.log(emails)
-            let templateParams = {
-                //from_name: process.env.REACT_APP_EMAILJS_SENDER,
-                //to_name: this.tcdEmail,
-
-                nameOfEvent: name,
-                dateOfEvent: date,
-                timeOfEvent: eventTime,
-                organisingBody: orginiser,
-                orginiserName: orgName,
-                mobileNumber: number,
-                tcdEmail: emails,
-                eventDescription: evntDesc,
-                room: roomN,
-                prepFrom: prepareFrom,
-                prepTo: prepareTo,
-                endTime: eventEnd,
-                numParticipants: participants,
-                numStaff: staff,
-                guests: numGuest,
-                equipment: equip,
-                staging: stag,
-                food: foods,
-                alcohol: alcohols,
-                caterer: catererServ,
-                power: pow,
-                facilities: otherFacilities,
-                others: others,
-                bookingID: bookingID,
-                link: "https://tcd-booking-approval-page.vercel.app/?ref=" + bookingID +"&id=" + emails
-            }
-        
-            emailjs.send('service_c8eqpwr','template_ltjxcsi', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
+            nameOfEvent: name,
+            dateOfEvent: date,
+            timeOfEvent: eventTime,
+            organisingBody: orginiser,
+            orginiserName: orgName,
+            mobileNumber: number,
+            tcdEmail: emails,
+            eventDescription: evntDesc,
+            room: roomN,
+            prepFrom: prepareFrom,
+            prepTo: prepareTo,
+            endTime: eventEnd,
+            numParticipants: participants,
+            numStaff: staff,
+            guests: numGuest,
+            equipment: equip,
+            staging: stag,
+            food: foods,
+            alcohol: alcohols,
+            caterer: catererServ,
+            power: pow,
+            facilities: otherFacilities,
+            others: others,
+            bookingID: bookingID,
+            link: "https://tcd-booking-approval-page.vercel.app/?ref=" + bookingID +"&id=" + emails
         }
-
-        emailjs.send('service_c8eqpwr', 'template_waahbmx', templateParams, 'user_PX5dMk1psBpqZh1IpmXwY')
+    
+        emailjs.send('service_c8eqpwr','template_ltjxcsi', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
     }
 
     return (
@@ -604,9 +602,9 @@ const Form = ({ navigation }) => {
                             </>
                         ) : null}
 
-                        <Button style={styles.button} onPress={() => roomSuggestion()} >
+                        <TouchableOpacity style={styles.button} onPress={() => roomSuggestion()} >
                             <Text style={styles.buttonText}>Don't know which room to book? Click for Suggestions</Text>
-                        </Button>
+                        </TouchableOpacity>
 
                         {recommendations && (
                             <View style={styles.container}>
