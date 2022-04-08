@@ -83,6 +83,7 @@ const LoginRegister = ({ navigation, setVerified }) => {
                     id: uid,
                     email,
                     fullName,
+                    userType:"user"
                 };
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
