@@ -15,7 +15,7 @@ import { firebase } from '../../RoomBookingApp/src/firebase/config';
 
 
 const Form = ({ navigation }) => {
-    const [roomID, setRoomID] = React.useState("");
+    const [bookingID, setBookingID] = React.useState("");
     const [name, nameOfEvent] = React.useState('');
     const [date, dateOfEvent] = React.useState(new Date());
     const [eventTime, timeOfEvent] = React.useState('');
@@ -122,7 +122,7 @@ const Form = ({ navigation }) => {
         }
         var propData = {
             booking: booking,
-            setRoomID:setRoomID
+            setBookingID:setBookingID
         }
         writeBooking(propData)
 
@@ -132,7 +132,7 @@ const Form = ({ navigation }) => {
         try {
             let val = await sendBooking()
             if (val == "done"){
-                console.log("roomID", roomID)
+                console.log("bookingID", bookingID)
                 sendEmail()
             }
         }
@@ -283,10 +283,11 @@ const Form = ({ navigation }) => {
 
         const sendEmail = async () => {
             console.log("ARRIVED AT SEND EMAIL!!!!")
-        
+            console.log(emails)
             let templateParams = {
                 //from_name: process.env.REACT_APP_EMAILJS_SENDER,
                 //to_name: this.tcdEmail,
+
                 nameOfEvent: name,
                 dateOfEvent: date,
                 timeOfEvent: eventTime,
@@ -310,10 +311,11 @@ const Form = ({ navigation }) => {
                 power: pow,
                 facilities: otherFacilities,
                 others: others,
-                bookingID: bookingID
+                bookingID: bookingID,
+                link: "https://tcd-booking-approval-page.vercel.app/?ref=" + bookingID +"&id=" + emails
             }
         
-            emailjs.send('service_c8eqpwr','template_waahbmx', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
+            emailjs.send('service_c8eqpwr','template_ltjxcsi', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
         }
 
     return (

@@ -43,7 +43,7 @@ export function writeBooking(props) {
         collection
             .add(booking)
             .then(_doc => {
-                props.setRoomID(_doc.id)
+                props.setBookingID(_doc.id)
             })
             .catch((error) => {
                 alert(error)
