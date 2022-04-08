@@ -40,6 +40,7 @@ export function writeBooking(props) {
         const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         booking.timestamp = timestamp
         booking.open = true
+        booking.hasEvent = false
         collection
             .add(booking)
             .then(_doc => {
