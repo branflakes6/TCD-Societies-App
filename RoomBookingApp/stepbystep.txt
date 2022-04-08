@@ -10,3 +10,27 @@ Description	This scenario describes how a member of a society would go about usi
 8 - User is shown the status of each of their bookings presently.
 
 Termination outcome - Event Booking Request has been submitted.
+
+
+sample admin account: brian@test.com password: test12
+sample user account: dog@tcd.ie password: password
+ 
+Approving a booking
+. When a user creates a booking it is added to the database and needs to be approved.
+. Bookings can only be approved by Admin users.
+. Admin users can go to the bookings page and see all pending bookings.
+. Admins can expand the Booking Details and Contact Details to decide if they want to approve or deny the booking.
+. The Admin can then click either Approve or Deny, or the dot menu to delete the booking entirely, approving or denying a booking can be changed at any time.
+. If the Admin wants to give feedback to the person who made the booking they can fill out the Feedback box.
+
+Viewing Pending bookings
+. A user who has made a booking can view their pending bookings to see if they have been approved or denied and view the feedback
+. If the booking has been approved the user will have the options to create an event from the booking.
+. Events automatically use all of the details of the booking to create and event other users can subscribe to.
+
+Events
+The Events page lets users view Events that they can subscribe to for info and to attend
+. When a user views the Events page the default view is all events, this shows all upcoming events.
+. Users can switch to see events they have already subscribed to or events they are hosting.
+. If a user wants to attend and event they can clikc the "going" button.
+. Users can view a list of all users attending the event
