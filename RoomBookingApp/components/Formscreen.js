@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import {StyleSheet, SafeAreaView, SectionList, FlatList, View, Platform, ScrollView, Alert } from 'react-native';
+import { StyleSheet, SafeAreaView, SectionList, FlatList, View, Platform, ScrollView, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { TextInput, Text, List,Button, Provider as PaperProvider, Switch } from 'react-native-paper';
+import { TextInput, Text, List, Button, Provider as PaperProvider, Switch } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import moment from 'moment';
 import styles from '../styles/formStyle';
@@ -185,10 +185,10 @@ const Form = ({ navigation }) => {
         );
 
 
-        const ListItem = ({ item }) => {
-            console.log(item)
-            return (
-              <View style={styles.item}>
+    const ListItem = ({ item }) => {
+        console.log(item)
+        return (
+            <View style={styles.item}>
                 {/* <Image
                   source={{
                     uri: item.uri,
@@ -203,73 +203,71 @@ const Form = ({ navigation }) => {
                 <Text style={styles.itemText}>{"Screen : "}{item.Screen}</Text>
                 <Text style={styles.itemText}>{"Tables&Chair Provided : "}{'True'}</Text>
                 <Text style={styles.itemText}>{"Wheelchair Access : "}{'True'}</Text>
-                   
-              </View>
-            );
-          };
-          
-        function roomSuggestion() {
 
-            var requirements = {    
-                Building : roomN,
-                Capacity : participants,
-                Name : roomN,
-                SocketCount : 3,
-                Projector : pow,
-                Screen : equip,
-                Size : participants*2,
-                TablesChairs : catererServ,
-                Venue :	'Trinity Campus',
-                WheelchairAccess : true
-            }
-    
-            const collection = firebase.firestore().collection('rooms')
-                collection.get()
-                .then( querySnapshot => {
-                    var sortedRooms = []
-                    var points = {}
-                    querySnapshot.forEach(documentSnapshot => {
-                        const entity = documentSnapshot.data()
-                        sortedRooms.push(entity)
-                    });
-                    sortedRooms.forEach(room => {
-                        var point = 0
-                        if ( (requirements['Capacity'] - (room['Capacity'])) < 20) point += 2
-                        if (requirements['SocketCount'] < room['SocketCount']) point++
-                        if (requirements['Projector'] == room['Projector']) point++
-                        if (requirements['Screen'] == room['Screen']) point++
-                        if (requirements['TablesChairs'] == room['TablesChairs']) point++
+            </View>
+        );
+    };
 
-                        if (requirements['Capacity'] > room['Capacity']) {
-                            point = 0
-                        }
-                        if (requirements['WheelchairAccess'] != room['WheelchairAccess']) {
-                            point = 0
-                        }
-                        room['Points'] = point
-                    })
-    
-                    sortedRooms.sort(objectComparisonCallback)
-                    setRecommentdations(sortedRooms)                
-                })
-                .catch(error => {
-                    console.log(error)
+    function roomSuggestion() {
+
+        var requirements = {
+            Building: roomN,
+            Capacity: participants,
+            Name: roomN,
+            SocketCount: 3,
+            Projector: pow,
+            Screen: equip,
+            Size: participants * 2,
+            TablesChairs: catererServ,
+            Venue: 'Trinity Campus',
+            WheelchairAccess: true
+        }
+
+        const collection = firebase.firestore().collection('rooms')
+        collection.get()
+            .then(querySnapshot => {
+                var sortedRooms = []
+                var points = {}
+                querySnapshot.forEach(documentSnapshot => {
+                    const entity = documentSnapshot.data()
+                    sortedRooms.push(entity)
                 });
-    
+                sortedRooms.forEach(room => {
+                    var point = 0
+                    if ((requirements['Capacity'] - (room['Capacity'])) < 20) point += 2
+                    if (requirements['SocketCount'] < room['SocketCount']) point++
+                    if (requirements['Projector'] == room['Projector']) point++
+                    if (requirements['Screen'] == room['Screen']) point++
+                    if (requirements['TablesChairs'] == room['TablesChairs']) point++
+
+                    if (requirements['Capacity'] > room['Capacity']) {
+                        point = 0
+                    }
+                    if (requirements['WheelchairAccess'] != room['WheelchairAccess']) {
+                        point = 0
+                    }
+                    room['Points'] = point
+                })
+
+                sortedRooms.sort(objectComparisonCallback)
+                setRecommentdations(sortedRooms)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+
+    }
+
+    const objectComparisonCallback = (arrayItemA, arrayItemB) => {
+        if (arrayItemA.Points < arrayItemB.Points) {
+            return 1
         }
 
-        const objectComparisonCallback = (arrayItemA, arrayItemB) => {
-            if (arrayItemA.Points < arrayItemB.Points) {
-              return 1
-            }
-          
-            if (arrayItemA.Points > arrayItemB.Points) {
-              return -1
-            }
-          
-            return 0
+        if (arrayItemA.Points > arrayItemB.Points) {
+            return -1
         }
 
+<<<<<<< HEAD
         const Item = ({ title }) => (
             <View style={styles.item}>
               <Text style={styles.title}>{title}</Text>
@@ -316,7 +314,55 @@ const Form = ({ navigation }) => {
             }
         
             emailjs.send('service_c8eqpwr','template_ltjxcsi', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
+=======
+        return 0
+    }
+
+    const Item = ({ title }) => (
+        <View style={styles.item}>
+            <Text style={styles.title}>{title}</Text>
+        </View>
+    );
+
+    const renderItem = ({ item }) => (
+        <Item title={item.Name} />
+    );
+
+
+    const sendEmail = async () => {
+        console.log("ARRIVED AT SEND EMAIL!!!!")
+
+        let templateParams = {
+            //from_name: process.env.REACT_APP_EMAILJS_SENDER,
+            //to_name: this.tcdEmail,
+            nameOfEvent: name,
+            dateOfEvent: date,
+            timeOfEvent: eventTime,
+            organisingBody: orginiser,
+            orginiserName: orgName,
+            mobileNumber: number,
+            tcdEmail: emails,
+            eventDescription: evntDesc,
+            room: roomN,
+            prepFrom: prepareFrom,
+            prepTo: prepareTo,
+            endTime: eventEnd,
+            numParticipants: participants,
+            numStaff: staff,
+            guests: numGuest,
+            equipment: equip,
+            staging: stag,
+            food: foods,
+            alcohol: alcohols,
+            caterer: catererServ,
+            power: pow,
+            facilities: otherFacilities,
+            others: others
+>>>>>>> 0024f9c33896dd470821b1304b023c8374ba7167
         }
+
+        emailjs.send('service_c8eqpwr', 'template_waahbmx', templateParams, 'user_PX5dMk1psBpqZh1IpmXwY')
+    }
 
     return (
         <PaperProvider>
@@ -350,7 +396,7 @@ const Form = ({ navigation }) => {
 
                         <Button
                             style={styles.datetimeButton}
-                            title="Time of Event"
+                            title="Event Start Time"
                             onPress={showTimepicker}
                             onChange={timeOfEvent}
                             color='#0569b9'>
@@ -402,31 +448,6 @@ const Form = ({ navigation }) => {
                             value={number}
                             keyboardType="phone-pad"
                         />
-                    
-                    <TouchableOpacity style={styles.button} onPress={() => roomSuggestion()} >
-                        <Text style={styles.buttonText}>Suggest room</Text>
-                    </TouchableOpacity>
-
-
-                    { recommendations && (
-                        <View style={styles.container}>
-
-                                  <FlatList
-                                    horizontal
-                                    data={recommendations}
-                                    renderItem={({ item }) => <ListItem item={item} />}
-                                    showsHorizontalScrollIndicator={false}
-                                  />
-                      </View>
-                        // <View style={styles.listContainer}>
-                        //     <FlatList
-                        //         data={recommendations}
-                        //         renderItem={renderItem}
-                        //         keyExtractor={item => item.Name}
-                        //         removeClippedSubviews={true}
-                        //     />
-                        // </View>
-                    )}
 
 
                         <TextInput
@@ -629,6 +650,29 @@ const Form = ({ navigation }) => {
                             </>
                         ) : null}
 
+                        <Button style={styles.button} onPress={() => roomSuggestion()} >
+                            <Text style={styles.buttonText}>Don't know which room to book? Click for Suggestions</Text>
+                        </Button>
+
+                        {recommendations && (
+                            <View style={styles.container}>
+
+                                <FlatList
+                                    horizontal
+                                    data={recommendations}
+                                    renderItem={({ item }) => <ListItem item={item} />}
+                                    showsHorizontalScrollIndicator={false}
+                                />
+                            </View>
+                            // <View style={styles.listContainer}>
+                            //     <FlatList
+                            //         data={recommendations}
+                            //         renderItem={renderItem}
+                            //         keyExtractor={item => item.Name}
+                            //         removeClippedSubviews={true}
+                            //     />
+                            // </View>
+                        )}
 
                         <Button
                             style={styles.button}
@@ -646,9 +690,9 @@ const Form = ({ navigation }) => {
                                 onChange={onChange}
                             />
                         )}
-                </KeyboardAwareScrollView>
-            </View>
-        </ScrollView> 
+                    </KeyboardAwareScrollView>
+                </View>
+            </ScrollView>
         </PaperProvider>
     );
 };

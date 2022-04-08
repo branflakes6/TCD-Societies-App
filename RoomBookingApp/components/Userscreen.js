@@ -35,13 +35,6 @@ const User = ({ navigation }) => {
             <Text style={styles.infoText}>
                 Email: {em}
             </Text>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Home")}>
-                <Text style={styles.buttonText}>
-                    Go to Homescreen
-                </Text>
-            </TouchableOpacity>
         </View>
     );
 };
