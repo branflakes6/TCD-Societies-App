@@ -3,7 +3,7 @@ import {StyleSheet, SafeAreaView, SectionList, FlatList, View, Platform, ScrollV
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { TextInput, Text, List,Button, Provider as PaperProvider } from 'react-native-paper';
+import { TextInput, Text, List,Button, Provider as PaperProvider, Switch } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import moment from 'moment';
 import styles from '../styles/formStyle';
@@ -218,13 +218,18 @@ const Form = ({ navigation }) => {
                     });
                     sortedRooms.forEach(room => {
                         var point = 0
-                        if (requirements['Capacity'] < room['Capacity']) point++
+                        if ( (requirements['Capacity'] - (room['Capacity'])) < 20) point += 2
                         if (requirements['SocketCount'] < room['SocketCount']) point++
-                        if (requirements['Size'] < room['Size']) point++
                         if (requirements['Projector'] == room['Projector']) point++
                         if (requirements['Screen'] == room['Screen']) point++
                         if (requirements['TablesChairs'] == room['TablesChairs']) point++
-                        if (requirements['WheelchairAccess'] == room['WheelchairAccess']) point++
+
+                        if (requirements['Capacity'] > room['Capacity']) {
+                            point = 0
+                        }
+                        if (requirements['WheelchairAccess'] != room['WheelchairAccess']) {
+                            point = 0
+                        }
                         room['Points'] = point
                     })
     
