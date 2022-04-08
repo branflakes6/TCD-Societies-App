@@ -24,6 +24,7 @@ function menu() {
       <Drawer.Screen name="Form" component={Formscreen} />
       <Drawer.Screen name="Listings" component={Listscreen} />
       <Drawer.Screen name="User" component={Userscreen} />
+      <Drawer.Screen name="Events" component={Eventscreen} />
     </Drawer.Navigator>
   );
 }

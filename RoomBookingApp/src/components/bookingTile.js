@@ -4,6 +4,7 @@ import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, 
 import { firebase } from '../firebase/config';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import moment from "moment"
 import {UpdateBooking, closeBooking, sendFeedback} from '../firebase/update'
 import {createEvent} from '../firebase/write'
 //import styles from '../components/bookingsStyle.js';
@@ -205,7 +206,7 @@ export function BookingTile(props) {
         <Provider>
         <View>
             <Card mode="outlined">
-            <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
+            <Card.Title title={eventTitle} subtitle={date} left={LeftContent}/>
             <Card.Content>
                 <Title> Current Booing Staus: {booking.status}</Title>
                 <List.Section >

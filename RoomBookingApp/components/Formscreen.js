@@ -267,7 +267,6 @@ const Form = ({ navigation }) => {
             return -1
         }
 
-<<<<<<< HEAD
         const Item = ({ title }) => (
             <View style={styles.item}>
               <Text style={styles.title}>{title}</Text>
@@ -314,51 +313,6 @@ const Form = ({ navigation }) => {
             }
         
             emailjs.send('service_c8eqpwr','template_ltjxcsi', templateParams,'user_PX5dMk1psBpqZh1IpmXwY')
-=======
-        return 0
-    }
-
-    const Item = ({ title }) => (
-        <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
-        </View>
-    );
-
-    const renderItem = ({ item }) => (
-        <Item title={item.Name} />
-    );
-
-
-    const sendEmail = async () => {
-        console.log("ARRIVED AT SEND EMAIL!!!!")
-
-        let templateParams = {
-            //from_name: process.env.REACT_APP_EMAILJS_SENDER,
-            //to_name: this.tcdEmail,
-            nameOfEvent: name,
-            dateOfEvent: date,
-            timeOfEvent: eventTime,
-            organisingBody: orginiser,
-            orginiserName: orgName,
-            mobileNumber: number,
-            tcdEmail: emails,
-            eventDescription: evntDesc,
-            room: roomN,
-            prepFrom: prepareFrom,
-            prepTo: prepareTo,
-            endTime: eventEnd,
-            numParticipants: participants,
-            numStaff: staff,
-            guests: numGuest,
-            equipment: equip,
-            staging: stag,
-            food: foods,
-            alcohol: alcohols,
-            caterer: catererServ,
-            power: pow,
-            facilities: otherFacilities,
-            others: others
->>>>>>> 0024f9c33896dd470821b1304b023c8374ba7167
         }
 
         emailjs.send('service_c8eqpwr', 'template_waahbmx', templateParams, 'user_PX5dMk1psBpqZh1IpmXwY')
