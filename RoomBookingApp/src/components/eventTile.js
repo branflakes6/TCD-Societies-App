@@ -4,6 +4,7 @@ import { List, Avatar, Button, Card, Title, Paragraph, Divider, Dialog, Portal, 
 import { readEventsUser } from '../firebase/read';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {attendingEvent, notAttendingEvent} from '../firebase/update'
+import moment from "moment"
 
 
 export function EventTile(props) {
@@ -20,6 +21,7 @@ export function EventTile(props) {
     const eventTitle = event.nameOfEvent + " - " + event.organisingBody
     const persons = parseInt(event.numParticipants) + parseInt(event.numStaff) + parseInt(event.guests)
     const eventTime = event.dateOfEvent + " - " + event.timeOfEvent
+    var date = moment(new Date(1528101680 * 1000)).format('MM/DD/YYYY hh:MM');
 
     const [entities, setEntities] = useState([])
     var email = ""
@@ -90,7 +92,7 @@ export function EventTile(props) {
         <Provider>
         <View>
             <Card mode="outlined" style={styles.card}>
-            <Card.Title title={eventTitle} subtitle={eventTime} left={LeftContent}/>
+            <Card.Title title={eventTitle} subtitle={date} left={LeftContent}/>
             <Card.Content>
                 <List.Section>
                     <List.Accordion title="Event Details">
